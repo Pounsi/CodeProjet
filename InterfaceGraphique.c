@@ -19,7 +19,7 @@ void MenuResultatDecryptagePartiel(GtkWidget *Fenetre,gchar* Text_crypt)
     gtk_container_add(GTK_CONTAINER(Fenetre), Box);
 
     Label=gtk_label_new(NULL);
-    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Welcome to DecryptUs</span>\n",
+    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Welcome to Dcrypt</span>\n",
     -1, NULL, NULL, NULL);
     gtk_label_set_markup(GTK_LABEL(Label), Text);
     g_free(Text);
@@ -1054,7 +1054,7 @@ void MenuPrincipal(GtkWidget *Fenetre)
     gtk_container_add(GTK_CONTAINER(Fenetre), Box);
 
     Label=gtk_label_new(NULL);
-    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Welcome to DecryptUs</span>\n",
+    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Welcome to Dcrypt</span>\n",
     -1, NULL, NULL, NULL);
     gtk_label_set_markup(GTK_LABEL(Label), Text);
     g_free(Text);
