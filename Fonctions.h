@@ -46,4 +46,5 @@ void RetirerCarSpecMajuscule(gchar chaine[], gchar copy[]);
 void LireFichier(gchar TexteClaire[] ,int TailleMax ,const gchar* chemin);
 void ConvertisseurTableau(gchar T[],int *TailleTexte,gchar* Texte);
 RESSOURCESLANGUE ChargerRessources();
+void separer_cle_texte(gchar *cle,gchar *text,gchar *donnees);
 	

@@ -156,3 +156,16 @@ RESSOURCESLANGUE ChargerRessources(){
 	fclose(charger);
 	return res;
 }
+
+void separer_cle_texte(gchar *cle,gchar *text,gchar *donnees)
+{
+    //Veuillez à bien faire les malloc pour cle et text avant de faire la fonction
+    //de plus cette fonction sert à separer 3 elements: la cle, le "//cle//"(lui on ne s'en sert pas, et le texte decrypter obtenu)
+    gchar *tmp;
+    tmp=(gchar *)malloc(4*sizeof(gchar));
+    sscanf(donnees,"%s %s %[^-]",cle,tmp,text);
+    /*g_print("%s \n",cle);
+    g_print("%s \n",tmp);
+    g_print("%s \n",text);
+    g_print("    \n");*/
+}

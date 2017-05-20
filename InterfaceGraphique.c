@@ -4,11 +4,11 @@
 void MenuResultatDecryptagePartiel(GtkWidget *Fenetre,gchar* Text_crypt)
 {
     Fenetre = gtk_widget_get_toplevel (Fenetre);
-	ViderContenaire(GTK_CONTAINER(Fenetre));
-	GtkWidget *Box,*Box2, *Label,*Label2,*Bouton1, *Bouton2, *Bouton3;
+    ViderContenaire(GTK_CONTAINER(Fenetre));
+    GtkWidget *Box,*Box2, *Label,*Label2,*Bouton1, *Bouton2, *Bouton3;
     gchar *Text,*Resultat,*Cle_et_resultat;
     gchar* Tableau_cle;
-    Tableau_cle="abcdefghijklmnopqrstuvwxyz"; 
+    Tableau_cle="abcdefghijklmnopqrstuvwxyz //cle// "; 
     Cle_et_resultat=(gchar *)malloc((strlen(Tableau_cle)+strlen(Text_crypt))*sizeof(gchar));
 
     DecryptageSubstitution(Resultat,Text_crypt,Tableau_cle);
@@ -398,8 +398,11 @@ void MenuResultatDecryptageSubstitution(GtkWidget *Fenetre, gchar* Cle_et_text_c
     ViderContenaire(GTK_CONTAINER(Fenetre));
 
     GtkWidget *Box, *Box_2,*Label, *Label_msg,*Label_cle,*Bouton1,*Bouton2,*Bouton3;
-    gchar* Text;
-    
+    gchar *Text,*text,*cle;
+    cle=(gchar *)malloc(26*sizeof(gchar));
+    text=(gchar *)malloc((strlen(Cle_et_text_clair)-33)*sizeof(gchar));
+    separer_cle_texte(cle,text,Cle_et_text_clair);
+
     
     Box = gtk_vbox_new(TRUE, 0);
     gtk_container_add(GTK_CONTAINER(Fenetre), Box);
@@ -427,7 +430,7 @@ void MenuResultatDecryptageSubstitution(GtkWidget *Fenetre, gchar* Cle_et_text_c
 
     ////////////Affichage du resultat//////////////
 
-    gtk_label_set_markup(GTK_LABEL(Label_msg), Cle_et_text_clair);
+    gtk_label_set_markup(GTK_LABEL(Label_msg), text);
 
     gtk_label_set_justify(GTK_LABEL(Label_msg), GTK_JUSTIFY_CENTER);
 
@@ -442,7 +445,7 @@ void MenuResultatDecryptageSubstitution(GtkWidget *Fenetre, gchar* Cle_et_text_c
 
         ////////////Affichage de la cle//////////////
 
-    gtk_label_set_markup(GTK_LABEL(Label_cle), Cle_et_text_clair);
+    gtk_label_set_markup(GTK_LABEL(Label_cle), cle);
 
     gtk_label_set_justify(GTK_LABEL(Label_cle), GTK_JUSTIFY_CENTER);
 
