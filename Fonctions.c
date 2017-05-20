@@ -1,5 +1,6 @@
 #include "Fonctions.h"
 
+
 void RetirerCarSpecMajuscule(gchar chaine[], gchar copy[])
 {
     int i,j = 0, lg;
@@ -88,6 +89,7 @@ void ConvertisseurTableau(gchar T[],int *TailleTexte,gchar* Texte){
 	 
 }
 
+
 void LireFichier(gchar TexteClaire[] ,int TailleMax ,const gchar* chemin)
 {	//TailleMax=1000; //La cest a la baise mais vos mieux faire une variable dynamique
 	
@@ -114,16 +116,16 @@ void LireFichier(gchar TexteClaire[] ,int TailleMax ,const gchar* chemin)
 RESSOURCESLANGUE ChargerRessources(){
 	
 
-	int i, taille_max=TAILLEMAX; //La cest a la baise mais vos mieux faire une variable dynamique
+	int i, taille_max=TAILLEFICHIER; //La cest a la baise mais vos mieux faire une variable dynamique
 	RESSOURCESLANGUE res;
 	gchar str[taille_max];
 	
 	FILE *charger;
 	
 	if(langue == 0)
-		charger = fopen("RFrancais.txt","r");
+		charger = fopen("RessourceFrancais.txt","r");
 	if(langue == 1)
-		charger = fopen("RAnglais.txt","r");
+		charger = fopen("RessourceAnglais.txt","r");
 		
 	if(charger == NULL) 
    {
@@ -132,7 +134,7 @@ RESSOURCESLANGUE ChargerRessources(){
    }
 	
 	//de A à Z
-	for(i=0;i<26;i++){
+	for(i=0;i<ALPHABET;i++){
 		fgets(str, taille_max, charger);
 		res.occ[i] = atof(str);
 	}
