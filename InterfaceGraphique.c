@@ -171,13 +171,13 @@ void RecupererChemin(GtkWidget *bouton, GtkWidget *file_selection)
     ANALYSE a;
     const gchar* chemin;
     gchar *Text_crypt,*text_clair;
-    gchar contenu[TAILLEMAX];
+    gchar contenu[TAILLEFICHIER];
     GtkWidget *dialog;
     chemin = gtk_file_selection_get_filename(GTK_FILE_SELECTION (file_selection) );
     dialog = gtk_message_dialog_new(GTK_WINDOW(file_selection),GTK_DIALOG_MODAL,
     GTK_MESSAGE_INFO,GTK_BUTTONS_OK,"Vous avez choisi :\n%s", chemin);
      //ce chemin doit etre utiliser pour remplir une chaine/tableau ensuite on supprime la "dialog"
-    LireFichier(contenu,TAILLEMAX,chemin);
+    LireFichier(contenu,TAILLEFICHIER,chemin);
     
    switch (choix)
 	{
