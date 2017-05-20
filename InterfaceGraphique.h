@@ -6,6 +6,7 @@
 #include "CryptageSubstitution.h"
 #include "DecryptageSubstitution.h"
 #include "DecryptageVigenere.h"
+#include "AnalyseFrequentielle.h"
 
 
 #endif
