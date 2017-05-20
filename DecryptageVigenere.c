@@ -129,7 +129,7 @@ void DecryptageVigenere(gchar* TexteDecrypte, gchar* TexteCrypte, gchar savecle[
 	int kasiski,taille;
 	int cle[TAILLECLE];
 
-	gchar* pgor = "rfap"; //il faut la fonction qui determine la PGOR
+	gchar* pgor = "rap"; //il faut la fonction qui determine la PGOR
 	gchar TexteC[strlen(TexteCrypte)];
 	
 	ConvertisseurTableau(TexteC,&taille,TexteCrypte);

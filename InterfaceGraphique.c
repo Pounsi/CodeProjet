@@ -1,19 +1,18 @@
 #include "InterfaceGraphique.h"
 
 
-void MenuResultatDecryptagePartiel(GtkWidget *Fenetre,gchar* Text_crypt)
+void MenuResultatDecryptagePartiel(GtkWidget *Fenetre,DOUBLEC *ch)
 {
+	char* Text_crypt;
+	strcpy(Text_crypt,ch->texte);
     Fenetre = gtk_widget_get_toplevel (Fenetre);
     ViderContenaire(GTK_CONTAINER(Fenetre));
     GtkWidget *Box,*Box2, *Label,*Label2,*Bouton1, *Bouton2, *Bouton3;
     gchar *Text,*Resultat,*Cle_et_resultat;
     gchar* Tableau_cle;
-    Tableau_cle="abcdefghijklmnopqrstuvwxyz //cle// "; 
-    Cle_et_resultat=(gchar *)malloc((strlen(Tableau_cle)+strlen(Text_crypt))*sizeof(gchar));
+    
+    DecryptageSubstitution(Resultat,ch->texte,ch->cle);
 
-    DecryptageSubstitution(Resultat,Text_crypt,Tableau_cle);
-    strcpy(Cle_et_resultat,Tableau_cle);
-    strcat(Cle_et_resultat,Text_crypt);
 
     Box = gtk_vbox_new(TRUE, 0);
     gtk_container_add(GTK_CONTAINER(Fenetre), Box);
@@ -43,7 +42,7 @@ void MenuResultatDecryptagePartiel(GtkWidget *Fenetre,gchar* Text_crypt)
     gtk_container_add(GTK_CONTAINER(Box), Box2);
     
     Bouton1 = gtk_button_new_with_label("redecrypter");
-    g_signal_connect(G_OBJECT(Bouton1), "clicked", G_CALLBACK(MenuResultatDecryptagePartiel), Text_crypt);
+    g_signal_connect(G_OBJECT(Bouton1), "clicked", G_CALLBACK(MenuResultatDecryptagePartiel), ch);
     gtk_box_pack_start(GTK_BOX(Box2), Bouton1, TRUE, TRUE, 0);
     
     Bouton2 = gtk_button_new_with_label("changer la cle");
@@ -51,7 +50,7 @@ void MenuResultatDecryptagePartiel(GtkWidget *Fenetre,gchar* Text_crypt)
     gtk_box_pack_start(GTK_BOX(Box2), Bouton2, TRUE, TRUE, 0);
     
     Bouton3 = gtk_button_new_with_label("terminer");
-    g_signal_connect(G_OBJECT(Bouton3), "clicked", G_CALLBACK(MenuResultatDecryptageSubstitution), Cle_et_resultat);
+    g_signal_connect(G_OBJECT(Bouton3), "clicked", G_CALLBACK(MenuResultatDecryptageSubstitution), ch->texte);
     gtk_box_pack_start(GTK_BOX(Box2), Bouton3, TRUE, TRUE, 0);
     
     gtk_widget_show_all(Fenetre);
@@ -181,6 +180,7 @@ void RecupererChemin(GtkWidget *bouton, GtkWidget *file_selection)
      //ce chemin doit etre utiliser pour remplir une chaine/tableau ensuite on supprime la "dialog"
     LireFichier(contenu,TAILLEFICHIER,chemin);
     
+		DOUBLEC *ch;
    switch (choix)
 	{
 	case 1:
@@ -189,14 +189,16 @@ void RecupererChemin(GtkWidget *bouton, GtkWidget *file_selection)
   		break;
 	case 2:
 	
+		//on doit demander la cle ici non ?
 		CryptageVigenere(Text_crypt,contenu,contenu);
 		MenuResultatVigenere(Fenetre,Text_crypt,Text_crypt);
 		
   		break;
 	case 3:
-  		DecryptageSubstitution(Text_crypt,contenu,contenu);
-
-  		MenuResultatDecryptagePartiel(Fenetre, contenu);
+		strcpy(ch->texte,contenu);
+		char* cle="abcdefghijklmnopqrstuwxyz";
+		strcpy(ch->cle,cle);
+  		MenuResultatDecryptagePartiel(Fenetre, ch);
   		break;
 	case 4:
   		DecryptageVigenere(Text_crypt,contenu,cle);
@@ -621,10 +623,11 @@ void BoiteDialogueVigenere(GtkWidget *Fenetre)
 	                gtk_text_buffer_get_start_iter(Buffer,&debut);
 	                gtk_text_buffer_get_end_iter(Buffer,&fin);
 	                cle = gtk_text_buffer_get_text(Buffer,&debut,&fin,FALSE);
-	                CryptageVigenere(Text_crypt,Text_clair, cle);
+	                DOUBLEC *ch;
+	                strcpy(ch->texte,Text_clair);
+	                strcpy(ch->cle,cle);
+	                CryptageVigenere(Text_crypt,ch->texte, ch->cle);
 	                MenuResultatVigenere(Fenetre, Text_crypt, cle);
-	                 //on rajoutera plus tard la cle de sub
-	                // ici on doit pouvoir sauvegarder le texte dans la variable Nom
 	                //g_free(Text_clair);//si plus besoin
 	                break;
 	            case GTK_RESPONSE_CANCEL:
@@ -710,8 +713,11 @@ void BoiteDialogueDecryptageSubstitution(GtkWidget *Fenetre)
                 gtk_text_buffer_get_start_iter(Buffer,&debut);
                 gtk_text_buffer_get_end_iter(Buffer,&fin);
                 Text_crypt = gtk_text_buffer_get_text(Buffer,&debut,&fin,FALSE);
-               
-                MenuResultatDecryptagePartiel(Fenetre, Text_crypt);
+                DOUBLEC *ch;
+				strcpy(ch->texte,Text_crypt);
+				char* cle="abcdefghijklmnopqrstuwxyz";
+				strcpy(ch->cle,cle);
+                MenuResultatDecryptagePartiel(Fenetre, ch);
                 break;
             case GTK_RESPONSE_CANCEL:
             case GTK_RESPONSE_NONE:
@@ -1086,10 +1092,8 @@ void MenuPrincipal(GtkWidget *Fenetre)
  * le travail a fournir 
 recuperer chemin faut mettre les clées 
 il faut mettre une barre de progression pour eviter les seg faults (fait 70% )
-choisir fichier pour analyse freq(fait)
 changer le nom de choisirlangue
 
 * les problemes rencontrés 
 il ya des seg fault quand on fait 2 enregistrement du texte
-apres avoir charger il faut une fonction remplir tableau qui emmene vers la page d'apres
 */

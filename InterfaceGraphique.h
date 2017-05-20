@@ -11,6 +11,12 @@
 
 #endif
 
+typedef struct doublechar{
+	gchar texte[TAILLETEXTE];
+	gchar cle[TAILLECLE];
+}DOUBLEC;
+
+
 //dans un autre fichier
 void Enregistrer (GtkWidget *p_widget, GtkWidget *text );
 void RecupererChemin(GtkWidget *bouton, GtkWidget *file_selection);
@@ -35,4 +41,4 @@ void MenuAnalyseFrequentielle(GtkWidget *Fenetre);
 void MenuDecryptage(GtkWidget *Fenetre);
 void MenuCryptage(GtkWidget *Fenetre);
 void MenuPrincipal(GtkWidget *Fenetre);
-void MenuResultatDecryptagePartiel(GtkWidget *Fenetre,gchar* Text_crypt);
+void MenuResultatDecryptagePartiel(GtkWidget *Fenetre,DOUBLEC* ch);
