@@ -10,8 +10,8 @@ void CryptageVigenere(gchar* resultat,gchar* texteClair,gchar* Cle)
 			a= texteClair[i] - 97;
 			b= Cle[i%length] - 97;
 			c = (a+b) ;
-			if(c > 25)
-				c=c-26;
+			if(c >= ALPHABET)
+				c=c-ALPHABET;
 			resultat[i] = c + 97;
 		}
 }
