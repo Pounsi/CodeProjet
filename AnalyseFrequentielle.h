@@ -5,3 +5,5 @@
 
 #endif
 
+ANALYSE AnalyseFreq(gchar* T,int kasiski);
+ANALYSE AnalyseFrequentielle(gchar* Texte);
