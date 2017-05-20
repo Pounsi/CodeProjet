@@ -6,14 +6,8 @@
 
 #endif
 
-int longueurChaine(const char* chaine);
-
-int Kasiski(ANALYSE freq, gchar* texteCrypte);
-
+int pgcd(int a, int b);
+int Kasiski(gchar* pgor, gchar* texteCrypte);
 void indiceMutuelle(int cle[], int kasiski, ANALYSE freq, RESSOURCESLANGUE prob, gchar safecle[]);
-
-RESSOURCESLANGUE TabRessource();
-
-ANALYSE AnalyseFrequentielle(gchar* TextClair);
-
-void DecryptageVigenere(gchar* resultat, gchar* texteCrypte, gchar savecle[]);
+void Decrypte(char resultat[],char* texteCrypte,gchar cle[], int kasiski);
+void DecryptageVigenere(gchar* TexteDecrypte, gchar* TexteCrypte, gchar savecle[]);
