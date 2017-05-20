@@ -31,7 +31,7 @@ void GenereCle(gchar T[]){
     srand(time(NULL));
 	tab = tirage(25, 0, 25); //25 : nbr delement a tiré, intervalle [0;25]
 	
-	for(i = 0; i < 25; i++){
+	for(i = 0; i < ALPHABET; i++){
 		T[i]=tab[i];
 		
 	}
@@ -43,10 +43,10 @@ void CryptageSubstitution(gchar* TexteCrypte, gchar* TexteClair)
 { 
 	int taille, i, x;
 	
-	gchar T[26];
+	gchar T[ALPHABET];
 	GenereCle(T);
 	
-	gchar TextePourCryptage[TAILLEMAX];
+	gchar TextePourCryptage[strlen(TexteClair)];
 	ConvertisseurTableau(TextePourCryptage,&taille,TexteClair);
 	
 	for (i = 0; i < strlen(TextePourCryptage); i++)
