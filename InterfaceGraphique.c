@@ -522,7 +522,8 @@ void MenuResultatDecryptageVigenere(GtkWidget *Fenetre, gchar* Text_crypt , gcha
 void BoiteDialogueSubstitution(GtkWidget *Fenetre)
 {
     GtkWidget *Boite,*Entrer;
-    gchar *Text_clair,*Text_crypt;
+    gchar *Text_clair;
+    gchar Text_crypt[TAILLETEXTE];
     GtkTextBuffer* Buffer;
     GtkTextIter debut;
     GtkTextIter fin;
@@ -561,7 +562,8 @@ void BoiteDialogueVigenere(GtkWidget *Fenetre)
 {
 
 	    GtkWidget *Boite,*Entrer,*Entrer_cle,*Label_text,*Label_cle;
-	    gchar *Text_crypt,*Text_clair,*cle,*msg,*indication_cle;
+	    gchar *Text_clair,*cle,*msg,*indication_cle;
+	    gchar Text_crypt[TAILLETEXTE];
 	    GtkTextBuffer* Buffer;
 	    GtkTextIter debut;
 	    GtkTextIter fin;
@@ -587,11 +589,6 @@ void BoiteDialogueVigenere(GtkWidget *Fenetre)
 	    	gtk_label_set_justify(GTK_LABEL(Label_text), GTK_JUSTIFY_CENTER);
 
 	    	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(Boite)->vbox), Entrer, TRUE, TRUE,10);
-
-
-	    
-	   
-	    
 
 	    Entrer_cle=gtk_text_view_new();
 
@@ -623,7 +620,7 @@ void BoiteDialogueVigenere(GtkWidget *Fenetre)
 	                MenuResultatVigenere(Fenetre, Text_crypt, cle);
 	                 //on rajoutera plus tard la cle de sub
 	                // ici on doit pouvoir sauvegarder le texte dans la variable Nom
-	                g_free(Text_clair);//si plus besoin
+	                //g_free(Text_clair);//si plus besoin
 	                break;
 	            case GTK_RESPONSE_CANCEL:
 	            case GTK_RESPONSE_NONE:
