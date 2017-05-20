@@ -170,8 +170,10 @@ void RecupererChemin(GtkWidget *bouton, GtkWidget *file_selection)
 {
     ANALYSE a;
     const gchar* chemin;
-    gchar *Text_crypt,*text_clair;
+    gchar *text_clair;
+    gchar Text_crypt[TAILLETEXTE];
     gchar contenu[TAILLEFICHIER];
+    gchar cle[TAILLECLE];
     GtkWidget *dialog;
     chemin = gtk_file_selection_get_filename(GTK_FILE_SELECTION (file_selection) );
     dialog = gtk_message_dialog_new(GTK_WINDOW(file_selection),GTK_DIALOG_MODAL,
@@ -197,7 +199,7 @@ void RecupererChemin(GtkWidget *bouton, GtkWidget *file_selection)
   		MenuResultatDecryptagePartiel(Fenetre, contenu);
   		break;
 	case 4:
-  		DecryptageVigenere(Text_crypt,contenu,contenu);
+  		DecryptageVigenere(Text_crypt,contenu,cle);
   		MenuResultatDecryptageVigenere(Fenetre,text_clair,text_clair);
   		break;
   	case 5:
@@ -720,7 +722,9 @@ void BoiteDialogueDecryptageSubstitution(GtkWidget *Fenetre)
 void BoiteDialogueDecryptageVigenere(GtkWidget *Fenetre)
 {
     GtkWidget *Boite,*Entrer,*Entrer_cle,*Label_text,*Label_cle;
-    gchar *Text_clair,*Text_crypt,*cle,*msg,*indication_cle;
+    gchar *Text_crypt,*msg,*indication_cle;
+    gchar Text_clair[TAILLETEXTE];
+    gchar cle[TAILLECLE];
     GtkTextBuffer* Buffer;
     GtkTextIter debut;
     GtkTextIter fin;
@@ -754,11 +758,11 @@ void BoiteDialogueDecryptageVigenere(GtkWidget *Fenetre)
                 gtk_text_buffer_get_start_iter(Buffer,&debut);
                 gtk_text_buffer_get_end_iter(Buffer,&fin);
                 Text_crypt = gtk_text_buffer_get_text(Buffer,&debut,&fin,FALSE);
-                DecryptageVigenere(Text_clair,Text_crypt,Text_crypt);
+                DecryptageVigenere(Text_clair,Text_crypt,cle);
                 MenuResultatDecryptageVigenere(Fenetre, Text_clair , Text_clair);//il faut mettre la cle
                  //on rajoutera plus tard la cle de sub
                 // ici on doit pouvoir sauvegarder le texte dans la variable Nom
-                g_free(Text_clair);//si plus besoin
+                //g_free(Text_clair);//si plus besoin
                 break;
             case GTK_RESPONSE_CANCEL:
             case GTK_RESPONSE_NONE:
