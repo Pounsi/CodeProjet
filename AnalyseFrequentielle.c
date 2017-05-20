@@ -1,5 +1,55 @@
 #include "AnalyseFrequentielle.h"
 
+
+ANALYSE AnalyseFreq(gchar* T,int kasiski){
+	
+	gchar alphabet[] = "abcdefghijklmnopqrstuvwxyz";
+	ANALYSE a;
+	a.nb = strlen(T);
+	
+	int i,j,k;
+	float compteur;
+	for (k = 0; k < kasiski; k++)
+	{
+		for(i=0;i<ALPHABET;i++)
+		{
+			
+			compteur=0;
+			for(j=k;j<a.nb;j=j+kasiski)
+			{
+				if(alphabet[i]==T[j])
+				compteur++;
+			}
+			a.occ[k][i]=compteur/(a.nb/kasiski);
+		}
+	}
+	return a;
+}
+
+ANALYSE AnalyseFrequentielle(gchar* Texte){
+	gchar T[TAILLETEXTE];
+	gchar alphabet[] = "abcdefghijklmnopqrstuvwxyz";
+	int taille;
+	ConvertisseurTableau(T,&taille,Texte);
+	ANALYSE a;
+	a.nb = strlen(T);
+	int i,j;
+	float compteur;
+	for(i=0;i<ALPHABET;i++)
+	{
+		compteur=0;
+			for(j=0;j<a.nb;j++)
+			{
+				if(alphabet[i]==T[j])
+				compteur++;
+			}
+			a.occ[0][j]=compteur/a.nb;
+	}
+	a.pgor="abio";
+	return a;
+}
+
+
 /*
 ANALYSE analyse_frequentielle_zak(char* chaine){
 
