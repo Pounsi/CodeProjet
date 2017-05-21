@@ -160,8 +160,8 @@ RESSOURCESLANGUE ChargerRessources(){
 void RemplacerCleSubstitution(DOUBLEC *Donnees,gchar C1,gchar C2)
 {
 	
-
-	for (int i = 0; i < strlen(Donnees->cle); ++i)
+	int i;
+	for ( i = 0; i < strlen(Donnees->cle); ++i)
 	{
 		if (Donnees->cle[i]==C1)
 		{

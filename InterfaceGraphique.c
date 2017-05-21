@@ -746,6 +746,7 @@ void BoiteDialogueVigenereCle(GtkWidget *Fenetre)
 	                gtk_text_buffer_get_end_iter(Buffer,&fin);
 	                cle = gtk_text_buffer_get_text(Buffer,&debut,&fin,FALSE);
 	                DOUBLEC *Donnees;
+	                Donnees = (DOUBLEC *)malloc(sizeof(DOUBLEC));
                     printf("la cle est :%s\n",Donnees->cle);
                     g_print("%s\n",cle);
                     strcpy(Donnees->cle,cle);
