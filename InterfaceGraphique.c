@@ -637,12 +637,73 @@ void BoiteDialogueSubstitution(GtkWidget *Fenetre)
     gtk_widget_destroy(Boite);
 }
 
-void BoiteDialogueVigenere(GtkWidget *Fenetre)
+
+void BoiteDialogueVigenereTexte(GtkWidget *Fenetre, DOUBLEC *Donnees)
+{
+
+        GtkWidget *Boite,*Entrer_cle,*Label_cle;
+        gchar *Text_clair,*indication_cle,*Text_crypt;
+
+        GtkTextBuffer* Buffer;
+        GtkTextIter debut;
+        GtkTextIter fin;
+        Fenetre = gtk_widget_get_toplevel (Fenetre);//on passe a la fenetre du bouton 
+        Boite = gtk_dialog_new_with_buttons("Sasie du texte",GTK_WINDOW(Fenetre),GTK_DIALOG_MODAL,GTK_STOCK_OK,GTK_RESPONSE_OK,GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,NULL);
+
+        Label_cle=gtk_label_new(NULL);
+        
+            
+       
+
+        indication_cle = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Votre texte : </span>\n",
+               -1, NULL, NULL, NULL);
+        
+       
+            
+
+
+        Entrer_cle=gtk_text_view_new();
+
+        gtk_label_set_markup(GTK_LABEL(Label_cle), indication_cle);
+
+        gtk_label_set_justify(GTK_LABEL(Label_cle), GTK_JUSTIFY_CENTER);
+
+        gtk_box_pack_start(GTK_BOX(GTK_DIALOG(Boite)->vbox), Label_cle, TRUE, FALSE,0);
+        
+        gtk_box_pack_start(GTK_BOX(GTK_DIALOG(Boite)->vbox), Entrer_cle, TRUE, TRUE,10);
+        
+        gtk_widget_show_all(GTK_DIALOG(Boite)->vbox);
+
+        switch(gtk_dialog_run(GTK_DIALOG(Boite)))
+            {
+                case GTK_RESPONSE_OK:
+              
+                    
+                   
+                    Buffer= gtk_text_view_get_buffer(GTK_TEXT_VIEW(Entrer_cle));
+                    gtk_text_buffer_get_start_iter(Buffer,&debut);
+                    gtk_text_buffer_get_end_iter(Buffer,&fin);
+                    Text_clair= gtk_text_buffer_get_text(Buffer,&debut,&fin,FALSE);
+                    Text_crypt=(gchar *)malloc(strlen(Text_clair)*sizeof(gchar));
+                    strcpy(Donnees->texte,Text_clair);
+                    CryptageVigenere(Text_crypt,Donnees->texte, Donnees->cle);
+                    MenuResultatVigenere(Fenetre, Text_crypt,Donnees->cle);
+                    break;
+                case GTK_RESPONSE_CANCEL:
+                case GTK_RESPONSE_NONE:
+                default:
+                    break;
+            }
+            
+        gtk_widget_destroy(Boite);
+    
+}
+
+void BoiteDialogueVigenereCle(GtkWidget *Fenetre)
 {
 
 	    GtkWidget *Boite,*Entrer,*Entrer_cle,*Label_text,*Label_cle;
-	    gchar *Text_clair,*cle,*msg,*indication_cle;
-	    gchar Text_crypt[TAILLETEXTE];
+	    gchar *cle,*indication_cle;
 	    GtkTextBuffer* Buffer;
 	    GtkTextIter debut;
 	    GtkTextIter fin;
@@ -652,8 +713,7 @@ void BoiteDialogueVigenere(GtkWidget *Fenetre)
 	    Label_text=gtk_label_new(NULL);
 	    Label_cle=gtk_label_new(NULL);
 	    
-	    	msg= g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Votre texte : </span>\n",
-	           -1, NULL, NULL, NULL);
+	    	
 	   
 
 	    indication_cle = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Votre cle : </span>\n",
@@ -661,13 +721,7 @@ void BoiteDialogueVigenere(GtkWidget *Fenetre)
 	    
 	   
 	   		
-	    	Entrer= gtk_text_view_new();
 
-	    	gtk_label_set_markup(GTK_LABEL(Label_text), msg);
-
-	    	gtk_label_set_justify(GTK_LABEL(Label_text), GTK_JUSTIFY_CENTER);
-
-	    	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(Boite)->vbox), Entrer, TRUE, TRUE,10);
 
 	    Entrer_cle=gtk_text_view_new();
 
@@ -684,10 +738,6 @@ void BoiteDialogueVigenere(GtkWidget *Fenetre)
 	    switch(gtk_dialog_run(GTK_DIALOG(Boite)))
 	        {
 	            case GTK_RESPONSE_OK:
-		            Buffer= gtk_text_view_get_buffer(GTK_TEXT_VIEW(Entrer));
-		            gtk_text_buffer_get_start_iter(Buffer,&debut);
-		            gtk_text_buffer_get_end_iter(Buffer,&fin);
-		            Text_clair = gtk_text_buffer_get_text(Buffer,&debut,&fin,FALSE);
 		      
 		        	
 		           
@@ -695,12 +745,12 @@ void BoiteDialogueVigenere(GtkWidget *Fenetre)
 	                gtk_text_buffer_get_start_iter(Buffer,&debut);
 	                gtk_text_buffer_get_end_iter(Buffer,&fin);
 	                cle = gtk_text_buffer_get_text(Buffer,&debut,&fin,FALSE);
-	                DOUBLEC *ch;
-	                strcpy(ch->texte,Text_clair);
-	                strcpy(ch->cle,cle);
-	                CryptageVigenere(Text_crypt,ch->texte, ch->cle);
-	                MenuResultatVigenere(Fenetre, Text_crypt, cle);
-	                //g_free(Text_clair);//si plus besoin
+	                DOUBLEC *Donnees;
+                    printf("la cle est :%s\n",Donnees->cle);
+                    g_print("%s\n",cle);
+                    strcpy(Donnees->cle,cle);
+                    printf("la cle est :%s\n",Donnees->cle);
+	                MenuCryptageVigenere(Fenetre,Donnees);
 	                break;
 	            case GTK_RESPONSE_CANCEL:
 	            case GTK_RESPONSE_NONE:
@@ -926,7 +976,7 @@ void MenuDecryptageSubstitution(GtkWidget *Fenetre)
     gtk_widget_show_all(Fenetre);
 }
 
-void MenuCryptageVigenere(GtkWidget *Fenetre)
+void MenuCryptageVigenere(GtkWidget *Fenetre,DOUBLEC *Donnees)
 {
     Fenetre = gtk_widget_get_toplevel (Fenetre);
 	ViderContenaire(GTK_CONTAINER(Fenetre));
@@ -948,17 +998,17 @@ void MenuCryptageVigenere(GtkWidget *Fenetre)
     gtk_box_pack_start(GTK_BOX(Box), Box_2, TRUE, TRUE, 0);
 
     Bouton3 = gtk_button_new_with_label("R");
-    g_signal_connect(G_OBJECT(Bouton3), "clicked", G_CALLBACK(MenuCryptage), NULL);
+    g_signal_connect(G_OBJECT(Bouton3), "clicked", G_CALLBACK(MenuPrincipal), NULL);
     gtk_box_pack_start(GTK_BOX(Box_2), Bouton3, FALSE, TRUE, 0);
 
     gtk_box_pack_start(GTK_BOX(Box_2), Label, TRUE, TRUE, 0);
     
     Bouton1 = gtk_button_new_with_label("Rentrer un texte ");
-    g_signal_connect(G_OBJECT(Bouton1), "clicked", G_CALLBACK(BoiteDialogueVigenere), NULL);
+    g_signal_connect(G_OBJECT(Bouton1), "clicked", G_CALLBACK(BoiteDialogueVigenereTexte), Donnees);
     gtk_box_pack_start(GTK_BOX(Box), Bouton1, TRUE, TRUE, 0);
     
     Bouton2 = gtk_button_new_with_label("choisir un fichier");
-    g_signal_connect(G_OBJECT(Bouton2), "clicked", G_CALLBACK(ChoisirFichier), NULL);
+    g_signal_connect(G_OBJECT(Bouton2), "clicked", G_CALLBACK(ChoisirFichier), Donnees);
     gtk_box_pack_start(GTK_BOX(Box), Bouton2, TRUE, TRUE, 0);
     
     gtk_widget_show_all(Fenetre);
@@ -1074,7 +1124,7 @@ void MenuDecryptage(GtkWidget *Fenetre)
     gtk_box_pack_start(GTK_BOX(Box), Bouton1, TRUE, TRUE, 0);
     
     Bouton2 = gtk_button_new_with_label("Vigenere");
-    g_signal_connect(G_OBJECT(Bouton2), "clicked", G_CALLBACK(MenuDecryptageVigenere), NULL);
+    g_signal_connect(G_OBJECT(Bouton2), "clicked", G_CALLBACK(BoiteDialogueDecryptageVigenere), NULL);
     gtk_box_pack_start(GTK_BOX(Box), Bouton2, TRUE, TRUE, 0);
     
     gtk_widget_show_all(Fenetre);
@@ -1112,7 +1162,7 @@ void MenuCryptage(GtkWidget *Fenetre)
     gtk_box_pack_start(GTK_BOX(Box), Bouton1, TRUE, TRUE, 0);
     
     Bouton2 = gtk_button_new_with_label("Vigenere");
-    g_signal_connect(G_OBJECT(Bouton2), "clicked", G_CALLBACK(MenuCryptageVigenere), NULL);
+    g_signal_connect(G_OBJECT(Bouton2), "clicked", G_CALLBACK(BoiteDialogueVigenereCle), NULL);
     gtk_box_pack_start(GTK_BOX(Box), Bouton2, TRUE, TRUE, 0);
     
     gtk_widget_show_all(Fenetre);

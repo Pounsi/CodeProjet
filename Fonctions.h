@@ -13,7 +13,7 @@
 
 #define TAILLEFICHIER 1000
 #define TAILLETEXTE 20000
-#define TAILLECLE 12
+#define TAILLECLE 26
 #define ALPHABET 26
 #define hauteur 500
 #define largeur 500
