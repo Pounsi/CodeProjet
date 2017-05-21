@@ -86,6 +86,8 @@ void BoiteDialogueChangerLaCleSubstitution(GtkWidget *Fenetre,DOUBLEC *Donnees)
 
             gtk_label_set_justify(GTK_LABEL(Label_text), GTK_JUSTIFY_CENTER);
 
+            gtk_box_pack_start(GTK_BOX(GTK_DIALOG(Boite)->vbox), Label_text, TRUE, FALSE,0);
+
             gtk_box_pack_start(GTK_BOX(GTK_DIALOG(Boite)->vbox), Entrer, TRUE, TRUE,10);
 
         Entrer_cle=gtk_text_view_new();
