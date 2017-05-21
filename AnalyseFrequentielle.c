@@ -118,6 +118,7 @@ int k = 0;
 			k++;
 		}
 	}
+	a.nbdi=k;
 	
 //////////////////////
 	
@@ -157,6 +158,7 @@ k = 0;
 			k++;
 		}
 	}
+	a.nbtr=k;
 	strcpy(a.pgor,a.tr[0].nom);
 	int indice=0;
 	for (i = 1; i < k; i++)

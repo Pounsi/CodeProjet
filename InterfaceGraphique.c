@@ -482,8 +482,25 @@ void MenuResultatAnalyse(GtkWidget *Fenetre,ANALYSE analyse)
     gtk_box_pack_start(GTK_BOX(Box), Label_msg, TRUE, TRUE, 0);
 
         ////////////Affichage de la cle//////////////
-
-    gtk_label_set_markup(GTK_LABEL(Label_cle), "ici les tableaux");
+    ch[0]= '\0';
+    ch3 = "les digrammes et trigrammes qui se repettent dans votre texte sont : \n ";
+    strcat(ch,ch3);
+    for (i = 0; i < analyse.nbdi ; i++)
+    {
+        if (i%13 == 0)
+            strcat(ch,y);
+        strcat(ch,analyse.di[i].nom);
+        strcat(ch,z);
+    }
+    for (i = 0; i < analyse.nbtr ; i++)
+    {
+        if (i%13 == 0)
+            strcat(ch,y);
+        strcat(ch,analyse.tr[i].nom);
+        strcat(ch,z);
+    }
+    
+    gtk_label_set_markup(GTK_LABEL(Label_cle), ch);
     gtk_label_set_justify(GTK_LABEL(Label_cle), GTK_JUSTIFY_CENTER);
     gtk_box_pack_start(GTK_BOX(Box), Label_cle, TRUE, TRUE, 0);
     
@@ -661,7 +678,6 @@ void BoiteDialogueSubstitution(GtkWidget *Fenetre)
         
     gtk_widget_destroy(Boite);
 }
-
 
 void BoiteDialogueVigenereTexte(GtkWidget *Fenetre, DOUBLEC *Donnees)
 {
