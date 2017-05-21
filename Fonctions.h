@@ -32,7 +32,7 @@ typedef struct analyse{ //fréquence
 	float occ[TAILLECLE][ALPHABET];
 	PHONEME di[25]; 
 	PHONEME tr[25];
-	gchar* pgor;
+	gchar pgor[3];
 }ANALYSE;
 typedef struct ressourceslangue{ //probabilité
 	float occ[ALPHABET];

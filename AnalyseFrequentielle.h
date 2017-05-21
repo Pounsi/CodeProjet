@@ -7,3 +7,4 @@
 
 ANALYSE AnalyseFreq(gchar* T,int kasiski);
 ANALYSE AnalyseFrequentielle(gchar* Texte);
+ANALYSE AnalyseFrequentielle2(gchar* Texte);

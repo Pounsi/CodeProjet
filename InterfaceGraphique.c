@@ -280,8 +280,8 @@ void RecupererChemin(GtkWidget *bouton, GtkWidget *file_selection)
   		MenuResultatDecryptageVigenere(Fenetre,Text_crypt,Text_crypt);
   		break;
   	case 5:
-  		a=AnalyseFrequentielle(contenu);
-  		MenuResultatAnalyse(Fenetre,contenu);// mettre a 
+  		a=AnalyseFrequentielle2(contenu);
+  		MenuResultatAnalyse(Fenetre,a);// mettre a 
   		break;
 
 }
@@ -421,7 +421,7 @@ void MenuResultatVigenere(GtkWidget *Fenetre, gchar* Text_crypt, gchar* cle)
     gtk_widget_show_all(Fenetre);
 }
 
-void MenuResultatAnalyse(GtkWidget *Fenetre,gchar *analyse)
+void MenuResultatAnalyse(GtkWidget *Fenetre,ANALYSE analyse)
 {
     Fenetre = gtk_widget_get_toplevel (Fenetre);//on passe a la fenetre du bouton 
     ViderContenaire(GTK_CONTAINER(Fenetre));//on la vide
@@ -451,8 +451,19 @@ void MenuResultatAnalyse(GtkWidget *Fenetre,gchar *analyse)
     gtk_box_pack_start(GTK_BOX(Box_2), Label, TRUE, TRUE, 0);
 
     ////////////Affichage du resultat//////////////
-
-    gtk_label_set_markup(GTK_LABEL(Label_msg), analyse);
+    gchar ch[1000];
+    ch[0]= '\0';
+    gchar ch1[1000];
+    //ch = "vous avez ici le nombre d'occurences de chaque caracteres dans votre texte : ";
+    int i,j;
+    for (i = 0; i < 26; i++)
+	{
+		j = (int) analyse.occ[0][i];
+		sprintf(ch1,"%d",j);
+		strcat(ch,ch1);
+	}
+	
+    gtk_label_set_markup(GTK_LABEL(Label_msg), ch);
     gtk_label_set_justify(GTK_LABEL(Label_msg), GTK_JUSTIFY_CENTER);
     gtk_box_pack_start(GTK_BOX(Box), Label_msg, TRUE, TRUE, 0);
 
@@ -787,8 +798,8 @@ void BoiteDialogueAnalyse(GtkWidget *Fenetre)
                 gtk_text_buffer_get_start_iter(Buffer,&debut);
                 gtk_text_buffer_get_end_iter(Buffer,&fin);
                 Text = gtk_text_buffer_get_text(Buffer,&debut,&fin,FALSE);
-                a = AnalyseFrequentielle(Text);//changer pour travailler avec analyse
-                MenuResultatAnalyse(Fenetre,Text);
+                a = AnalyseFrequentielle2(Text);//changer pour travailler avec analyse
+                MenuResultatAnalyse(Fenetre,a);
                 break;
             case GTK_RESPONSE_CANCEL:
             case GTK_RESPONSE_NONE:

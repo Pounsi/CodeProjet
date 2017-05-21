@@ -45,15 +45,18 @@ ANALYSE AnalyseFrequentielle(gchar* Texte){
 			}
 			a.occ[0][j]=compteur/a.nb;
 	}
-	a.pgor="abio";
+	//a.pgor="abio";
 	return a;
 }
 
 
-/*
-ANALYSE analyse_frequentielle_zak(char* chaine){
+ANALYSE AnalyseFrequentielle2(gchar* Texte){
+	
+	gchar chaine[strlen(Texte)];
+	int taille;
+	ConvertisseurTableau(chaine,&taille,Texte);
 
-ANALYSE a;	
+	ANALYSE a;	
 //   PARTIE 1 :           compte le nb de caracteres du texte et remplir "ANALYSE.nb":        
 	a.nb=strlen(chaine);
 // FIN PARTIE 1
@@ -61,11 +64,11 @@ ANALYSE a;
 
 
 //   PARTIE 2 :           compte le nb d'occurences de chaque lettre et remplir "ANALYSE.occ":        
-	char alphabet[] = "abcdefghijklmnopqrstuvwxyz";
+	gchar alphabet[] = "abcdefghijklmnopqrstuvwxyz";
 
 	
 	int i,j,compteur;
-	for(i=0;i<25;i++)
+	for(i=0;i<26;i++)
 	{
 		compteur=0;
 			for(j=0;j<a.nb;j++)
@@ -73,16 +76,16 @@ ANALYSE a;
 				if(alphabet[i]==chaine[j])
 				compteur++;
 			}
-			a.occ[i]=compteur;
+			a.occ[0][i]=compteur;
 	}
 // FIN PARTIE 2
 
 int taille_tab_di = a.nb-1;
 
 
-char tmp1[2];
-char tmp2[2];
-char tmp3[2];
+gchar tmp1[2];
+gchar tmp2[2];
+gchar tmp3[2];
 
 int k = 0;
 
@@ -158,7 +161,7 @@ k = 0;
 	int indice=0;
 	for (i = 1; i < k; i++)
 	{
-		if(a.tr[i].frequence > a.tr[indice].frequence)
+		if(a.tr[i].frequence >= a.tr[indice].frequence)
 		{
 			indice = i; 
 			strcpy(a.pgor,a.tr[i].nom);
@@ -167,4 +170,3 @@ k = 0;
 	
 	return a;
 }
-*/

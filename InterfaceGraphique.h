@@ -22,7 +22,7 @@ void ChoisirFichier();
 void ViderContenaire(GtkContainer * container);
 void MenuResultatSubstitution(GtkWidget *Fenetre, gchar* Text_crypt);
 void MenuResultatVigenere(GtkWidget *Fenetre, gchar* Text_crypt, gchar* cle);
-void MenuResultatAnalyse(GtkWidget *Fenetre, gchar* Texte);
+void MenuResultatAnalyse(GtkWidget *Fenetre, ANALYSE analyse);
 void MenuResultatDecryptageSubstitution(GtkWidget *Fenetre, DOUBLEC* Donnees);
 void MenuResultatDecryptageVigenere(GtkWidget *Fenetre, gchar* Text_crypt , gchar* cle);
 void BoiteDialogueSubstitution(GtkWidget *Fenetre);
