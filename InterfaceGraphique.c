@@ -686,7 +686,6 @@ void BoiteDialogueDecryptageSubstitution(GtkWidget *Fenetre)
     Boite = gtk_dialog_new_with_buttons("Sasie du texte",GTK_WINDOW(Fenetre),GTK_DIALOG_MODAL,GTK_STOCK_OK,GTK_RESPONSE_OK,GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,NULL);
 
     Label_text=gtk_label_new(NULL);
-    Label_cle=gtk_label_new(NULL);
 
      msg= g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Votre texte : </span>\n",
            -1, NULL, NULL, NULL);
@@ -740,13 +739,10 @@ void BoiteDialogueDecryptageVigenere(GtkWidget *Fenetre)
     Boite = gtk_dialog_new_with_buttons("Sasie du texte",GTK_WINDOW(Fenetre),GTK_DIALOG_MODAL,GTK_STOCK_OK,GTK_RESPONSE_OK,GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,NULL);
 
     Label_text=gtk_label_new(NULL);
-    Label_cle=gtk_label_new(NULL);
 
      msg= g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Votre texte : </span>\n",
            -1, NULL, NULL, NULL);
 
-    indication_cle = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Votre cle : </span>\n",
-           -1, NULL, NULL, NULL);
 
     Entrer= gtk_text_view_new();
 
