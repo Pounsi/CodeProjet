@@ -2,7 +2,7 @@
 
 void DecryptageSubstitution(gchar* TexteClair,gchar* text,gchar* cle)
 {
-    return TexteClair; 
+
 }
 
 //~ RESSOURCESLANGUE TabRessource(){ //changer de module

@@ -169,7 +169,6 @@ void RecupererChemin(GtkWidget *bouton, GtkWidget *file_selection)
 {
     ANALYSE a;
     const gchar* chemin;
-    gchar *text_clair;
     gchar Text_crypt[TAILLETEXTE];
     gchar contenu[TAILLEFICHIER];
     gchar cle[TAILLECLE];
@@ -200,13 +199,13 @@ void RecupererChemin(GtkWidget *bouton, GtkWidget *file_selection)
 		strcpy(ch->cle,cle);
   		MenuResultatDecryptagePartiel(Fenetre, ch);
   		break;
-	case 4:
+	case 4: 
   		DecryptageVigenere(Text_crypt,contenu,cle);
-  		MenuResultatDecryptageVigenere(Fenetre,text_clair,text_clair);
+  		MenuResultatDecryptageVigenere(Fenetre,Text_crypt,Text_crypt);
   		break;
   	case 5:
   		a=AnalyseFrequentielle(contenu);
-  		MenuResultatAnalyse(Fenetre,contenu);
+  		MenuResultatAnalyse(Fenetre,contenu);// mettre a 
   		break;
 
 }
@@ -351,7 +350,7 @@ void MenuResultatAnalyse(GtkWidget *Fenetre,gchar *analyse)
     Fenetre = gtk_widget_get_toplevel (Fenetre);//on passe a la fenetre du bouton 
     ViderContenaire(GTK_CONTAINER(Fenetre));//on la vide
 
-    GtkWidget *Box, *Box_2,*Label, *Label_msg,*Label_cle,*Bouton1,*Bouton2,*Bouton3;
+    GtkWidget *Box, *Box_2,*Label, *Label_msg,*Label_cle,*Bouton2,*Bouton3;
     gchar* Text;
     
     Box = gtk_vbox_new(TRUE, 0);
@@ -678,8 +677,8 @@ void BoiteDialogueAnalyse(GtkWidget *Fenetre)
 
 void BoiteDialogueDecryptageSubstitution(GtkWidget *Fenetre)
 {
-    GtkWidget *Boite,*Entrer,*Entrer_cle,*Label_text,*Label_cle;
-    gchar *Text_clair,*Text_crypt,*cle,*msg,*indication_cle;
+    GtkWidget *Boite,*Entrer,*Label_text;
+    gchar *Text_crypt,*cle,*msg;
     GtkTextBuffer* Buffer;
     GtkTextIter debut;
     GtkTextIter fin;
@@ -730,8 +729,8 @@ void BoiteDialogueDecryptageSubstitution(GtkWidget *Fenetre)
 
 void BoiteDialogueDecryptageVigenere(GtkWidget *Fenetre)
 {
-    GtkWidget *Boite,*Entrer,*Entrer_cle,*Label_text,*Label_cle;
-    gchar *Text_crypt,*msg,*indication_cle;
+    GtkWidget *Boite,*Entrer,*Label_text;
+    gchar *Text_crypt,*msg;
     gchar Text_clair[TAILLETEXTE];
     gchar cle[TAILLECLE];
     GtkTextBuffer* Buffer;
@@ -864,7 +863,6 @@ void MenuCryptageVigenere(GtkWidget *Fenetre)
 	ViderContenaire(GTK_CONTAINER(Fenetre));
 	GtkWidget *Box,*Bouton1, *Bouton2, *Bouton3,*Box_2, *Label;
     gchar *Text;
-    GtkWidget* zone_t;
     choix=2;
     
     Box = gtk_vbox_new(TRUE, 0);
@@ -903,7 +901,6 @@ void MenuCryptageSubstitution(GtkWidget *Fenetre)
 	ViderContenaire(GTK_CONTAINER(Fenetre));
 	GtkWidget *Box,*Bouton1, *Bouton2, *Bouton3,*Box_2, *Label;
     gchar* Text;
-    GtkWidget* zone_t;
     choix=1;
     
     Box = gtk_vbox_new(TRUE, 0);
@@ -943,7 +940,6 @@ void MenuAnalyseFrequentielle(GtkWidget *Fenetre)
 	ViderContenaire(GTK_CONTAINER(Fenetre));
 	GtkWidget *Box,*Bouton1, *Bouton2, *Bouton3,*Box_2, *Label;
     gchar* Text;
-    GtkWidget* zone_t;
     choix=5;
     Box = gtk_vbox_new(TRUE, 0);
     gtk_container_add(GTK_CONTAINER(Fenetre), Box);
