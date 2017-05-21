@@ -439,7 +439,7 @@ void MenuResultatAnalyse(GtkWidget *Fenetre,ANALYSE analyse)
     Fenetre = gtk_widget_get_toplevel (Fenetre);//on passe a la fenetre du bouton 
     ViderContenaire(GTK_CONTAINER(Fenetre));//on la vide
 
-    GtkWidget *Box, *Box_2,*Label, *Label_msg,*Label_cle,*Bouton2,*Bouton3;
+    GtkWidget *Box, *Box_2,*Label, *Label_msg,*Label_cle,*Label_cle2,*Bouton2,*Bouton3;
     gchar* Text;
     
     Box = gtk_vbox_new(TRUE, 0);
@@ -448,6 +448,7 @@ void MenuResultatAnalyse(GtkWidget *Fenetre,ANALYSE analyse)
     Label=gtk_label_new(NULL);
     Label_msg=gtk_label_new(NULL);
     Label_cle=gtk_label_new(NULL);
+    Label_cle2=gtk_label_new(NULL);
 
     Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">resultat d'etude de texte</span>\n",
     -1, NULL, NULL, NULL);
@@ -464,6 +465,8 @@ void MenuResultatAnalyse(GtkWidget *Fenetre,ANALYSE analyse)
     gtk_box_pack_start(GTK_BOX(Box_2), Label, TRUE, TRUE, 0);
 
     ////////////Affichage du resultat//////////////
+    gchar save[3000];
+    save[0]= '\0';
     gchar ch[1000];
     gchar* ch3;
     ch[0]= '\0';
@@ -487,6 +490,8 @@ void MenuResultatAnalyse(GtkWidget *Fenetre,ANALYSE analyse)
         strcat(ch,z);
         x[0]= x[0]+1;
     }
+	strcat(save,ch);
+	strcat(save,y);
 	
     gtk_label_set_markup(GTK_LABEL(Label_msg), ch);
     gtk_label_set_justify(GTK_LABEL(Label_msg), GTK_JUSTIFY_CENTER);
@@ -510,13 +515,15 @@ void MenuResultatAnalyse(GtkWidget *Fenetre,ANALYSE analyse)
         strcat(ch,analyse.tr[i].nom);
         strcat(ch,z);
     }
+    strcat(save,ch);
     
     gtk_label_set_markup(GTK_LABEL(Label_cle), ch);
     gtk_label_set_justify(GTK_LABEL(Label_cle), GTK_JUSTIFY_CENTER);
     gtk_box_pack_start(GTK_BOX(Box), Label_cle, TRUE, TRUE, 0);
     
-    Bouton2 = gtk_button_new_with_label("Enregistrer le tableau");
-    g_signal_connect(G_OBJECT(Bouton2), "clicked", G_CALLBACK(Enregistrer), Label_cle);//pas label cle
+    gtk_label_set_markup(GTK_LABEL(Label_cle2), save);//on a besoin dun label
+    Bouton2 = gtk_button_new_with_label("Enregistrer le resultat");
+    g_signal_connect(G_OBJECT(Bouton2), "clicked", G_CALLBACK(Enregistrer), Label_cle2);//pas label cle
     gtk_box_pack_start(GTK_BOX(Box), Bouton2, TRUE, TRUE, 0);
     
     gtk_widget_show_all(Fenetre);
