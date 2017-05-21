@@ -256,36 +256,47 @@ void RecupererChemin(GtkWidget *bouton, GtkWidget *selection)
      //ce chemin doit etre utiliser pour remplir une chaine/tableau ensuite on supprime la "dialog"
     LireFichier(contenu,TAILLEFICHIER,chemin);
     
-		DOUBLEC *ch;
+        DOUBLEC *ch;
+        FILE* fichier =NULL;
+
    switch (choix)
-	{
-	case 1:
-		CryptageSubstitution(Text_crypt,contenu);
-  		MenuResultatSubstitution(Fenetre,Text_crypt);
-  		break;
-	case 2:
-	
-		//on doit demander la cle ici non ?
+    {
+    case 1:
+        CryptageSubstitution(Text_crypt,contenu);
+        MenuResultatSubstitution(Fenetre,Text_crypt);
+        break;
+    case 2:
+    
+        
 
-		CryptageVigenere(Text_crypt,contenu,contenu);
+        fichier=fopen("cle.txt","r");
 
-		MenuResultatVigenere(Fenetre,Text_crypt,contenu);
-		
-  		break;
-	case 3:
-		strcpy(ch->texte,contenu);
-		char* cle="abcdefghijklmnopqrstuwxyz";
-		strcpy(ch->cle,cle);
-  		MenuResultatDecryptagePartiel(Fenetre, ch);
-  		break;
-	case 4: 
-  		DecryptageVigenere(Text_crypt,contenu,cle);
-  		MenuResultatDecryptageVigenere(Fenetre,Text_crypt,Text_crypt);
-  		break;
-  	case 5:
-  		a=AnalyseFrequentielle2(contenu);
-  		MenuResultatAnalyse(Fenetre,a);// mettre a 
-  		break;
+        if (fichier != NULL)
+        {
+            fgets(cle,TAILLECLE,fichier);
+            fclose(fichier);
+            remove("cle.txt");
+        }
+
+        CryptageVigenere(Text_crypt,contenu,cle);
+
+        MenuResultatVigenere(Fenetre,Text_crypt,cle);
+        
+        break;
+    case 3:
+        strcpy(ch->texte,contenu);
+        char* cle="abcdefghijklmnopqrstuwxyz";
+        strcpy(ch->cle,cle);
+        MenuResultatDecryptagePartiel(Fenetre, ch);
+        break;
+    case 4: 
+        DecryptageVigenere(Text_crypt,contenu,cle);
+        MenuResultatDecryptageVigenere(Fenetre,Text_crypt,Text_crypt);
+        break;
+    case 5:
+        a=AnalyseFrequentielle2(contenu);
+        MenuResultatAnalyse(Fenetre,a);// mettre a 
+        break;
 
 }
     
@@ -1018,15 +1029,25 @@ void MenuDecryptageSubstitution(GtkWidget *Fenetre)
 void MenuCryptageVigenere(GtkWidget *Fenetre,DOUBLEC *Donnees)
 {
     Fenetre = gtk_widget_get_toplevel (Fenetre);
-	ViderContenaire(GTK_CONTAINER(Fenetre));
-	GtkWidget *Box,*Bouton1, *Bouton2, *Bouton3,*Box_2, *Label;
+    ViderContenaire(GTK_CONTAINER(Fenetre));
+    GtkWidget *Box,*Bouton1, *Bouton2, *Bouton3,*Box_2, *Label;
     gchar *Text;
     choix=2;
     g_print("dans cryptage la cle est %s\n",Donnees->cle);
     Box = gtk_vbox_new(TRUE, 0);
     gtk_container_add(GTK_CONTAINER(Fenetre), Box);
     Box_2 = gtk_hbox_new(FALSE, 0);
-    
+    ///////////////mettre la cle dans un fichier///////////
+    FILE* fichier= NULL;
+    remove("cle.txt");
+    fichier=fopen("cle.txt","w");
+
+    if (fichier != NULL)
+    {
+        fputs(Donnees->cle,fichier);
+        fclose(fichier);
+    }
+    /////////////////////////////////
     Label=gtk_label_new(NULL);
     Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">cryptage Vige</span>\n",
     -1, NULL, NULL, NULL);
@@ -1047,7 +1068,7 @@ void MenuCryptageVigenere(GtkWidget *Fenetre,DOUBLEC *Donnees)
     gtk_box_pack_start(GTK_BOX(Box), Bouton1, TRUE, TRUE, 0);
     
     Bouton2 = gtk_button_new_with_label("choisir un fichier");
-    g_signal_connect(G_OBJECT(Bouton2), "clicked", G_CALLBACK(ChoisirFichier), Donnees);
+    g_signal_connect(G_OBJECT(Bouton2), "clicked", G_CALLBACK(ChoisirFichier),NULL);
     gtk_box_pack_start(GTK_BOX(Box), Bouton2, TRUE, TRUE, 0);
     
     gtk_widget_show_all(Fenetre);
