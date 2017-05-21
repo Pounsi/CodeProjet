@@ -8,11 +8,8 @@ void MenuResultatDecryptagePartiel(GtkWidget *Fenetre,DOUBLEC *Donnees)
     ViderContenaire(GTK_CONTAINER(Fenetre));
     GtkWidget *Box,*Box2, *Label,*Label2,*Bouton1, *Bouton2, *Bouton3;
     gchar *Text,*Resultat;
-    gchar *Text_crypt,*Tab_cle;
-    Tab_cle=(gchar *)malloc(strlen(Donnees->cle)*sizeof(gchar));
-    Text_crypt=(gchar *)malloc(strlen(Donnees->texte)*sizeof(gchar));
-    strcpy(Tab_cle,Donnees->cle);
-    strcpy(Text_crypt,Donnees->texte);
+    Resultat=(gchar *)malloc(strlen(Donnees->texte)*sizeof(gchar));
+    
 
     DecryptageSubstitution(Resultat,Donnees->texte,Donnees->cle);
 
@@ -29,11 +26,11 @@ void MenuResultatDecryptagePartiel(GtkWidget *Fenetre,DOUBLEC *Donnees)
 
     gtk_box_pack_start(GTK_BOX(Box), Label, TRUE, TRUE, 0);
     
-    Label2=gtk_label_new(Text_crypt);
+    Label2=gtk_label_new(Donnees->texte);
     gtk_label_set_justify(GTK_LABEL(Label2), GTK_JUSTIFY_CENTER);
     gtk_box_pack_start(GTK_BOX(Box), Label2, TRUE, TRUE, 0);
     
-    Label2=gtk_label_new(Tab_cle);
+    Label2=gtk_label_new(Donnees->cle);
     gtk_label_set_justify(GTK_LABEL(Label2), GTK_JUSTIFY_CENTER);
     gtk_box_pack_start(GTK_BOX(Box), Label2, TRUE, TRUE, 0);
     
@@ -49,7 +46,7 @@ void MenuResultatDecryptagePartiel(GtkWidget *Fenetre,DOUBLEC *Donnees)
     gtk_box_pack_start(GTK_BOX(Box2), Bouton1, TRUE, TRUE, 0);
     
     Bouton2 = gtk_button_new_with_label("changer la cle");
-    g_signal_connect(G_OBJECT(Bouton2), "clicked", G_CALLBACK(MenuDecryptage), NULL);
+    g_signal_connect(G_OBJECT(Bouton2), "clicked", G_CALLBACK(BoiteDialogueChangerLaCleSubstitution), Donnees);
     gtk_box_pack_start(GTK_BOX(Box2), Bouton2, TRUE, TRUE, 0);
     
     Bouton3 = gtk_button_new_with_label("terminer");
@@ -57,6 +54,80 @@ void MenuResultatDecryptagePartiel(GtkWidget *Fenetre,DOUBLEC *Donnees)
     gtk_box_pack_start(GTK_BOX(Box2), Bouton3, TRUE, TRUE, 0);
     
     gtk_widget_show_all(Fenetre);
+}
+
+void BoiteDialogueChangerLaCleSubstitution(GtkWidget *Fenetre,DOUBLEC *Donnees)
+{
+
+        GtkWidget *Boite,*Entrer,*Entrer_cle,*Label_text,*Label_cle;
+        gchar *C1,*C2,*msg,*indication_cle;
+        gchar Text_crypt[TAILLETEXTE];
+        GtkTextBuffer* Buffer;
+        GtkTextIter debut;
+        GtkTextIter fin;
+        Fenetre = gtk_widget_get_toplevel (Fenetre);//on passe a la fenetre du bouton 
+        Boite = gtk_dialog_new_with_buttons("Sasie du texte",GTK_WINDOW(Fenetre),GTK_DIALOG_MODAL,GTK_STOCK_OK,GTK_RESPONSE_OK,GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,NULL);
+
+        Label_text=gtk_label_new(NULL);
+        Label_cle=gtk_label_new(NULL);
+        
+            msg= g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Votre caractere a changer : </span>\n",
+               -1, NULL, NULL, NULL);
+       
+
+        indication_cle = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Par ce caractere : </span>\n",
+               -1, NULL, NULL, NULL);
+        
+       
+            
+            Entrer= gtk_text_view_new();
+
+            gtk_label_set_markup(GTK_LABEL(Label_text), msg);
+
+            gtk_label_set_justify(GTK_LABEL(Label_text), GTK_JUSTIFY_CENTER);
+
+            gtk_box_pack_start(GTK_BOX(GTK_DIALOG(Boite)->vbox), Entrer, TRUE, TRUE,10);
+
+        Entrer_cle=gtk_text_view_new();
+
+        gtk_label_set_markup(GTK_LABEL(Label_cle), indication_cle);
+
+        gtk_label_set_justify(GTK_LABEL(Label_cle), GTK_JUSTIFY_CENTER);
+
+        gtk_box_pack_start(GTK_BOX(GTK_DIALOG(Boite)->vbox), Label_cle, TRUE, FALSE,0);
+        
+        gtk_box_pack_start(GTK_BOX(GTK_DIALOG(Boite)->vbox), Entrer_cle, TRUE, TRUE,10);
+        
+        gtk_widget_show_all(GTK_DIALOG(Boite)->vbox);
+
+        switch(gtk_dialog_run(GTK_DIALOG(Boite)))
+            {
+                case GTK_RESPONSE_OK:
+                    Buffer= gtk_text_view_get_buffer(GTK_TEXT_VIEW(Entrer));
+                    gtk_text_buffer_get_start_iter(Buffer,&debut);
+                    gtk_text_buffer_get_end_iter(Buffer,&fin);
+                    C1 = gtk_text_buffer_get_text(Buffer,&debut,&fin,FALSE);
+              
+                    
+                   
+                    Buffer= gtk_text_view_get_buffer(GTK_TEXT_VIEW(Entrer_cle));
+                    gtk_text_buffer_get_start_iter(Buffer,&debut);
+                    gtk_text_buffer_get_end_iter(Buffer,&fin);
+                    C2 = gtk_text_buffer_get_text(Buffer,&debut,&fin,FALSE);
+                    g_print("%c %c\n",C1[0],C2[0]);
+
+                    RemplacerCleSubstitution(Donnees,C1[0],C2[0]);
+                    MenuResultatDecryptagePartiel(Fenetre,Donnees);
+                    
+                    break;
+                case GTK_RESPONSE_CANCEL:
+                case GTK_RESPONSE_NONE:
+                default:
+                    break;
+            }
+            
+        gtk_widget_destroy(Boite);
+    
 }
 
 void modifieLangue(GtkWidget *Fenetre, int lang)

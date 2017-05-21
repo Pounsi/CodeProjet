@@ -11,10 +11,7 @@
 
 #endif
 
-typedef struct doublechar{
-	gchar texte[TAILLETEXTE];
-	gchar cle[TAILLECLE];
-}DOUBLEC;
+
 
 
 //dans un autre fichier
@@ -42,3 +39,4 @@ void MenuDecryptage(GtkWidget *Fenetre);
 void MenuCryptage(GtkWidget *Fenetre);
 void MenuPrincipal(GtkWidget *Fenetre);
 void MenuResultatDecryptagePartiel(GtkWidget *Fenetre,DOUBLEC* Donnees);
+void BoiteDialogueChangerLaCleSubstitution(GtkWidget *Fenetre,DOUBLEC *Donnees);

@@ -39,6 +39,10 @@ typedef struct ressourceslangue{ //probabilité
 	PHONEME di[25];
 	PHONEME tr[25];
 }RESSOURCESLANGUE;
+typedef struct doublechar{
+	gchar texte[TAILLETEXTE];
+	gchar cle[TAILLECLE];
+}DOUBLEC;
 
 
 void RetirerToutCarSpec(gchar chaine[], gchar copy[]);
@@ -46,5 +50,5 @@ void RetirerCarSpecMajuscule(gchar chaine[], gchar copy[]);
 void LireFichier(gchar TexteClaire[] ,int TailleMax ,const gchar* chemin);
 void ConvertisseurTableau(gchar T[],int *TailleTexte,gchar* Texte);
 RESSOURCESLANGUE ChargerRessources();
-void separer_cle_texte(gchar *cle,gchar *text,gchar *donnees);
+void RemplacerCleSubstitution(DOUBLEC *Donnees,gchar C1,gchar C2);
 	
