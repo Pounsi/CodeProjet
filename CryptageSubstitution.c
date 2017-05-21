@@ -33,8 +33,10 @@ void GenereCle(gchar T[]){
 	
 	for(i = 0; i < ALPHABET; i++){
 		T[i]=tab[i];
+		printf("%d ",tab[i]);
 		
 	}
+	printf("\n");
 	free(tab);
    
 }
@@ -45,7 +47,6 @@ void CryptageSubstitution(gchar* TexteCrypte, gchar* TexteClair)
 	
 	gchar T[ALPHABET];
 	GenereCle(T);
-	
 	gchar TextePourCryptage[strlen(TexteClair)];
 	ConvertisseurTableau(TextePourCryptage,&taille,TexteClair);
 	
@@ -60,4 +61,5 @@ void CryptageSubstitution(gchar* TexteCrypte, gchar* TexteClair)
 			TexteCrypte[i] = T[x]+97;
 		}
 	}
+	TexteCrypte[i]='\0';
 }

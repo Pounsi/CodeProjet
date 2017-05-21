@@ -684,9 +684,6 @@ void BoiteDialogueSubstitution(GtkWidget *Fenetre)
                 Text_clair = gtk_text_buffer_get_text(Buffer,&debut,&fin,FALSE);
                 CryptageSubstitution(Text_crypt,Text_clair);
                 MenuResultatSubstitution(Fenetre, Text_crypt);
-                 //on rajoutera plus tard la cle de sub
-                // ici on doit pouvoir sauvegarder le texte dans la variable Nom
-                g_free(Text_clair);//si plus besoin
                 break;
             case GTK_RESPONSE_CANCEL:
             case GTK_RESPONSE_NONE:
