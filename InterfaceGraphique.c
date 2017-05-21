@@ -1,17 +1,20 @@
 #include "InterfaceGraphique.h"
 
 
-void MenuResultatDecryptagePartiel(GtkWidget *Fenetre,DOUBLEC *ch)
+void MenuResultatDecryptagePartiel(GtkWidget *Fenetre,DOUBLEC *Donnees)
 {
-	char* Text_crypt;
-	strcpy(Text_crypt,ch->texte);
+    
     Fenetre = gtk_widget_get_toplevel (Fenetre);
     ViderContenaire(GTK_CONTAINER(Fenetre));
     GtkWidget *Box,*Box2, *Label,*Label2,*Bouton1, *Bouton2, *Bouton3;
-    gchar *Text,*Resultat,*Cle_et_resultat;
-    gchar* Tableau_cle;
-    
-    DecryptageSubstitution(Resultat,ch->texte,ch->cle);
+    gchar *Text,*Resultat;
+    gchar *Text_crypt,*Tab_cle;
+    Tab_cle=(gchar *)malloc(strlen(Donnees->cle)*sizeof(gchar));
+    Text_crypt=(gchar *)malloc(strlen(Donnees->texte)*sizeof(gchar));
+    strcpy(Tab_cle,Donnees->cle);
+    strcpy(Text_crypt,Donnees->texte);
+
+    DecryptageSubstitution(Resultat,Donnees->texte,Donnees->cle);
 
 
     Box = gtk_vbox_new(TRUE, 0);
@@ -30,11 +33,11 @@ void MenuResultatDecryptagePartiel(GtkWidget *Fenetre,DOUBLEC *ch)
     gtk_label_set_justify(GTK_LABEL(Label2), GTK_JUSTIFY_CENTER);
     gtk_box_pack_start(GTK_BOX(Box), Label2, TRUE, TRUE, 0);
     
-    Label2=gtk_label_new(Tableau_cle);
+    Label2=gtk_label_new(Tab_cle);
     gtk_label_set_justify(GTK_LABEL(Label2), GTK_JUSTIFY_CENTER);
     gtk_box_pack_start(GTK_BOX(Box), Label2, TRUE, TRUE, 0);
     
-    Label2=gtk_label_new(Cle_et_resultat);
+    Label2=gtk_label_new("Legende");
     gtk_label_set_justify(GTK_LABEL(Label2), GTK_JUSTIFY_CENTER);
     gtk_box_pack_start(GTK_BOX(Box), Label2, TRUE, TRUE, 0);
     
@@ -42,7 +45,7 @@ void MenuResultatDecryptagePartiel(GtkWidget *Fenetre,DOUBLEC *ch)
     gtk_container_add(GTK_CONTAINER(Box), Box2);
     
     Bouton1 = gtk_button_new_with_label("redecrypter");
-    g_signal_connect(G_OBJECT(Bouton1), "clicked", G_CALLBACK(MenuResultatDecryptagePartiel), ch);
+    g_signal_connect(G_OBJECT(Bouton1), "clicked", G_CALLBACK(MenuResultatDecryptagePartiel), Donnees);
     gtk_box_pack_start(GTK_BOX(Box2), Bouton1, TRUE, TRUE, 0);
     
     Bouton2 = gtk_button_new_with_label("changer la cle");
@@ -50,7 +53,7 @@ void MenuResultatDecryptagePartiel(GtkWidget *Fenetre,DOUBLEC *ch)
     gtk_box_pack_start(GTK_BOX(Box2), Bouton2, TRUE, TRUE, 0);
     
     Bouton3 = gtk_button_new_with_label("terminer");
-    g_signal_connect(G_OBJECT(Bouton3), "clicked", G_CALLBACK(MenuResultatDecryptageSubstitution), ch->texte);
+    g_signal_connect(G_OBJECT(Bouton3), "clicked", G_CALLBACK(MenuResultatDecryptageSubstitution), Donnees);
     gtk_box_pack_start(GTK_BOX(Box2), Bouton3, TRUE, TRUE, 0);
     
     gtk_widget_show_all(Fenetre);
@@ -393,16 +396,13 @@ void MenuResultatAnalyse(GtkWidget *Fenetre,gchar *analyse)
     gtk_widget_show_all(Fenetre);
 }
 
-void MenuResultatDecryptageSubstitution(GtkWidget *Fenetre, gchar* Cle_et_text_clair)//appeler text clair
+void MenuResultatDecryptageSubstitution(GtkWidget *Fenetre, DOUBLEC *Donnees)//appeler text clair
 {
     Fenetre = gtk_widget_get_toplevel (Fenetre);
     ViderContenaire(GTK_CONTAINER(Fenetre));
 
     GtkWidget *Box, *Box_2,*Label, *Label_msg,*Label_cle,*Bouton1,*Bouton2,*Bouton3;
-    gchar *Text,*text,*cle;
-    cle=(gchar *)malloc(26*sizeof(gchar));
-    text=(gchar *)malloc((strlen(Cle_et_text_clair)-33)*sizeof(gchar));
-    separer_cle_texte(cle,text,Cle_et_text_clair);
+    gchar *Text;
 
     
     Box = gtk_vbox_new(TRUE, 0);
@@ -431,7 +431,7 @@ void MenuResultatDecryptageSubstitution(GtkWidget *Fenetre, gchar* Cle_et_text_c
 
     ////////////Affichage du resultat//////////////
 
-    gtk_label_set_markup(GTK_LABEL(Label_msg), text);
+    gtk_label_set_markup(GTK_LABEL(Label_msg), Donnees->texte);
 
     gtk_label_set_justify(GTK_LABEL(Label_msg), GTK_JUSTIFY_CENTER);
 
@@ -446,7 +446,7 @@ void MenuResultatDecryptageSubstitution(GtkWidget *Fenetre, gchar* Cle_et_text_c
 
         ////////////Affichage de la cle//////////////
 
-    gtk_label_set_markup(GTK_LABEL(Label_cle), cle);
+    gtk_label_set_markup(GTK_LABEL(Label_cle), Donnees->cle);
 
     gtk_label_set_justify(GTK_LABEL(Label_cle), GTK_JUSTIFY_CENTER);
 
