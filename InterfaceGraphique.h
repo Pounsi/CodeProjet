@@ -16,7 +16,7 @@
 
 //dans un autre fichier
 void Enregistrer (GtkWidget *p_widget, GtkWidget *text );
-void RecupererChemin(GtkWidget *bouton, GtkWidget *file_selection);
+void RecupererChemin(GtkWidget *bouton, GtkWidget *selection);
 void ChoisirFichier();
 //interface
 void ViderContenaire(GtkContainer * container);

@@ -241,16 +241,17 @@ void Enregistrer (GtkWidget *p_widget, GtkWidget *text )
   (void)p_widget;
 }
 
-void RecupererChemin(GtkWidget *bouton, GtkWidget *file_selection)
+void RecupererChemin(GtkWidget *bouton, GtkWidget *selection)
 {
+    
     ANALYSE a;
     const gchar* chemin;
     gchar Text_crypt[TAILLETEXTE];
     gchar contenu[TAILLEFICHIER];
     gchar cle[TAILLECLE];
     GtkWidget *dialog;
-    chemin = gtk_file_selection_get_filename(GTK_FILE_SELECTION (file_selection) );
-    dialog = gtk_message_dialog_new(GTK_WINDOW(file_selection),GTK_DIALOG_MODAL,
+    chemin = gtk_file_selection_get_filename(GTK_FILE_SELECTION (selection) );
+    dialog = gtk_message_dialog_new(GTK_WINDOW(selection),GTK_DIALOG_MODAL,
     GTK_MESSAGE_INFO,GTK_BUTTONS_OK,"Vous avez choisi :\n%s", chemin);
      //ce chemin doit etre utiliser pour remplir une chaine/tableau ensuite on supprime la "dialog"
     LireFichier(contenu,TAILLEFICHIER,chemin);
@@ -265,8 +266,10 @@ void RecupererChemin(GtkWidget *bouton, GtkWidget *file_selection)
 	case 2:
 	
 		//on doit demander la cle ici non ?
+
 		CryptageVigenere(Text_crypt,contenu,contenu);
-		MenuResultatVigenere(Fenetre,Text_crypt,Text_crypt);
+
+		MenuResultatVigenere(Fenetre,Text_crypt,contenu);
 		
   		break;
 	case 3:
@@ -288,7 +291,7 @@ void RecupererChemin(GtkWidget *bouton, GtkWidget *file_selection)
     
     gtk_dialog_run(GTK_DIALOG(dialog));
     gtk_widget_destroy(dialog);
-    gtk_widget_destroy(file_selection);
+    gtk_widget_destroy(selection);
 }
 
 void ChoisirFichier()
@@ -297,7 +300,6 @@ void ChoisirFichier()
     
     selection = gtk_file_selection_new( g_locale_to_utf8( "Sélectionnez un fichier", -1, NULL, NULL, NULL) );
     gtk_widget_show(selection);
-     
     //On interdit l'utilisation des autres fenêtres.
     gtk_window_set_modal(GTK_WINDOW(selection), TRUE);
      
@@ -452,16 +454,28 @@ void MenuResultatAnalyse(GtkWidget *Fenetre,ANALYSE analyse)
 
     ////////////Affichage du resultat//////////////
     gchar ch[1000];
+    gchar* ch3;
     ch[0]= '\0';
     gchar ch1[1000];
-    //ch = "vous avez ici le nombre d'occurences de chaque caracteres dans votre texte : ";
+    ch3 = "vous avez ici le nombre d'occurences de chaque caracteres dans votre texte : \n ";
     int i,j;
+    gchar x[3] ;
+    x[0]= 'A'; x[1]= ':'; x[2]= '\0';
+    gchar y[2] ;
+    y[0]= '\n'; y[1]= '\0';
+    gchar* z="  |  ";
+    strcat(ch,ch3);
     for (i = 0; i < 26; i++)
-	{
-		j = (int) analyse.occ[0][i];
-		sprintf(ch1,"%d",j);
-		strcat(ch,ch1);
-	}
+    {
+        if (i%13 == 0)
+            strcat(ch,y);
+        j = (int) analyse.occ[0][i];
+        sprintf(ch1,"%d",j);
+        strcat(ch,x);
+        strcat(ch,ch1);
+        strcat(ch,z);
+        x[0]= x[0]+1;
+    }
 	
     gtk_label_set_markup(GTK_LABEL(Label_msg), ch);
     gtk_label_set_justify(GTK_LABEL(Label_msg), GTK_JUSTIFY_CENTER);
@@ -758,10 +772,7 @@ void BoiteDialogueVigenereCle(GtkWidget *Fenetre)
 	                cle = gtk_text_buffer_get_text(Buffer,&debut,&fin,FALSE);
 	                DOUBLEC *Donnees;
 	                Donnees = (DOUBLEC *)malloc(sizeof(DOUBLEC));
-                    printf("la cle est :%s\n",Donnees->cle);
-                    g_print("%s\n",cle);
                     strcpy(Donnees->cle,cle);
-                    printf("la cle est :%s\n",Donnees->cle);
 	                MenuCryptageVigenere(Fenetre,Donnees);
 	                break;
 	            case GTK_RESPONSE_CANCEL:
@@ -995,7 +1006,7 @@ void MenuCryptageVigenere(GtkWidget *Fenetre,DOUBLEC *Donnees)
 	GtkWidget *Box,*Bouton1, *Bouton2, *Bouton3,*Box_2, *Label;
     gchar *Text;
     choix=2;
-    
+    g_print("dans cryptage la cle est %s\n",Donnees->cle);
     Box = gtk_vbox_new(TRUE, 0);
     gtk_container_add(GTK_CONTAINER(Fenetre), Box);
     Box_2 = gtk_hbox_new(FALSE, 0);

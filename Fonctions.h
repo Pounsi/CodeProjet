@@ -42,6 +42,7 @@ typedef struct ressourceslangue{ //probabilité
 typedef struct doublechar{
 	gchar texte[TAILLETEXTE];
 	gchar cle[TAILLECLE];
+	GtkWidget *selection;
 }DOUBLEC;
 
 
