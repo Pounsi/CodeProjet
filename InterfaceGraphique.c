@@ -61,7 +61,6 @@ void BoiteDialogueChangerLaCleSubstitution(GtkWidget *Fenetre,DOUBLEC *Donnees)
 
         GtkWidget *Boite,*Entrer,*Entrer_cle,*Label_text,*Label_cle;
         gchar *C1,*C2,*msg,*indication_cle;
-        gchar Text_crypt[TAILLETEXTE];
         GtkTextBuffer* Buffer;
         GtkTextIter debut;
         GtkTextIter fin;
@@ -257,6 +256,7 @@ void RecupererChemin(GtkWidget *bouton, GtkWidget *selection)
     LireFichier(contenu,TAILLEFICHIER,chemin);
     
         DOUBLEC *Donnees;
+        Donnees = (DOUBLEC *)malloc(sizeof(DOUBLEC));
         FILE* fichier =NULL;
 
    switch (choix)
@@ -759,7 +759,7 @@ void BoiteDialogueVigenereTexte(GtkWidget *Fenetre, DOUBLEC *Donnees)
 void BoiteDialogueVigenereCle(GtkWidget *Fenetre)
 {
 
-	    GtkWidget *Boite,*Entrer,*Entrer_cle,*Label_text,*Label_cle;
+	    GtkWidget *Boite,*Entrer,*Entrer_cle,*Label_cle;
 	    gchar *cle,*indication_cle;
 	    GtkTextBuffer* Buffer;
 	    GtkTextIter debut;
@@ -767,7 +767,7 @@ void BoiteDialogueVigenereCle(GtkWidget *Fenetre)
 	    Fenetre = gtk_widget_get_toplevel (Fenetre);//on passe a la fenetre du bouton 
 	    Boite = gtk_dialog_new_with_buttons("Sasie du texte",GTK_WINDOW(Fenetre),GTK_DIALOG_MODAL,GTK_STOCK_OK,GTK_RESPONSE_OK,GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,NULL);
 
-	    Label_text=gtk_label_new(NULL);
+	    
 	    Label_cle=gtk_label_new(NULL);
 	    
 	    	
@@ -889,11 +889,12 @@ void BoiteDialogueDecryptageSubstitution(GtkWidget *Fenetre)
                 gtk_text_buffer_get_start_iter(Buffer,&debut);
                 gtk_text_buffer_get_end_iter(Buffer,&fin);
                 Text_crypt = gtk_text_buffer_get_text(Buffer,&debut,&fin,FALSE);
-                DOUBLEC *ch;
-				strcpy(ch->texte,Text_crypt);
-				char* cle="abcdefghijklmnopqrstuwxyz";
-				strcpy(ch->cle,cle);
-                MenuResultatDecryptagePartiel(Fenetre, ch);
+                DOUBLEC *Donnees;
+                Donnees = (DOUBLEC *)malloc(sizeof(DOUBLEC));
+				strcpy(Donnees->texte,Text_crypt);
+				cle="abcdefghijklmnopqrstuwxyz";
+				strcpy(Donnees->cle,cle);
+                MenuResultatDecryptagePartiel(Fenetre, Donnees);
                 break;
             case GTK_RESPONSE_CANCEL:
             case GTK_RESPONSE_NONE:
