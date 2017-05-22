@@ -290,6 +290,7 @@ void RecupererChemin(GtkWidget *bouton, GtkWidget *selection)
         MenuResultatDecryptagePartiel(Fenetre, Donnees);
         break;
     case 4: 
+            cle = '\0';
         DecryptageVigenere(Text_crypt,contenu,cle);
         MenuResultatDecryptageVigenere(Fenetre,Text_crypt,Text_crypt);
         break;
@@ -760,7 +761,7 @@ void BoiteDialogueVigenereTexte(GtkWidget *Fenetre, DOUBLEC *Donnees)
 void BoiteDialogueVigenereCle(GtkWidget *Fenetre)
 {
 
-	    GtkWidget *Boite,*Entrer,*Entrer_cle,*Label_cle;
+	    GtkWidget *Boite,*Entrer_cle,*Label_cle;
 	    gchar *cle,*indication_cle;
 	    GtkTextBuffer* Buffer;
 	    GtkTextIter debut;
