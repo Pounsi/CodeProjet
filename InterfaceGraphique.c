@@ -256,7 +256,7 @@ void RecupererChemin(GtkWidget *bouton, GtkWidget *selection)
      //ce chemin doit etre utiliser pour remplir une chaine/tableau ensuite on supprime la "dialog"
     LireFichier(contenu,TAILLEFICHIER,chemin);
     
-        DOUBLEC *ch;
+        DOUBLEC *Donnees;
         FILE* fichier =NULL;
 
    switch (choix)
@@ -284,10 +284,10 @@ void RecupererChemin(GtkWidget *bouton, GtkWidget *selection)
         
         break;
     case 3:
-        strcpy(ch->texte,contenu);
+        strcpy(Donnees->texte,contenu);
         char* cle="abcdefghijklmnopqrstuwxyz";
-        strcpy(ch->cle,cle);
-        MenuResultatDecryptagePartiel(Fenetre, ch);
+        strcpy(Donnees->cle,cle);
+        MenuResultatDecryptagePartiel(Fenetre, Donnees);
         break;
     case 4: 
         DecryptageVigenere(Text_crypt,contenu,cle);
@@ -295,7 +295,7 @@ void RecupererChemin(GtkWidget *bouton, GtkWidget *selection)
         break;
     case 5:
         a=AnalyseFrequentielle2(contenu);
-        MenuResultatAnalyse(Fenetre,a);// mettre a 
+        MenuResultatAnalyse(Fenetre,a);
         break;
 
 }
@@ -696,6 +696,7 @@ void BoiteDialogueSubstitution(GtkWidget *Fenetre)
 
 void BoiteDialogueVigenereTexte(GtkWidget *Fenetre, DOUBLEC *Donnees)
 {
+        remove("cle.txt");
 
         GtkWidget *Boite,*Entrer_cle,*Label_cle;
         gchar *Text_clair,*indication_cle,*Text_crypt;
@@ -941,9 +942,7 @@ void BoiteDialogueDecryptageVigenere(GtkWidget *Fenetre)
                 Text_crypt = gtk_text_buffer_get_text(Buffer,&debut,&fin,FALSE);
                 DecryptageVigenere(Text_clair,Text_crypt,cle);
                 MenuResultatDecryptageVigenere(Fenetre, Text_clair , Text_clair);//il faut mettre la cle
-                 //on rajoutera plus tard la cle de sub
-                // ici on doit pouvoir sauvegarder le texte dans la variable Nom
-                //g_free(Text_clair);//si plus besoin
+                 
                 break;
             case GTK_RESPONSE_CANCEL:
             case GTK_RESPONSE_NONE:
@@ -1188,7 +1187,7 @@ void MenuDecryptage(GtkWidget *Fenetre)
     gtk_box_pack_start(GTK_BOX(Box), Bouton1, TRUE, TRUE, 0);
     
     Bouton2 = gtk_button_new_with_label("Vigenere");
-    g_signal_connect(G_OBJECT(Bouton2), "clicked", G_CALLBACK(BoiteDialogueDecryptageVigenere), NULL);
+    g_signal_connect(G_OBJECT(Bouton2), "clicked", G_CALLBACK(MenuDecryptageVigenere), NULL);
     gtk_box_pack_start(GTK_BOX(Box), Bouton2, TRUE, TRUE, 0);
     
     gtk_widget_show_all(Fenetre);
