@@ -30,8 +30,8 @@ typedef struct phoneme{
 typedef struct analyse{ //fréquence
 	int nb; 
 	float occ[TAILLECLE][ALPHABET];
-	PHONEME di[25]; 
-	PHONEME tr[25];
+	PHONEME di[TAILLETEXTE-1]; 
+	PHONEME tr[TAILLETEXTE-2];
 	int nbdi;
 	int nbtr;
 	gchar pgor[3];
