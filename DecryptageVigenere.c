@@ -22,7 +22,7 @@ int Kasiski(gchar* pgor, gchar* texteCrypte){
 	
 	for (i = 0; i < strlen(texteCrypte); i++)
 	{
-		for (j = 0; j < taillepgor; j++)
+		for (j = 0; j < taillepgor+1; j++)
 		{
 			if(pgor[j] == texteCrypte[i]){
 				if(j == taillepgor-1){
