@@ -406,7 +406,7 @@ void MenuResultatVigenere(GtkWidget *Fenetre, gchar* Text_crypt, gchar* cle)
     gtk_box_pack_start(GTK_BOX(Box), Box_2, TRUE, TRUE, 0);
 
     Bouton3 = gtk_button_new_with_label("R");
-    g_signal_connect(G_OBJECT(Bouton3), "clicked", G_CALLBACK(MenuCryptageVigenere), NULL);
+    g_signal_connect(G_OBJECT(Bouton3), "clicked", G_CALLBACK(MenuCryptage), NULL);
     gtk_box_pack_start(GTK_BOX(Box_2), Bouton3, FALSE, TRUE, 0);
     
     gtk_box_pack_start(GTK_BOX(Box_2), Label, TRUE, TRUE, 0);
