@@ -202,5 +202,29 @@ strcpy(a.di[i].nom,a.di[min].nom);
 strcpy(a.di[min].nom, tmp_di);
 				}
 }
+
+/////////////////////////////////// trigrammes tri
+for (i =0; i <a.nbtr; i++)
+{
+	min = i; 
+	for (j = i+1; j < a.nbtr ; j++) 
+	if(a.tr[j].frequence > a.tr[min].frequence)
+	min = j; 
+	
+	
+	if (min != i){
+		//echanger occurences digrammes(l'entier de frequence)
+tmp = a.tr[i].frequence;
+a.tr[i].frequence = a.tr[min].frequence;
+a.tr[min].frequence = tmp;
+
+//echanger nom digrammes(le char*)
+strcpy(tmp_di,a.tr[i].nom);
+strcpy(a.tr[i].nom,a.tr[min].nom);
+strcpy(a.tr[min].nom, tmp_di);
+				}
+}
+
+
 return a;
 }
