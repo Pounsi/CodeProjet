@@ -465,6 +465,7 @@ void MenuResultatAnalyse(GtkWidget *Fenetre,ANALYSE analyse)
     gtk_box_pack_start(GTK_BOX(Box_2), Label, TRUE, TRUE, 0);
 
     ////////////Affichage du resultat//////////////
+    analyse = tri(analyse);
     gchar save[3000];
     save[0]= '\0';
     gchar ch[1000];

@@ -176,3 +176,31 @@ void RemplacerCleSubstitution(DOUBLEC *Donnees,gchar C1,gchar C2)
 	}
 	
 }
+
+ANALYSE tri(ANALYSE a)
+{ 
+int i, min, j , tmp;
+char* tmp_di;
+
+for (i =0; i <a.nbdi; i++)
+{
+	min = i; 
+	for (j = i+1; j < a.nbdi ; j++) 
+	if(a.di[j].frequence > a.di[min].frequence)
+	min = j; 
+	
+	
+	if (min != i){
+		//echanger occurences digrammes(l'entier de frequence)
+tmp = a.di[i].frequence;
+a.di[i].frequence = a.di[min].frequence;
+a.di[min].frequence = tmp;
+
+//echanger nom digrammes(le char*)
+strcpy(tmp_di,a.di[i].nom);
+strcpy(a.di[i].nom,a.di[min].nom);
+strcpy(a.di[min].nom, tmp_di);
+				}
+}
+return a;
+}

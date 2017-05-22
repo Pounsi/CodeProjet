@@ -53,4 +53,4 @@ void LireFichier(gchar TexteClaire[] ,int TailleMax ,const gchar* chemin);
 void ConvertisseurTableau(gchar T[],int *TailleTexte,gchar* Texte);
 RESSOURCESLANGUE ChargerRessources();
 void RemplacerCleSubstitution(DOUBLEC *Donnees,gchar C1,gchar C2);
-	
+ANALYSE tri(ANALYSE a);	
