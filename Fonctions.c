@@ -186,7 +186,7 @@ void RemplacerCleSubstitution(DOUBLEC *Donnees,gchar C1,gchar C2)
 ANALYSE tri(ANALYSE a)
 { 
 int i, min, j , tmp;
-char* tmp_di;
+char tmp_di[3];
 
 for (i =0; i <a.nbdi; i++)
 {
