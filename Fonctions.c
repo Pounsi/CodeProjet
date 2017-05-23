@@ -48,7 +48,6 @@ void ConvertisseurTableau(gchar T[],int *TailleTexte,gchar* Texte){
 	RetirerCarSpecMajuscule(Texte,Tab);
 
 	
-	g_print("%s\n",Tab);
 	int taille = strlen(Tab);
 	*TailleTexte = taille;
 	
@@ -98,8 +97,7 @@ void ConvertisseurTableau(gchar T[],int *TailleTexte,gchar* Texte){
 
 void LireFichier(gchar TexteClaire[] ,int TailleMax ,const gchar* chemin)
 {	//TailleMax=1000; //La cest a la baise mais vos mieux faire une variable dynamique
-	
-	printf("\n%s\n",chemin);
+
 	
 	gchar str[TailleMax];
 	FILE *charger = fopen(chemin,"r");
@@ -245,7 +243,6 @@ void RetourALaLigne(gchar output[],gchar input[])
 	ligne=0;
 	while(input[i-j]!='\0' && ligne<7)
 	{
-		printf("%d\n",i );
 		if (i%40==0 && i!=0 && output[i]!='\n')
 		{
 			

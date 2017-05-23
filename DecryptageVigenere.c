@@ -14,7 +14,7 @@ int pgcd(int a, int b)
 
 int Kasiski(ANALYSE a, gchar* texteCrypte){
 
-	int i,j,x,taillepgor,tmp;
+	int i,j,x,taillepgor;
 	int kas[TR_A_TESTER];
 	int nbrpgor;
 	int distance[10];
@@ -156,8 +156,7 @@ void Decrypte(char resultat[],char* texteCrypte,gchar cle[], int kasiski)
 void DecryptageVigenere(gchar* TexteDecrypte, gchar* TexteCrypte, gchar savecle[]){
 	RESSOURCESLANGUE don;
 	ANALYSE req;
-	int i,kasiski,taille;
-	int cle[kasiski];
+	int kasiski,taille;
 	gchar TexteC[strlen(TexteCrypte)];
 	
 	ConvertisseurTableau(TexteC,&taille,TexteCrypte);
@@ -171,6 +170,8 @@ void DecryptageVigenere(gchar* TexteDecrypte, gchar* TexteCrypte, gchar savecle[
 	kasiski = Kasiski(req, TexteC); //recupere le PGOR (ou tri) et le texte clair, retourne taille cle	
 	
 	req = AnalyseFreq(req,TexteC,kasiski); //remplie la structure avec les fréquences du texte
+
+	int cle[kasiski];
 
 	indiceMutuelle(cle, kasiski, req, don, savecle);  
 	

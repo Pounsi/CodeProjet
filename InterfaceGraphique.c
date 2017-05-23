@@ -14,7 +14,7 @@ void MenuResultatDecryptagePartiel(GtkWidget *Fenetre,DOUBLEC *Donnees)
     DecryptageSubstitution(Resultat,Donnees->texte,Donnees->cle);
 
 
-    Box = gtk_vbox_new(TRUE, 0);
+    Box = gtk_vbox_new(FALSE, 0);
     gtk_container_add(GTK_CONTAINER(Fenetre), Box);
 
     Label=gtk_label_new(NULL);
@@ -115,7 +115,6 @@ void BoiteDialogueChangerLaCleSubstitution(GtkWidget *Fenetre,DOUBLEC *Donnees)
                     gtk_text_buffer_get_start_iter(Buffer,&debut);
                     gtk_text_buffer_get_end_iter(Buffer,&fin);
                     C2 = gtk_text_buffer_get_text(Buffer,&debut,&fin,FALSE);
-                    g_print("%c %c\n",C1[0],C2[0]);
 
                     RemplacerCleSubstitution(Donnees,C1[0],C2[0]);
                     MenuResultatDecryptagePartiel(Fenetre,Donnees);
@@ -155,7 +154,7 @@ void ChoisirLangue()
     ViderContenaire(GTK_CONTAINER(Fenetre));
 
     Label_text=gtk_label_new(NULL);
-    Boite = gtk_vbox_new(TRUE, 0);
+    Boite = gtk_vbox_new(FALSE, 0);
     gtk_container_add(GTK_CONTAINER(Fenetre), Boite);
 
     msg= g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Quelle est la langue ? </span>\n",
@@ -285,7 +284,7 @@ void RecupererChemin(GtkWidget *bouton, GtkWidget *selection)
         break;
     case 3:
         strcpy(Donnees->texte,contenu);
-        char* cle="abcdefghijklmnopqrstuwxyz";
+        char* cle="abcdefghijklmnopqrstuvwxyz";
         strcpy(Donnees->cle,cle);
         MenuResultatDecryptagePartiel(Fenetre, Donnees);
         break;
@@ -337,8 +336,10 @@ void MenuResultatSubstitution(GtkWidget *Fenetre, DOUBLEC *Donnees)
 
     GtkWidget *Box, *Box_2,*Label, *Label_msg,*Label_cle,*Bouton1,*Bouton2,*Bouton3;
     gchar* Text;
+    gchar text_affichage[TAILLETEXTE]; 
+    RetourALaLigne(text_affichage,Donnees->texte);
     
-    Box = gtk_vbox_new(TRUE, 0);
+    Box = gtk_vbox_new(FALSE, 0);
     gtk_container_add(GTK_CONTAINER(Fenetre), Box);
     Box_2= gtk_hbox_new(FALSE, 0);
     Label=gtk_label_new(NULL);
@@ -361,7 +362,7 @@ void MenuResultatSubstitution(GtkWidget *Fenetre, DOUBLEC *Donnees)
 
     ////////////Affichage du resultat//////////////
 
-    gtk_label_set_markup(GTK_LABEL(Label_msg), Donnees->texte);
+    gtk_label_set_markup(GTK_LABEL(Label_msg), text_affichage);
     gtk_label_set_justify(GTK_LABEL(Label_msg), GTK_JUSTIFY_CENTER);
     gtk_box_pack_start(GTK_BOX(Box), Label_msg, TRUE, TRUE, 0);
     
@@ -391,7 +392,7 @@ void MenuResultatVigenere(GtkWidget *Fenetre, gchar* Text_crypt, gchar* cle)
     gchar* Text;
     gchar text_affichage[TAILLETEXTE]; 
     RetourALaLigne(text_affichage,Text_crypt);
-    Box = gtk_vbox_new(TRUE, 0);
+    Box = gtk_vbox_new(FALSE, 0);
     gtk_container_add(GTK_CONTAINER(Fenetre), Box);
     Box_2= gtk_hbox_new(FALSE, 0);
     Label=gtk_label_new(NULL);
@@ -445,7 +446,7 @@ void MenuResultatAnalyse(GtkWidget *Fenetre,ANALYSE analyse)
     GtkWidget *Box, *Box_2,*Label, *Label_msg,*Label_cle,*Label_cle2,*Bouton2,*Bouton3;
     gchar* Text;
     
-    Box = gtk_vbox_new(TRUE, 0);
+    Box = gtk_vbox_new(FALSE, 0);
     gtk_container_add(GTK_CONTAINER(Fenetre), Box);
     Box_2= gtk_hbox_new(FALSE, 0);
     Label=gtk_label_new(NULL);
@@ -469,9 +470,9 @@ void MenuResultatAnalyse(GtkWidget *Fenetre,ANALYSE analyse)
 
     ////////////Affichage du resultat//////////////
     analyse = tri(analyse);
-    gchar save[3000];
+    gchar save[TAILLETEXTE];
     save[0]= '\0';
-    gchar ch[1000];
+    gchar ch[TAILLETEXTE];
     gchar* ch3;
     ch[0]= '\0';
     gchar ch1[1000];
@@ -505,18 +506,28 @@ void MenuResultatAnalyse(GtkWidget *Fenetre,ANALYSE analyse)
     ch[0]= '\0';
     ch3 = "les digrammes et trigrammes qui se repettent dans votre texte sont : \n ";
     strcat(ch,ch3);
+    int f = analyse.nbdi;
+    if (f > 91) f = 91;
     for (i = 0; i < analyse.nbdi ; i++)
     {
-        if (i%13 == 0)
+        if (i%10 == 0)
             strcat(ch,y);
         strcat(ch,analyse.di[i].nom);
+        j =  analyse.di[i].frequence;
+        sprintf(ch1," : %d",j);
+        strcat(ch,ch1);
         strcat(ch,z);
     }
-    for (i = 0; i < analyse.nbtr ; i++)
+     f = analyse.nbtr;
+    if (f > 91) f = 91;
+    for (i = 0; i < f ; i++)
     {
         if (i%13 == 0)
             strcat(ch,y);
         strcat(ch,analyse.tr[i].nom);
+        j =  analyse.tr[i].frequence;
+        sprintf(ch1," : %d",j);
+        strcat(ch,ch1);
         strcat(ch,z);
     }
     strcat(save,ch);
@@ -542,7 +553,7 @@ void MenuResultatDecryptageSubstitution(GtkWidget *Fenetre, DOUBLEC *Donnees)//a
     gchar *Text;
 
     
-    Box = gtk_vbox_new(TRUE, 0);
+    Box = gtk_vbox_new(FALSE, 0);
     gtk_container_add(GTK_CONTAINER(Fenetre), Box);
     Box_2= gtk_hbox_new(FALSE, 0);
     Label=gtk_label_new(NULL);
@@ -606,7 +617,7 @@ void MenuResultatDecryptageVigenere(GtkWidget *Fenetre, gchar* Text_crypt , gcha
     GtkWidget *Box, *Box_2,*Label,*Label_msg,*Label_cle,*Bouton1,*Bouton2,*Bouton3;
     gchar* Text;
     
-    Box = gtk_vbox_new(TRUE, 0);
+    Box = gtk_vbox_new(FALSE, 0);
     gtk_container_add(GTK_CONTAINER(Fenetre), Box);
     Box_2= gtk_hbox_new(FALSE, 0);
     Label=gtk_label_new(NULL);
@@ -668,7 +679,6 @@ void BoiteDialogueSubstitution(GtkWidget *Fenetre)
     gchar *Text_clair;
     DOUBLEC *Donnees;
     Donnees=(DOUBLEC *)malloc(sizeof(DOUBLEC));
-    gchar Text_crypt[TAILLETEXTE];
     GtkTextBuffer* Buffer;
     GtkTextIter debut;
     GtkTextIter fin;
@@ -848,6 +858,7 @@ void BoiteDialogueAnalyse(GtkWidget *Fenetre)
                 gtk_text_buffer_get_end_iter(Buffer,&fin);
                 Text = gtk_text_buffer_get_text(Buffer,&debut,&fin,FALSE);
                 a = AnalyseFrequentielle(Text);//changer pour travailler avec analyse
+                printf("\n fin de lanalyse \n");
                 MenuResultatAnalyse(Fenetre,a);
                 break;
             case GTK_RESPONSE_CANCEL:
@@ -968,7 +979,7 @@ void MenuDecryptageVigenere(GtkWidget *Fenetre)
     gchar* Text;
     choix=4;
     
-    Box = gtk_vbox_new(TRUE, 0);
+    Box = gtk_vbox_new(FALSE, 0);
     gtk_container_add(GTK_CONTAINER(Fenetre), Box);
     Box_2 = gtk_hbox_new(FALSE, 0);
     
@@ -1006,7 +1017,7 @@ void MenuDecryptageSubstitution(GtkWidget *Fenetre)
     gchar* Text;
     choix=3;
     
-    Box = gtk_vbox_new(TRUE, 0);
+    Box = gtk_vbox_new(FALSE, 0);
     gtk_container_add(GTK_CONTAINER(Fenetre), Box);
     Box_2 = gtk_hbox_new(FALSE, 0);
     
@@ -1044,7 +1055,7 @@ void MenuCryptageVigenere(GtkWidget *Fenetre,DOUBLEC *Donnees)
     gchar *Text;
     choix=2;
     g_print("dans cryptage la cle est %s\n",Donnees->cle);
-    Box = gtk_vbox_new(TRUE, 0);
+    Box = gtk_vbox_new(FALSE, 0);
     gtk_container_add(GTK_CONTAINER(Fenetre), Box);
     Box_2 = gtk_hbox_new(FALSE, 0);
     ///////////////mettre la cle dans un fichier///////////
@@ -1092,7 +1103,7 @@ void MenuCryptageSubstitution(GtkWidget *Fenetre)
     gchar* Text;
     choix=1;
     
-    Box = gtk_vbox_new(TRUE, 0);
+    Box = gtk_vbox_new(FALSE, 0);
     gtk_container_add(GTK_CONTAINER(Fenetre), Box);
     Box_2= gtk_hbox_new(FALSE, 0);
     
@@ -1130,7 +1141,7 @@ void MenuAnalyseFrequentielle(GtkWidget *Fenetre)
 	GtkWidget *Box,*Bouton1, *Bouton2, *Bouton3,*Box_2, *Label;
     gchar* Text;
     choix=5;
-    Box = gtk_vbox_new(TRUE, 0);
+    Box = gtk_vbox_new(FALSE, 0);
     gtk_container_add(GTK_CONTAINER(Fenetre), Box);
     Box_2 = gtk_hbox_new(FALSE, 0);
    
@@ -1169,7 +1180,7 @@ void MenuDecryptage(GtkWidget *Fenetre)
 	GtkWidget *Box,*Bouton1, *Bouton2, *Bouton3,*Box_2, *Label;
     gchar* Text;
     
-    Box = gtk_vbox_new(TRUE, 0);
+    Box = gtk_vbox_new(FALSE, 0);
     gtk_container_add(GTK_CONTAINER(Fenetre), Box);
     Box_2=gtk_hbox_new(FALSE, 0);
     
@@ -1207,7 +1218,7 @@ void MenuCryptage(GtkWidget *Fenetre)
 	GtkWidget *Box,*Bouton1, *Bouton2, *Bouton3,*Box_2, *Label;
     gchar* Text;
     
-    Box = gtk_vbox_new(TRUE, 0);
+    Box = gtk_vbox_new(FALSE, 0);
     gtk_container_add(GTK_CONTAINER(Fenetre), Box);
     Box_2=gtk_hbox_new(FALSE, 0);
 
@@ -1245,7 +1256,7 @@ void MenuPrincipal(GtkWidget *Fenetre)
 	GtkWidget *Box, *Label,*Bouton1, *Bouton2, *Bouton3;
     gchar* Text;
     
-    Box = gtk_vbox_new(TRUE, 0);
+    Box = gtk_vbox_new(FALSE, 0);
     gtk_container_add(GTK_CONTAINER(Fenetre), Box);
 
     Label=gtk_label_new(NULL);

@@ -29,14 +29,12 @@ int *tirage(int nombre, int min, int max)
 void GenereCle(gchar T[]){
 	int i,*tab;
     srand(time(NULL));
-	tab = tirage(25, 0, 25); //25 : nbr delement a tiré, intervalle [0;25]
+	tab = tirage(26, 0, 25); //25 : nbr delement a tiré, intervalle [0;25]
 	
 	for(i = 0; i < ALPHABET; i++){
 		T[i]=tab[i];
-		printf("%d ",tab[i]);
 		
 	}
-	printf("\n");
 	free(tab);
    
 }
@@ -69,4 +67,5 @@ void CryptageSubstitution(gchar TexteCrypte[], gchar* TexteClair,gchar cle[])
 		i++;
 	}
 	cle[i]='\0';
+
 }
