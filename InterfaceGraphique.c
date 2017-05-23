@@ -262,8 +262,8 @@ void RecupererChemin(GtkWidget *bouton, GtkWidget *selection)
    switch (choix)
     {
     case 1:
-        CryptageSubstitution(Text_crypt,contenu);
-        MenuResultatSubstitution(Fenetre,Text_crypt);
+        CryptageSubstitution(Donnees->texte,contenu,Donnees->cle);
+        MenuResultatSubstitution(Fenetre,Donnees);
         break;
     case 2:
     
@@ -330,7 +330,7 @@ void ViderContenaire(GtkContainer * container)
     g_list_free(children);
 }
 
-void MenuResultatSubstitution(GtkWidget *Fenetre, gchar* Text_crypt)
+void MenuResultatSubstitution(GtkWidget *Fenetre, DOUBLEC *Donnees)
 {
     Fenetre = gtk_widget_get_toplevel (Fenetre);
     ViderContenaire(GTK_CONTAINER(Fenetre));
@@ -361,7 +361,7 @@ void MenuResultatSubstitution(GtkWidget *Fenetre, gchar* Text_crypt)
 
     ////////////Affichage du resultat//////////////
 
-    gtk_label_set_markup(GTK_LABEL(Label_msg), Text_crypt);
+    gtk_label_set_markup(GTK_LABEL(Label_msg), Donnees->texte);
     gtk_label_set_justify(GTK_LABEL(Label_msg), GTK_JUSTIFY_CENTER);
     gtk_box_pack_start(GTK_BOX(Box), Label_msg, TRUE, TRUE, 0);
     
@@ -371,7 +371,7 @@ void MenuResultatSubstitution(GtkWidget *Fenetre, gchar* Text_crypt)
 
         ////////////Affichage de la cle//////////////
 
-    gtk_label_set_markup(GTK_LABEL(Label_cle), Text_crypt);
+    gtk_label_set_markup(GTK_LABEL(Label_cle),Donnees->cle);
     gtk_label_set_justify(GTK_LABEL(Label_cle), GTK_JUSTIFY_CENTER);
     gtk_box_pack_start(GTK_BOX(Box), Label_cle, TRUE, TRUE, 0);
     
@@ -664,6 +664,8 @@ void BoiteDialogueSubstitution(GtkWidget *Fenetre)
 {
     GtkWidget *Boite,*Entrer;
     gchar *Text_clair;
+    DOUBLEC *Donnees;
+    Donnees=(DOUBLEC *)malloc(sizeof(DOUBLEC));
     gchar Text_crypt[TAILLETEXTE];
     GtkTextBuffer* Buffer;
     GtkTextIter debut;
@@ -684,8 +686,8 @@ void BoiteDialogueSubstitution(GtkWidget *Fenetre)
                 gtk_text_buffer_get_start_iter(Buffer,&debut);
                 gtk_text_buffer_get_end_iter(Buffer,&fin);
                 Text_clair = gtk_text_buffer_get_text(Buffer,&debut,&fin,FALSE);
-                CryptageSubstitution(Text_crypt,Text_clair);
-                MenuResultatSubstitution(Fenetre, Text_crypt);
+                CryptageSubstitution(Donnees->texte,Text_clair,Donnees->cle);
+                MenuResultatSubstitution(Fenetre, Donnees);
                 break;
             case GTK_RESPONSE_CANCEL:
             case GTK_RESPONSE_NONE:

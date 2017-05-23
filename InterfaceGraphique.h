@@ -20,7 +20,7 @@ void RecupererChemin(GtkWidget *bouton, GtkWidget *selection);
 void ChoisirFichier();
 //interface
 void ViderContenaire(GtkContainer * container);
-void MenuResultatSubstitution(GtkWidget *Fenetre, gchar* Text_crypt);
+void MenuResultatSubstitution(GtkWidget *Fenetre, DOUBLEC *Donnees);
 void MenuResultatVigenere(GtkWidget *Fenetre, gchar* Text_crypt, gchar* cle);
 void MenuResultatAnalyse(GtkWidget *Fenetre, ANALYSE analyse);
 void MenuResultatDecryptageSubstitution(GtkWidget *Fenetre, DOUBLEC* Donnees);

@@ -5,7 +5,7 @@
 
 #endif
 
-void CryptageSubstitution(gchar* TexteCrypte, gchar* TexteClair);
+void CryptageSubstitution(gchar TexteCrypte[], gchar* TexteClair, gchar cle[]);
 void GenereCle(gchar T[]);
 int *tirage(int nombre, int min, int max);
 int Ascii0_25(int nbr);

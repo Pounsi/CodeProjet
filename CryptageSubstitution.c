@@ -41,7 +41,7 @@ void GenereCle(gchar T[]){
    
 }
 
-void CryptageSubstitution(gchar* TexteCrypte, gchar* TexteClair)
+void CryptageSubstitution(gchar TexteCrypte[], gchar* TexteClair,gchar cle[])
 { 
 	int taille, i, x;
 	
@@ -62,4 +62,11 @@ void CryptageSubstitution(gchar* TexteCrypte, gchar* TexteClair)
 		}
 	}
 	TexteCrypte[i]='\0';
+	i=0;
+	while(i<26)
+	{
+		cle[i]=T[i]+97;
+		i++;
+	}
+	cle[i]='\0';
 }
