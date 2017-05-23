@@ -44,10 +44,10 @@ void ConvertisseurTableau(gchar T[],int *TailleTexte,gchar* Texte){
 	
 	int i,j=0,doute = 0;
 	gchar Tab[strlen(Texte)];
-	gchar Tabtmp[strlen(Texte)];
-	RetirerCarSpecMajuscule(Texte,Tabtmp);
+	
+	RetirerCarSpecMajuscule(Texte,Tab);
 
-	RetirerToutCarSpec(Tabtmp,Tab);
+	
 	g_print("%s\n",Tab);
 	int taille = strlen(Tab);
 	*TailleTexte = taille;
@@ -89,7 +89,9 @@ void ConvertisseurTableau(gchar T[],int *TailleTexte,gchar* Texte){
 			j++;
 		}
 	}
+	RetirerToutCarSpec(T,T);
 	T[j] = '\0';
+	
 	 
 }
 
