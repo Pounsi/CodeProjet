@@ -15,6 +15,7 @@
 #define TAILLETEXTE 20000
 #define TAILLECLE 26
 #define ALPHABET 26
+#define TR_A_TESTER 5
 #define hauteur 500
 #define largeur 500
 
@@ -34,7 +35,6 @@ typedef struct analyse{ //fréquence
 	PHONEME tr[TAILLETEXTE-2];
 	int nbdi;
 	int nbtr;
-	gchar pgor[3];
 }ANALYSE;
 typedef struct ressourceslangue{ //probabilité
 	float occ[ALPHABET];
