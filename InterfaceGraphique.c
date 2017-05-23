@@ -1054,7 +1054,26 @@ void MenuCryptageVigenere(GtkWidget *Fenetre,DOUBLEC *Donnees)
     GtkWidget *Box,*Bouton1, *Bouton2, *Bouton3,*Box_2, *Label;
     gchar *Text;
     choix=2;
-    g_print("dans cryptage la cle est %s\n",Donnees->cle);
+    ////
+    int taille1,taille2;
+    taille1=strlen(Donnees->cle);
+    gchar tmp[TAILLETEXTE];
+    strcpy(tmp,Donnees->cle);
+   ConvertisseurTableau(Donnees->cle,&taille2,tmp);
+    taille2=strlen(Donnees->cle);
+     if (taille1 != taille2)
+		{    GtkWidget *pAbout;
+ 
+    pAbout = gtk_message_dialog_new (GTK_WINDOW(Fenetre),
+        GTK_DIALOG_MODAL,
+        GTK_MESSAGE_INFO,
+        GTK_BUTTONS_OK,
+        "votre cle %s\n n'est pas utilisable",
+        tmp);
+    gtk_dialog_run(GTK_DIALOG(pAbout));
+    gtk_widget_destroy(pAbout);
+		MenuCryptage(Fenetre);
+		}
     Box = gtk_vbox_new(FALSE, 0);
     gtk_container_add(GTK_CONTAINER(Fenetre), Box);
     Box_2 = gtk_hbox_new(FALSE, 0);
