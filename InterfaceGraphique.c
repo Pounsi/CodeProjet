@@ -295,7 +295,7 @@ void RecupererChemin(GtkWidget *bouton, GtkWidget *selection)
         MenuResultatDecryptageVigenere(Fenetre,Text_crypt,Text_crypt);
         break;
     case 5:
-        a=AnalyseFrequentielle2(contenu);
+        a=AnalyseFrequentielle(contenu);
         MenuResultatAnalyse(Fenetre,a);
         break;
 
@@ -847,7 +847,7 @@ void BoiteDialogueAnalyse(GtkWidget *Fenetre)
                 gtk_text_buffer_get_start_iter(Buffer,&debut);
                 gtk_text_buffer_get_end_iter(Buffer,&fin);
                 Text = gtk_text_buffer_get_text(Buffer,&debut,&fin,FALSE);
-                a = AnalyseFrequentielle2(Text);//changer pour travailler avec analyse
+                a = AnalyseFrequentielle(Text);//changer pour travailler avec analyse
                 MenuResultatAnalyse(Fenetre,a);
                 break;
             case GTK_RESPONSE_CANCEL:

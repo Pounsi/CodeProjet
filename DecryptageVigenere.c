@@ -12,48 +12,78 @@ int pgcd(int a, int b)
   return a;
 }
 
-int Kasiski(gchar* pgor, gchar* texteCrypte){
+int Kasiski(ANALYSE a, gchar* texteCrypte){
 
-	int i,j,kas,taillepgor;
+	int i,j,x,taillepgor,tmp;
+	int kas[TR_A_TESTER];
+	int nbrpgor;
+	int distance[10];
 	
-	taillepgor = strlen(pgor);
-	int nbrpgor = 0;
-	int distance[TAILLECLE];
-	
-	for (i = 0; i < strlen(texteCrypte); i++)
-	{
-		for (j = 0; j < taillepgor+1; j++)
+	for(x=0;x<TR_A_TESTER;x++){//nbr de pgor
+		printf("\n tri[%d] = %s freq = %d",x,a.tr[x].nom,a.tr[x].frequence);
+		
+		taillepgor = strlen(a.tr[x].nom);
+		nbrpgor = 0;
+		
+		for (i = 0; i < strlen(texteCrypte); i++)
 		{
-			if(pgor[j] == texteCrypte[i]){
-				if(j == taillepgor-1){
-					distance[nbrpgor] = i-(taillepgor-1);
-					nbrpgor++;
+			for (j = 0; j < taillepgor+1; j++)
+			{
+				if(a.tr[x].nom[j] == texteCrypte[i]){
+					if(j == taillepgor-1){
+						distance[nbrpgor] = (i-(taillepgor-1))+1;
+						nbrpgor++;
+					}
+					i++;
 				}
-				i++;
+				else if(texteCrypte[i] == a.tr[x].nom[0]){
+		
+					j=0;
+					i++;
+				}
+				else break;
 			}
-			else if(texteCrypte[i] == pgor[0]){
-	
-				j=0;
-				i++;
-			}
-			else break;
+			
 		}
 		
-	}
-	kas = distance[0];
-	j=0;
-	for (i = 0; i < nbrpgor; i++)
-	{
-		kas = pgcd(kas,distance[i]);
-		j++;
-	}
-	for (i = 0; i < nbrpgor; i++)
-	{
-				printf("\ndistance[%d] = %d",i,distance[i]);
+		
+		kas[x] = distance[0];
+		for (i = 0; i < nbrpgor; i++)
+		{
+			kas[x] = pgcd(kas[x],distance[i]);
+		}
+		
+		for (i = 0; i < nbrpgor; i++)
+		{
+			printf("\ndistance[%d] = %d",i,distance[i]);
+		}
 	}
 	
-	printf("\nkasiski = %d\n",kas);
-	return kas;
+
+	int kasiski=0;
+	for (i = 0; i < TR_A_TESTER; i++)
+	{
+		if(kas[i] != 1){
+			kasiski = kas[i];
+			break;
+		}
+	}
+	
+	for (i = 0; i < TR_A_TESTER; i++)
+	{
+		if(kas[i]>kasiski)
+			kasiski = kas[i];
+	}
+		
+	if(!kasiski) return 1;
+	
+	for (i = 0; i < TR_A_TESTER; i++)
+	{
+			printf("\nkas[%d] = %d",i,kas[i]);
+	}
+	
+	printf("\nkasiski = %d\n",kasiski);
+	return kasiski;
 }
 	
 void indiceMutuelle(int cle[], int kasiski, ANALYSE freq, RESSOURCESLANGUE prob, gchar safecle[])
@@ -126,22 +156,24 @@ void Decrypte(char resultat[],char* texteCrypte,gchar cle[], int kasiski)
 void DecryptageVigenere(gchar* TexteDecrypte, gchar* TexteCrypte, gchar savecle[]){
 	RESSOURCESLANGUE don;
 	ANALYSE req;
-	int kasiski,taille;
-	int cle[TAILLECLE];
-
-	gchar* pgor = "rap"; //il faut la fonction qui determine la PGOR
+	int i,kasiski,taille;
+	int cle[kasiski];
 	gchar TexteC[strlen(TexteCrypte)];
 	
 	ConvertisseurTableau(TexteC,&taille,TexteCrypte);
 	RetirerToutCarSpec(TexteC,TexteC);
 	
 	don = ChargerRessources();  // remplie la structure avec les proba de la langue choisi.
-	kasiski = Kasiski(pgor, TexteC); //recupere le PGOR (ou tri) et le texte clair, retourne taille cle	
 	
-	req = AnalyseFreq(TexteC,kasiski); //remplie la structure avec les fréquences du texte
+	req = AnalyseFrequentielle(TexteC); //remplie la structure avec les fréquences du texte
+	req = tri(req);
+		
+	kasiski = Kasiski(req, TexteC); //recupere le PGOR (ou tri) et le texte clair, retourne taille cle	
+	
+	req = AnalyseFreq(req,TexteC,kasiski); //remplie la structure avec les fréquences du texte
 
 	indiceMutuelle(cle, kasiski, req, don, savecle);  
 	
 	Decrypte(TexteDecrypte, TexteC, savecle, kasiski);
-		
+	
 }

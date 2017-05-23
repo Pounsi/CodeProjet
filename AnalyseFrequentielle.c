@@ -1,11 +1,9 @@
 #include "AnalyseFrequentielle.h"
 
 
-ANALYSE AnalyseFreq(gchar* T,int kasiski){
+ANALYSE AnalyseFreq(ANALYSE a,gchar* T,int kasiski){
 	
 	gchar alphabet[] = "abcdefghijklmnopqrstuvwxyz";
-	ANALYSE a;
-	a.nb = strlen(T);
 	
 	int i,j,k;
 	float compteur;
@@ -27,30 +25,6 @@ ANALYSE AnalyseFreq(gchar* T,int kasiski){
 }
 
 ANALYSE AnalyseFrequentielle(gchar* Texte){
-	gchar T[TAILLETEXTE];
-	gchar alphabet[] = "abcdefghijklmnopqrstuvwxyz";
-	int taille;
-	ConvertisseurTableau(T,&taille,Texte);
-	ANALYSE a;
-	a.nb = strlen(T);
-	int i,j;
-	float compteur;
-	for(i=0;i<ALPHABET;i++)
-	{
-		compteur=0;
-			for(j=0;j<a.nb;j++)
-			{
-				if(alphabet[i]==T[j])
-				compteur++;
-			}
-			a.occ[0][j]=compteur/a.nb;
-	}
-	//a.pgor="abio";
-	return a;
-}
-
-
-ANALYSE AnalyseFrequentielle2(gchar* Texte){
 	
 	gchar chaine[strlen(Texte)];
 	int taille;
