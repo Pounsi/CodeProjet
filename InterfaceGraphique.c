@@ -299,7 +299,7 @@ void RecupererChemin(GtkWidget *bouton, GtkWidget *selection)
         MenuResultatAnalyse(Fenetre,a);
         break;
 
-}
+    }
     
     gtk_dialog_run(GTK_DIALOG(dialog));
     gtk_widget_destroy(dialog);
