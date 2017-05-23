@@ -159,16 +159,5 @@ k = 0;
 		}
 	}
 	a.nbtr=k;
-	strcpy(a.pgor,a.tr[0].nom);
-	int indice=0;
-	for (i = 1; i < k; i++)
-	{
-		if(a.tr[i].frequence >= a.tr[indice].frequence)
-		{
-			indice = i; 
-			strcpy(a.pgor,a.tr[i].nom);
-		} 
-	}
-	
 	return a;
 }
