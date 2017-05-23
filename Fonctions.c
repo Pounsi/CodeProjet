@@ -91,7 +91,7 @@ void ConvertisseurTableau(gchar T[],int *TailleTexte,gchar* Texte){
 	}
 	RetirerToutCarSpec(T,T);
 	T[j] = '\0';
-	
+
 	 
 }
 
@@ -233,4 +233,39 @@ strcpy(a.tr[min].nom, tmp_di);
 
 
 return a;
+}
+
+
+void RetourALaLigne(gchar output[],gchar input[])
+{
+	int i,j,ligne;
+	char info[100]="Pour lire le contenu en entier veuilliez enregistrer votre document";
+	i=0;
+	j=0;
+	ligne=0;
+	while(input[i-j]!='\0' && ligne<7)
+	{
+		printf("%d\n",i );
+		if (i%40==0 && i!=0 && output[i]!='\n')
+		{
+			
+			output[i]='\n';
+			j++;
+			ligne++;
+			
+		}
+		else
+		{
+			output[i]=input[i-j];
+		}
+
+		i++;
+		
+	}
+	output[i]='\n';
+	if (ligne==7)
+	{
+		strcat(output,info);
+	}
+
 }

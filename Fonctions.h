@@ -54,3 +54,4 @@ void ConvertisseurTableau(gchar T[],int *TailleTexte,gchar* Texte);
 RESSOURCESLANGUE ChargerRessources();
 void RemplacerCleSubstitution(DOUBLEC *Donnees,gchar C1,gchar C2);
 ANALYSE tri(ANALYSE a);	
+void RetourALaLigne(gchar output[],gchar input[]);

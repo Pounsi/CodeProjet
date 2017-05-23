@@ -387,16 +387,17 @@ void MenuResultatVigenere(GtkWidget *Fenetre, gchar* Text_crypt, gchar* cle)
     Fenetre = gtk_widget_get_toplevel (Fenetre);
     ViderContenaire(GTK_CONTAINER(Fenetre));
 
-    GtkWidget *Box, *Box_2,*Label, *Label_msg,*Label_cle,*Bouton1,*Bouton2,*Bouton3;
-    gchar* Text; 
-    
+    GtkWidget *Box, *Box_2,*Label, *Label_msg,*Label_cle,*Bouton1,*Bouton2,*Bouton3,*Label_retour;
+    gchar* Text;
+    gchar text_affichage[TAILLETEXTE]; 
+    RetourALaLigne(text_affichage,Text_crypt);
     Box = gtk_vbox_new(TRUE, 0);
     gtk_container_add(GTK_CONTAINER(Fenetre), Box);
     Box_2= gtk_hbox_new(FALSE, 0);
     Label=gtk_label_new(NULL);
     Label_msg=gtk_label_new(NULL);
     Label_cle=gtk_label_new(NULL);
-
+    Label_retour=gtk_label_new(NULL);
     Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">resultat du cryptage</span>\n<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Par Vigenere</span>\n",
            -1, NULL, NULL, NULL);
     gtk_label_set_markup(GTK_LABEL(Label), Text);
@@ -414,12 +415,13 @@ void MenuResultatVigenere(GtkWidget *Fenetre, gchar* Text_crypt, gchar* cle)
 
     ////////////Affichage du resultat//////////////
 
-    gtk_label_set_markup(GTK_LABEL(Label_msg), Text_crypt);
+    gtk_label_set_markup(GTK_LABEL(Label_msg), text_affichage);
     gtk_label_set_justify(GTK_LABEL(Label_msg), GTK_JUSTIFY_CENTER);
     gtk_box_pack_start(GTK_BOX(Box), Label_msg, TRUE, TRUE, 0);
     
     Bouton1 = gtk_button_new_with_label("Enregistrer le msg");
-    g_signal_connect(G_OBJECT(Bouton1), "clicked", G_CALLBACK(Enregistrer), Label_msg);
+    gtk_label_set_markup(GTK_LABEL(Label_retour), Text_crypt);
+    g_signal_connect(G_OBJECT(Bouton1), "clicked", G_CALLBACK(Enregistrer), Label_retour);
     gtk_box_pack_start(GTK_BOX(Box), Bouton1, TRUE, TRUE, 0);
 
         ////////////Affichage de la cle//////////////
