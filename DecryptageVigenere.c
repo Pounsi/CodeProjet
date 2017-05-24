@@ -157,7 +157,7 @@ void Decrypte(char resultat[],char* texteCrypte,gchar cle[], int kasiski)
 	resultat[i] = '\0';
 }
 
-void DecryptageVigenere(gchar* TexteDecrypte, gchar* TexteCrypte){
+void DecryptageVigenere(gchar* TexteDecrypte, gchar* TexteCrypte, gchar savecle[]){
 	RESSOURCESLANGUE don;
 	ANALYSE req;
 	int kasiski,taille;
@@ -181,15 +181,7 @@ void DecryptageVigenere(gchar* TexteDecrypte, gchar* TexteCrypte){
 
 	indiceMutuelle(cle, kasiski, req, don, SauvegradeCle); 
 
-	FILE *fichier=NULL;
-	remove("cle.txt");
-	fichier=fopen("cle.txt","w");
-
-	if (fichier != NULL)
-    {
-        fputs(SauvegradeCle,fichier);
-        fclose(fichier);
-    }
+	strcpy(savecle,SauvegradeCle);
 
 
 	

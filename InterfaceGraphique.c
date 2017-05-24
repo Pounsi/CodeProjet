@@ -259,7 +259,12 @@ void RecupererChemin(GtkWidget *bouton, GtkWidget *selection)
         DOUBLEC *Donnees;
         Donnees = (DOUBLEC *)malloc(sizeof(DOUBLEC));
         FILE* fichier =NULL;
-
+        if (choix==4)
+        {
+            DecryptageVigenere(Text_crypt,contenu,cle);
+         
+            MenuResultatDecryptageVigenere(Fenetre,Text_crypt,cle);
+        }
    switch (choix)
     {
     case 1:
@@ -289,22 +294,6 @@ void RecupererChemin(GtkWidget *bouton, GtkWidget *selection)
         char* cle="abcdefghijklmnopqrstuvwxyz";
         strcpy(Donnees->cle,cle);
         MenuResultatDecryptagePartiel(Fenetre, Donnees);
-        break;
-    case 4: 
-
-            
-        DecryptageVigenere(Text_crypt,contenu);
-
-        fichier=fopen("cle.txt","r");
-
-        if (fichier != NULL)
-        {
-            fgets(cle,TAILLECLE,fichier);
-            fclose(fichier);
-            remove("cle.txt");
-        }
-         
-        MenuResultatDecryptageVigenere(Fenetre,Text_crypt,cle);
         break;
     case 5:
         a=AnalyseFrequentielle(contenu);
@@ -971,17 +960,7 @@ void BoiteDialogueDecryptageVigenere(GtkWidget *Fenetre)
                 gtk_text_buffer_get_start_iter(Buffer,&debut);
                 gtk_text_buffer_get_end_iter(Buffer,&fin);
                 Text_crypt = gtk_text_buffer_get_text(Buffer,&debut,&fin,FALSE);
-                DecryptageVigenere(Text_clair,Text_crypt);
-                FILE *fichier=NULL;
-                fichier=fopen("cle.txt","r");
-
-                if (fichier != NULL)
-                {
-                    fgets(cle,TAILLECLE,fichier);
-                    fclose(fichier);
-                    remove("cle.txt");
-                }
-                printf("ici\n");
+                DecryptageVigenere(Text_clair,Text_crypt,cle);
                 MenuResultatDecryptageVigenere(Fenetre, Text_clair , cle);//il faut mettre la cle
                  
                 break;
