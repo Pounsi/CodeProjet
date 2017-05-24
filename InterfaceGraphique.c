@@ -6,11 +6,12 @@ void MenuResultatDecryptagePartiel(GtkWidget *Fenetre,DOUBLEC *Donnees)
     
     Fenetre = gtk_widget_get_toplevel (Fenetre);
     ViderContenaire(GTK_CONTAINER(Fenetre));
-    GtkWidget *Box,*Box2, *Label,*Label2,*Bouton1, *Bouton2, *Bouton3;
+    GtkWidget *Box,*Box2, *Label,*Label2,*Label_retour,*Bouton1, *Bouton2, *Bouton3;
     gchar *Text,*Resultat;
     Resultat=(gchar *)malloc(strlen(Donnees->texte)*sizeof(gchar));
     
-
+    gchar text_affichage[TAILLETEXTE]; 
+    RetourALaLigne(text_affichage,Donnees->texte);
     DecryptageSubstitution(Resultat,Donnees->texte,Donnees->cle);
 
 
@@ -26,7 +27,7 @@ void MenuResultatDecryptagePartiel(GtkWidget *Fenetre,DOUBLEC *Donnees)
 
     gtk_box_pack_start(GTK_BOX(Box), Label, TRUE, TRUE, 0);
     
-    Label2=gtk_label_new(Donnees->texte);
+    Label2=gtk_label_new(text_affichage);
     gtk_label_set_justify(GTK_LABEL(Label2), GTK_JUSTIFY_CENTER);
     gtk_box_pack_start(GTK_BOX(Box), Label2, TRUE, TRUE, 0);
     
