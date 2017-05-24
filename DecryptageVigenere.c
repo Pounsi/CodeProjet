@@ -18,6 +18,7 @@ int Kasiski(ANALYSE a, gchar* texteCrypte){
 	int kas[TR_A_TESTER];
 	int nbrpgor;
 	int distance[10];
+	static int numeroessai = 0;
 	
 	for(x=0;x<TR_A_TESTER;x++){//nbr de pgor
 		printf("\n tri[%d] = %s freq = %d",x,a.tr[x].nom,a.tr[x].frequence);
@@ -27,11 +28,11 @@ int Kasiski(ANALYSE a, gchar* texteCrypte){
 		
 		for (i = 0; i < strlen(texteCrypte); i++)
 		{
-			for (j = 0; j < taillepgor+1; j++)
+			for (j = 0; j < taillepgor; j++)
 			{
 				if(a.tr[x].nom[j] == texteCrypte[i]){
 					if(j == taillepgor-1){
-						distance[nbrpgor] = (i-(taillepgor-1))+1;
+						distance[nbrpgor] = (i-(taillepgor-1))+numeroessai; // numeroessai est itéré a chaque appel de la fonction (premier appel il vaut 0, deuxieme appel il vaut 1)
 						nbrpgor++;
 					}
 					i++;
@@ -76,13 +77,15 @@ int Kasiski(ANALYSE a, gchar* texteCrypte){
 	}
 		
 	if(!kasiski) return 1;
-	
+	if(kasiski > 12) return 1;
 	for (i = 0; i < TR_A_TESTER; i++)
 	{
 			printf("\nkas[%d] = %d",i,kas[i]);
 	}
 	
-	printf("\nkasiski = %d\n",kasiski);
+	printf("\nkasiski choisit = %d\n",kasiski);
+	numeroessai++;
+	printf(" \n numero essai vallait = %d pendant execution \n ", numeroessai-1);
 	return kasiski;
 }
 	
