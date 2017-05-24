@@ -119,8 +119,8 @@ void indiceMutuelle(int cle[], int kasiski, ANALYSE freq, RESSOURCESLANGUE prob,
 		VraiIndice	= 2;//on initialise a une grande valeur pour être sur que la premiere valeur du tableau soit affecter a Vraiindice(a modifier si on a temps)
 		for (i = 0; i < ALPHABET; i++)
 		{
-			if(fabs(mg[j][i] - 0.065) < VraiIndice){
-				VraiIndice = fabs(mg[j][i] - 0.065);
+			if(fabs(mg[j][i] - 1) < VraiIndice){
+				VraiIndice = fabs(mg[j][i] - 1);
 					cle[j] = i; 		
 			}
 		}
@@ -135,6 +135,13 @@ void indiceMutuelle(int cle[], int kasiski, ANALYSE freq, RESSOURCESLANGUE prob,
 	}
 		
 	safecle[i] = '\0';
+	for (i = 0; i < 5; ++i)
+	{
+		for ( j = 0; j < 26; ++j)
+		{
+			printf("mg[%d][%d] = %f et car = %c \n",i,j,mg[i][j],j+97);
+		}
+	}
 	
 }
 
