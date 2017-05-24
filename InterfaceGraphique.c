@@ -18,7 +18,7 @@ void MenuResultatDecryptagePartiel(GtkWidget *Fenetre,DOUBLEC *Donnees)
     gtk_container_add(GTK_CONTAINER(Fenetre), Box);
 
     Label=gtk_label_new(NULL);
-    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Menu dechiffrement partiel</span>\n",
+    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Menu Dechiffrement partiel</span>\n",
     -1, NULL, NULL, NULL);
     gtk_label_set_markup(GTK_LABEL(Label), Text);
     g_free(Text);
@@ -41,15 +41,15 @@ void MenuResultatDecryptagePartiel(GtkWidget *Fenetre,DOUBLEC *Donnees)
     Box2 = gtk_hbox_new(TRUE, 0);
     gtk_container_add(GTK_CONTAINER(Box), Box2);
     
-    Bouton1 = gtk_button_new_with_label("redecrypter");
+    Bouton1 = gtk_button_new_with_label("Redechiffrer");
     g_signal_connect(G_OBJECT(Bouton1), "clicked", G_CALLBACK(MenuResultatDecryptagePartiel), Donnees);
     gtk_box_pack_start(GTK_BOX(Box2), Bouton1, TRUE, TRUE, 0);
     
-    Bouton2 = gtk_button_new_with_label("changer la cle");
+    Bouton2 = gtk_button_new_with_label("Changer la cle");
     g_signal_connect(G_OBJECT(Bouton2), "clicked", G_CALLBACK(BoiteDialogueChangerLaCleSubstitution), Donnees);
     gtk_box_pack_start(GTK_BOX(Box2), Bouton2, TRUE, TRUE, 0);
     
-    Bouton3 = gtk_button_new_with_label("terminer");
+    Bouton3 = gtk_button_new_with_label("Terminer");
     g_signal_connect(G_OBJECT(Bouton3), "clicked", G_CALLBACK(MenuResultatDecryptageSubstitution), Donnees);
     gtk_box_pack_start(GTK_BOX(Box2), Bouton3, TRUE, TRUE, 0);
     
@@ -157,7 +157,7 @@ void ChoisirLangue()
     Boite = gtk_vbox_new(FALSE, 0);
     gtk_container_add(GTK_CONTAINER(Fenetre), Boite);
 
-    msg= g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Quelle est la langue ? </span>\n",
+    msg= g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Quelle est la langue utilisée</span>\n",
     -1, NULL, NULL, NULL);
 
     bouton1= gtk_button_new_with_label("Français");
@@ -348,7 +348,7 @@ void MenuResultatSubstitution(GtkWidget *Fenetre, DOUBLEC *Donnees)
     Label_msg=gtk_label_new(NULL);
     Label_cle=gtk_label_new(NULL);
 
-    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">resultat du chiffrement</span>\n<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Par substitution</span>\n",
+    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Resultat du chiffrement</span>\n<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Substitution</span>\n",
     -1, NULL, NULL, NULL);
     gtk_label_set_markup(GTK_LABEL(Label), Text);
     g_free(Text);
@@ -362,8 +362,6 @@ void MenuResultatSubstitution(GtkWidget *Fenetre, DOUBLEC *Donnees)
 
     gtk_box_pack_start(GTK_BOX(Box_2), Label, TRUE, TRUE, 0);
 
-    ////////////Affichage du resultat//////////////
-
     gtk_label_set_markup(GTK_LABEL(Label_msg), text_affichage);
     gtk_label_set_justify(GTK_LABEL(Label_msg), GTK_JUSTIFY_CENTER);
     gtk_box_pack_start(GTK_BOX(Box), Label_msg, TRUE, TRUE, 0);
@@ -371,8 +369,6 @@ void MenuResultatSubstitution(GtkWidget *Fenetre, DOUBLEC *Donnees)
     Bouton1 = gtk_button_new_with_label("Enregistrer le msg");
     g_signal_connect(G_OBJECT(Bouton1), "clicked", G_CALLBACK(Enregistrer), Label_msg);
     gtk_box_pack_start(GTK_BOX(Box), Bouton1, TRUE, TRUE, 0);
-
-        ////////////Affichage de la cle//////////////
 
     gtk_label_set_markup(GTK_LABEL(Label_cle),Donnees->cle);
     gtk_label_set_justify(GTK_LABEL(Label_cle), GTK_JUSTIFY_CENTER);
@@ -401,7 +397,7 @@ void MenuResultatVigenere(GtkWidget *Fenetre, gchar* Text_crypt, gchar* cle)
     Label_msg=gtk_label_new(NULL);
     Label_cle=gtk_label_new(NULL);
     Label_retour=gtk_label_new(NULL);
-    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">resultat du chiffrement</span>\n<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Par Vigenere</span>\n",
+    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Resultat du chiffrement</span>\n<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Vigenere</span>\n",
            -1, NULL, NULL, NULL);
     gtk_label_set_markup(GTK_LABEL(Label), Text);
     g_free(Text);
@@ -456,7 +452,7 @@ void MenuResultatAnalyse(GtkWidget *Fenetre,ANALYSE analyse)
     Label_cle=gtk_label_new(NULL);
     Label_cle2=gtk_label_new(NULL);
 
-    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">resultat d'etude de texte</span>\n",
+    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Resultat de l'Analyse Frequentielle</span>\n",
     -1, NULL, NULL, NULL);
     gtk_label_set_markup(GTK_LABEL(Label), Text);
     g_free(Text);
@@ -726,16 +722,9 @@ void BoiteDialogueVigenereTexte(GtkWidget *Fenetre, DOUBLEC *Donnees)
         Boite = gtk_dialog_new_with_buttons("Sasie du texte",GTK_WINDOW(Fenetre),GTK_DIALOG_MODAL,GTK_STOCK_OK,GTK_RESPONSE_OK,GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,NULL);
 
         Label_cle=gtk_label_new(NULL);
-        
-            
-       
-
+    
         indication_cle = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Votre texte : </span>\n",
                -1, NULL, NULL, NULL);
-        
-       
-            
-
 
         Entrer_cle=gtk_text_view_new();
 
@@ -782,21 +771,13 @@ void BoiteDialogueVigenereCle(GtkWidget *Fenetre)
 	    GtkTextBuffer* Buffer;
 	    GtkTextIter debut;
 	    GtkTextIter fin;
-	    Fenetre = gtk_widget_get_toplevel (Fenetre);//on passe a la fenetre du bouton 
+	    Fenetre = gtk_widget_get_toplevel (Fenetre); 
 	    Boite = gtk_dialog_new_with_buttons("Sasie du texte",GTK_WINDOW(Fenetre),GTK_DIALOG_MODAL,GTK_STOCK_OK,GTK_RESPONSE_OK,GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,NULL);
-
 	    
 	    Label_cle=gtk_label_new(NULL);
 	    
-	    	
-	   
-
 	    indication_cle = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Votre cle : </span>\n",
 	           -1, NULL, NULL, NULL);
-	    
-	   
-	   		
-
 
 	    Entrer_cle=gtk_text_view_new();
 
@@ -859,8 +840,7 @@ void BoiteDialogueAnalyse(GtkWidget *Fenetre)
                 gtk_text_buffer_get_start_iter(Buffer,&debut);
                 gtk_text_buffer_get_end_iter(Buffer,&fin);
                 Text = gtk_text_buffer_get_text(Buffer,&debut,&fin,FALSE);
-                a = AnalyseFrequentielle(Text);//changer pour travailler avec analyse
-                printf("\n fin de lanalyse \n");
+                a = AnalyseFrequentielle(Text);
                 MenuResultatAnalyse(Fenetre,a);
                 break;
             case GTK_RESPONSE_CANCEL:
@@ -961,7 +941,7 @@ void BoiteDialogueDecryptageVigenere(GtkWidget *Fenetre)
                 gtk_text_buffer_get_end_iter(Buffer,&fin);
                 Text_crypt = gtk_text_buffer_get_text(Buffer,&debut,&fin,FALSE);
                 DecryptageVigenere(Text_clair,Text_crypt,cle);
-                MenuResultatDecryptageVigenere(Fenetre, Text_clair , cle);//il faut mettre la cle
+                MenuResultatDecryptageVigenere(Fenetre, Text_clair , cle);
                  
                 break;
             case GTK_RESPONSE_CANCEL:
@@ -986,7 +966,7 @@ void MenuDecryptageVigenere(GtkWidget *Fenetre)
     Box_2 = gtk_hbox_new(FALSE, 0);
     
     Label=gtk_label_new(NULL);
-    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">dechiffrement de Vigenere</span>\n",
+    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Dechiffrement de Vigenere</span>\n",
     -1, NULL, NULL, NULL);
     gtk_label_set_markup(GTK_LABEL(Label), Text);
     g_free(Text);
@@ -1000,11 +980,11 @@ void MenuDecryptageVigenere(GtkWidget *Fenetre)
 
     gtk_box_pack_start(GTK_BOX(Box_2), Label, TRUE, TRUE, 0);
     
-    Bouton1 = gtk_button_new_with_label("zone de texte");
+    Bouton1 = gtk_button_new_with_label("Rentrer un texte");
     g_signal_connect(G_OBJECT(Bouton1), "clicked", G_CALLBACK(BoiteDialogueDecryptageVigenere), NULL);
     gtk_box_pack_start(GTK_BOX(Box), Bouton1, TRUE, TRUE, 0);
     
-    Bouton2 = gtk_button_new_with_label("choisir un fichier");
+    Bouton2 = gtk_button_new_with_label("Choisir un fichier");
     g_signal_connect(G_OBJECT(Bouton2), "clicked", G_CALLBACK(ChoisirFichier), NULL);
     gtk_box_pack_start(GTK_BOX(Box), Bouton2, TRUE, TRUE, 0);
     
@@ -1024,7 +1004,7 @@ void MenuDecryptageSubstitution(GtkWidget *Fenetre)
     Box_2 = gtk_hbox_new(FALSE, 0);
     
     Label=gtk_label_new(NULL);
-    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">dechiffrement Substitution</span>\n",
+    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Dechiffrement Substitution</span>\n",
     -1, NULL, NULL, NULL);
     gtk_label_set_markup(GTK_LABEL(Label), Text);
     g_free(Text);
@@ -1038,7 +1018,7 @@ void MenuDecryptageSubstitution(GtkWidget *Fenetre)
 
     gtk_box_pack_start(GTK_BOX(Box_2), Label, TRUE, TRUE, 0);
     
-    Bouton1 = gtk_button_new_with_label("zone de texte");
+    Bouton1 = gtk_button_new_with_label("Rentrer un texte");
     g_signal_connect(G_OBJECT(Bouton1), "clicked", G_CALLBACK(BoiteDialogueDecryptageSubstitution), NULL);
     gtk_box_pack_start(GTK_BOX(Box), Bouton1, TRUE, TRUE, 0);
     
@@ -1056,14 +1036,13 @@ void MenuCryptageVigenere(GtkWidget *Fenetre,DOUBLEC *Donnees)
     GtkWidget *Box,*Bouton1, *Bouton2, *Bouton3,*Box_2, *Label;
     gchar *Text;
     choix=2;
-    ////
     int taille1,taille2;
     taille1=strlen(Donnees->cle);
     gchar tmp[TAILLETEXTE];
     strcpy(tmp,Donnees->cle);
    ConvertisseurTableau(Donnees->cle,&taille2,tmp);
     taille2=strlen(Donnees->cle);
-     if (taille1 != taille2)
+     if ((taille1 != taille2) || (taille1 == 0))
 		{    GtkWidget *pAbout;
  
     pAbout = gtk_message_dialog_new (GTK_WINDOW(Fenetre),
@@ -1091,7 +1070,7 @@ void MenuCryptageVigenere(GtkWidget *Fenetre,DOUBLEC *Donnees)
     }
     /////////////////////////////////
     Label=gtk_label_new(NULL);
-    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">chiffrement Vigenere</span>\n",
+    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Chiffrement Vigenere</span>\n",
     -1, NULL, NULL, NULL);
     gtk_label_set_markup(GTK_LABEL(Label), Text);
     g_free(Text);
@@ -1167,8 +1146,7 @@ void MenuAnalyseFrequentielle(GtkWidget *Fenetre)
     Box_2 = gtk_hbox_new(FALSE, 0);
    
     Label=gtk_label_new(NULL);
-    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">etude de texte</span>\n"
-    "<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Choisir la methode pour entrer le texte</span>\n",
+    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Analyse Frequentielle</span>\n",
     -1, NULL, NULL, NULL);
     gtk_label_set_markup(GTK_LABEL(Label), Text);
     g_free(Text);
@@ -1296,7 +1274,7 @@ void MenuPrincipal(GtkWidget *Fenetre)
     g_signal_connect(G_OBJECT(Bouton2), "clicked", G_CALLBACK(ChoisirLangue), NULL);
     gtk_box_pack_start(GTK_BOX(Box), Bouton2, TRUE, TRUE, 0);
     
-    Bouton3 = gtk_button_new_with_label("Etude de texte");
+    Bouton3 = gtk_button_new_with_label("Analyse Frequentielle");
     g_signal_connect(G_OBJECT(Bouton3), "clicked", G_CALLBACK(MenuAnalyseFrequentielle), NULL);
     gtk_box_pack_start(GTK_BOX(Box), Bouton3, TRUE, TRUE, 0);
     
