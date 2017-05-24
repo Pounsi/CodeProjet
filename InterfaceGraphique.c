@@ -248,10 +248,12 @@ void RecupererChemin(GtkWidget *bouton, GtkWidget *selection)
     gchar contenu[TAILLEFICHIER];
     gchar cle[TAILLECLE];
     GtkWidget *dialog;
+   
     chemin = gtk_file_selection_get_filename(GTK_FILE_SELECTION (selection) );
     dialog = gtk_message_dialog_new(GTK_WINDOW(selection),GTK_DIALOG_MODAL,
     GTK_MESSAGE_INFO,GTK_BUTTONS_OK,"Vous avez choisi :\n%s", chemin);
      //ce chemin doit etre utiliser pour remplir une chaine/tableau ensuite on supprime la "dialog"
+
     LireFichier(contenu,TAILLEFICHIER,chemin);
     
         DOUBLEC *Donnees;
@@ -289,8 +291,19 @@ void RecupererChemin(GtkWidget *bouton, GtkWidget *selection)
         MenuResultatDecryptagePartiel(Fenetre, Donnees);
         break;
     case 4: 
-            cle = '\0';
-        DecryptageVigenere(Text_crypt,contenu,cle);
+
+            
+        DecryptageVigenere(Text_crypt,contenu);
+
+        fichier=fopen("cle.txt","r");
+
+        if (fichier != NULL)
+        {
+            fgets(cle,TAILLECLE,fichier);
+            fclose(fichier);
+            remove("cle.txt");
+        }
+         
         MenuResultatDecryptageVigenere(Fenetre,Text_crypt,cle);
         break;
     case 5:
@@ -958,7 +971,17 @@ void BoiteDialogueDecryptageVigenere(GtkWidget *Fenetre)
                 gtk_text_buffer_get_start_iter(Buffer,&debut);
                 gtk_text_buffer_get_end_iter(Buffer,&fin);
                 Text_crypt = gtk_text_buffer_get_text(Buffer,&debut,&fin,FALSE);
-                DecryptageVigenere(Text_clair,Text_crypt,cle);
+                DecryptageVigenere(Text_clair,Text_crypt);
+                FILE *fichier=NULL;
+                fichier=fopen("cle.txt","r");
+
+                if (fichier != NULL)
+                {
+                    fgets(cle,TAILLECLE,fichier);
+                    fclose(fichier);
+                    remove("cle.txt");
+                }
+                printf("ici\n");
                 MenuResultatDecryptageVigenere(Fenetre, Text_clair , cle);//il faut mettre la cle
                  
                 break;

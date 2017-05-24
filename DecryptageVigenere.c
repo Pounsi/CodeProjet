@@ -114,7 +114,7 @@ void indiceMutuelle(int cle[], int kasiski, ANALYSE freq, RESSOURCESLANGUE prob,
 			
 		}
 	}
-	
+
 	for(j=0;j<kasiski;j++){   //ici on selectionne la valeurs de chaque ligne la plus proche de 0.065 
 		VraiIndice	= 2;//on initialise a une grande valeur pour être sur que la premiere valeur du tableau soit affecter a Vraiindice(a modifier si on a temps)
 		for (i = 0; i < ALPHABET; i++)
@@ -124,13 +124,16 @@ void indiceMutuelle(int cle[], int kasiski, ANALYSE freq, RESSOURCESLANGUE prob,
 					cle[j] = i; 		
 			}
 		}
-	}	
-			
+			g_print("%d \n", cle[j]);
+	}				
 //affecter la valeur de fin a safecle
+
 	for (i = 0; i <kasiski ; i++)
 	{
 		safecle[i] = cle[i] + 97;
+		
 	}
+		
 	safecle[i] = '\0';
 	
 }
@@ -141,6 +144,7 @@ void Decrypte(char resultat[],char* texteCrypte,gchar cle[], int kasiski)
    int a,b,c;
    int taille;
    taille = strlen(texteCrypte);
+   g_print("%d\n",strlen(texteCrypte));
 	for ( i = 0; i < taille ; i++)
 	{
 		a= texteCrypte[i] - 97;
@@ -153,11 +157,13 @@ void Decrypte(char resultat[],char* texteCrypte,gchar cle[], int kasiski)
 	resultat[i] = '\0';
 }
 
-void DecryptageVigenere(gchar* TexteDecrypte, gchar* TexteCrypte, gchar savecle[]){
+void DecryptageVigenere(gchar* TexteDecrypte, gchar* TexteCrypte){
 	RESSOURCESLANGUE don;
 	ANALYSE req;
 	int kasiski,taille;
 	gchar TexteC[strlen(TexteCrypte)];
+	gchar SauvegradeCle[TAILLECLE];
+	
 	
 	ConvertisseurTableau(TexteC,&taille,TexteCrypte);
 	RetirerToutCarSpec(TexteC,TexteC);
@@ -173,8 +179,20 @@ void DecryptageVigenere(gchar* TexteDecrypte, gchar* TexteCrypte, gchar savecle[
 
 	int cle[kasiski];
 
-	indiceMutuelle(cle, kasiski, req, don, savecle);  
+	indiceMutuelle(cle, kasiski, req, don, SauvegradeCle); 
+
+	FILE *fichier=NULL;
+	remove("cle.txt");
+	fichier=fopen("cle.txt","w");
+
+	if (fichier != NULL)
+    {
+        fputs(SauvegradeCle,fichier);
+        fclose(fichier);
+    }
+
+
 	
-	Decrypte(TexteDecrypte, TexteC, savecle, kasiski);
+	Decrypte(TexteDecrypte, TexteC, SauvegradeCle, kasiski);
 	
 }

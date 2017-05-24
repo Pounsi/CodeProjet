@@ -11,7 +11,7 @@
 #include <time.h>
 #include <tgmath.h>
 
-#define TAILLEFICHIER 1000
+#define TAILLEFICHIER 20000
 #define TAILLETEXTE 20000
 #define TAILLECLE 26
 #define ALPHABET 26
