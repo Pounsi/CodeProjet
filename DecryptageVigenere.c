@@ -124,7 +124,7 @@ void indiceMutuelle(int cle[], int kasiski, ANALYSE freq, RESSOURCESLANGUE prob,
 					cle[j] = i; 		
 			}
 		}
-			g_print("%d \n", cle[j]);
+			
 	}				
 //affecter la valeur de fin a safecle
 
@@ -144,7 +144,7 @@ void Decrypte(char resultat[],char* texteCrypte,gchar cle[], int kasiski)
    int a,b,c;
    int taille;
    taille = strlen(texteCrypte);
-   g_print("%d\n",strlen(texteCrypte));
+   
 	for ( i = 0; i < taille ; i++)
 	{
 		a= texteCrypte[i] - 97;
