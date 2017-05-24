@@ -1004,7 +1004,7 @@ void MenuDecryptageVigenere(GtkWidget *Fenetre)
     g_signal_connect(G_OBJECT(Bouton1), "clicked", G_CALLBACK(BoiteDialogueDecryptageVigenere), NULL);
     gtk_box_pack_start(GTK_BOX(Box), Bouton1, TRUE, TRUE, 0);
     
-    Bouton2 = gtk_button_new_with_label("charger");
+    Bouton2 = gtk_button_new_with_label("choisir un fichier");
     g_signal_connect(G_OBJECT(Bouton2), "clicked", G_CALLBACK(ChoisirFichier), NULL);
     gtk_box_pack_start(GTK_BOX(Box), Bouton2, TRUE, TRUE, 0);
     
@@ -1042,7 +1042,7 @@ void MenuDecryptageSubstitution(GtkWidget *Fenetre)
     g_signal_connect(G_OBJECT(Bouton1), "clicked", G_CALLBACK(BoiteDialogueDecryptageSubstitution), NULL);
     gtk_box_pack_start(GTK_BOX(Box), Bouton1, TRUE, TRUE, 0);
     
-    Bouton2 = gtk_button_new_with_label("charger puis resultat");
+    Bouton2 = gtk_button_new_with_label("choisir un fichier");
     g_signal_connect(G_OBJECT(Bouton2), "clicked", G_CALLBACK(ChoisirFichier), NULL);
     gtk_box_pack_start(GTK_BOX(Box), Bouton2, TRUE, TRUE, 0);
     
