@@ -268,6 +268,8 @@ void RetourALaLigne(gchar output[],gchar input[])
 	output[i]='\n';
 	i++;
 	output[i]='\n';
+	i++;
+	output[i]='\0';
 	if (ligne==7)
 	{
 		strcat(output,info);
