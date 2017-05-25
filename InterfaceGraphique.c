@@ -1,6 +1,70 @@
 #include "InterfaceGraphique.h"
 
 
+
+
+void MenuResultatDecryptagePartielVig(GtkWidget *Fenetre,gchar *Text_crypt)
+{
+    
+    Fenetre = gtk_widget_get_toplevel (Fenetre);
+    ViderContenaire(GTK_CONTAINER(Fenetre));
+    GtkWidget *Box,*Box2, *Label,*Label2,*Label_retour,*Bouton1, *Bouton2;
+    gchar *Text;
+    DOUBLEC *Donnees;
+    Donnees=(DOUBLEC *)malloc(sizeof(DOUBLEC));
+    DecryptageVigenere(Donnees->texte,Text_crypt,Donnees->cle);
+    g_print("le texte :\n%s\net la cle\n %s",Text_crypt,Donnees->cle);
+    gchar text_affichage[TAILLETEXTE]; 
+    RetourALaLigne(text_affichage,Donnees->texte);
+    
+
+
+    Box = gtk_vbox_new(FALSE, 0);
+    gtk_container_add(GTK_CONTAINER(Fenetre), Box);
+
+    Label=gtk_label_new(NULL);
+    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Menu Dechiffrement partiel de Vigenere</span>\n",
+    -1, NULL, NULL, NULL);
+    gtk_label_set_markup(GTK_LABEL(Label), Text);
+    g_free(Text);
+    gtk_label_set_justify(GTK_LABEL(Label), GTK_JUSTIFY_CENTER);
+
+    gtk_box_pack_start(GTK_BOX(Box), Label, TRUE, TRUE, 0);
+    
+    Label2=gtk_label_new(text_affichage);
+    gtk_label_set_justify(GTK_LABEL(Label2), GTK_JUSTIFY_CENTER);
+    gtk_box_pack_start(GTK_BOX(Box), Label2, TRUE, TRUE, 0);
+    
+    Label2=gtk_label_new(Donnees->cle);
+    gtk_label_set_justify(GTK_LABEL(Label2), GTK_JUSTIFY_CENTER);
+    gtk_box_pack_start(GTK_BOX(Box), Label2, TRUE, TRUE, 0);
+    
+    
+    Box2 = gtk_hbox_new(TRUE, 0);
+    gtk_container_add(GTK_CONTAINER(Box), Box2);
+    
+    Bouton1 = gtk_button_new_with_label("Redechiffrer");
+    g_signal_connect(G_OBJECT(Bouton1), "clicked", G_CALLBACK(Fonction_transition_Dcrypte_Vig), Text_crypt);
+    gtk_box_pack_start(GTK_BOX(Box2), Bouton1, TRUE, TRUE, 0);
+    
+    
+    Bouton2 = gtk_button_new_with_label("Terminer");
+    g_signal_connect(G_OBJECT(Bouton2), "clicked", G_CALLBACK(MenuResultatDecryptageVigenere), Donnees);
+    gtk_box_pack_start(GTK_BOX(Box2), Bouton2, TRUE, TRUE, 0);
+    
+    gtk_widget_show_all(Fenetre);
+}
+
+void Fonction_transition_Dcrypte_Vig(GtkWidget *Fenetre,gchar *Text_crypt)
+{
+    DOUBLEC *Donnees;
+    Donnees=(DOUBLEC *)malloc(sizeof(DOUBLEC));
+    DecryptageVigenere(Donnees->texte,Text_crypt,Donnees->cle);
+    g_print("le texte :\n%s\net la cle\n %s",Text_crypt,Donnees->cle);
+    MenuResultatDecryptageVigenere(Fenetre,Donnees);
+}
+
+
 void MenuResultatDecryptagePartiel(GtkWidget *Fenetre,DOUBLEC *Donnees)
 {
     
@@ -262,9 +326,7 @@ void RecupererChemin(GtkWidget *bouton, GtkWidget *selection)
         FILE* fichier =NULL;
         if (choix==4)
         {
-            DecryptageVigenere(Text_crypt,contenu,cle);
-         
-            MenuResultatDecryptageVigenere(Fenetre,Text_crypt,cle);
+            MenuResultatDecryptagePartielVig(Fenetre,contenu);
         }
    switch (choix)
     {
@@ -609,7 +671,7 @@ void MenuResultatDecryptageSubstitution(GtkWidget *Fenetre, DOUBLEC *Donnees)//a
     gtk_widget_show_all(Fenetre);
 }
 
-void MenuResultatDecryptageVigenere(GtkWidget *Fenetre, gchar* Text_crypt , gchar* cle)//appeler text clair
+void MenuResultatDecryptageVigenere(GtkWidget *Fenetre, DOUBLEC *Donnees)//appeler text clair
 {
     Fenetre = gtk_widget_get_toplevel (Fenetre);//on passe a la fenetre du bouton 
     ViderContenaire(GTK_CONTAINER(Fenetre));//on la vide
@@ -617,7 +679,7 @@ void MenuResultatDecryptageVigenere(GtkWidget *Fenetre, gchar* Text_crypt , gcha
     GtkWidget *Box, *Box_2,*Label,*Label_msg,*Label_cle,*Label_retour,*Bouton1,*Bouton2,*Bouton3;
     gchar* Text;
     gchar text_affichage[TAILLETEXTE]; 
-    RetourALaLigne(text_affichage,Text_crypt);
+    RetourALaLigne(text_affichage,Donnees->texte);
     Box = gtk_vbox_new(FALSE, 0);
     gtk_container_add(GTK_CONTAINER(Fenetre), Box);
     Box_2= gtk_hbox_new(FALSE, 0);
@@ -652,14 +714,14 @@ void MenuResultatDecryptageVigenere(GtkWidget *Fenetre, gchar* Text_crypt , gcha
     
     
     Bouton1 = gtk_button_new_with_label("Enregistrer le msg");
-    gtk_label_set_markup(GTK_LABEL(Label_retour), Text_crypt);
+    gtk_label_set_markup(GTK_LABEL(Label_retour), Donnees->texte);
     g_signal_connect(G_OBJECT(Bouton1), "clicked", G_CALLBACK(Enregistrer), Label_retour);
    
     gtk_box_pack_start(GTK_BOX(Box), Bouton1, TRUE, TRUE, 0);
 
         ////////////Affichage de la cle//////////////
 
-    gtk_label_set_markup(GTK_LABEL(Label_cle), cle);
+    gtk_label_set_markup(GTK_LABEL(Label_cle), Donnees->cle);
 
     gtk_label_set_justify(GTK_LABEL(Label_cle), GTK_JUSTIFY_CENTER);
 
@@ -943,8 +1005,7 @@ void BoiteDialogueDecryptageVigenere(GtkWidget *Fenetre)
                 gtk_text_buffer_get_start_iter(Buffer,&debut);
                 gtk_text_buffer_get_end_iter(Buffer,&fin);
                 Text_crypt = gtk_text_buffer_get_text(Buffer,&debut,&fin,FALSE);
-                DecryptageVigenere(Text_clair,Text_crypt,cle);
-                MenuResultatDecryptageVigenere(Fenetre, Text_clair , cle);
+                MenuResultatDecryptagePartielVig(Fenetre,Text_crypt);
                  
                 break;
             case GTK_RESPONSE_CANCEL:
