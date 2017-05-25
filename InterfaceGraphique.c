@@ -10,10 +10,12 @@ void MenuResultatDecryptagePartielVig(GtkWidget *Fenetre,gchar *Text_crypt)
     ViderContenaire(GTK_CONTAINER(Fenetre));
     GtkWidget *Box,*Box2, *Label,*Label2,*Label_retour,*Bouton1, *Bouton2;
     gchar *Text;
+    gchar Text_crypt2[TAILLETEXTE];
+    strcpy(Text_crypt2,Text_crypt);
     DOUBLEC *Donnees;
     Donnees=(DOUBLEC *)malloc(sizeof(DOUBLEC));
     DecryptageVigenere(Donnees->texte,Text_crypt,Donnees->cle);
-    g_print("le texte :\n%s\net la cle\n %s",Text_crypt,Donnees->cle);
+    g_print("le texte :\n%s\net la cle\n %s\n",Text_crypt,Donnees->cle);
     gchar text_affichage[TAILLETEXTE]; 
     RetourALaLigne(text_affichage,Donnees->texte);
     
@@ -44,7 +46,7 @@ void MenuResultatDecryptagePartielVig(GtkWidget *Fenetre,gchar *Text_crypt)
     gtk_container_add(GTK_CONTAINER(Box), Box2);
     
     Bouton1 = gtk_button_new_with_label("Redechiffrer");
-    g_signal_connect(G_OBJECT(Bouton1), "clicked", G_CALLBACK(Fonction_transition_Dcrypte_Vig), Text_crypt);
+    g_signal_connect(G_OBJECT(Bouton1), "clicked", G_CALLBACK(Fonction_transition_Dcrypte_Vig), Text_crypt2);
     gtk_box_pack_start(GTK_BOX(Box2), Bouton1, TRUE, TRUE, 0);
     
     
@@ -59,8 +61,9 @@ void Fonction_transition_Dcrypte_Vig(GtkWidget *Fenetre,gchar *Text_crypt)
 {
     DOUBLEC *Donnees;
     Donnees=(DOUBLEC *)malloc(sizeof(DOUBLEC));
+    g_print("le texte :\n%s\n",Text_crypt);
     DecryptageVigenere(Donnees->texte,Text_crypt,Donnees->cle);
-    g_print("le texte :\n%s\net la cle\n %s",Text_crypt,Donnees->cle);
+    
     MenuResultatDecryptageVigenere(Fenetre,Donnees);
 }
 
