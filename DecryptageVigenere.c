@@ -32,7 +32,7 @@ int Kasiski(ANALYSE a, gchar* texteCrypte){
 			{
 				if(a.tr[x].nom[j] == texteCrypte[i]){
 					if(j == taillepgor-1){
-						distance[nbrpgor] = (i-(taillepgor-1))+numeroessai; // numeroessai est itéré a chaque appel de la fonction (premier appel il vaut 0, deuxieme appel il vaut 1)
+						distance[nbrpgor] = (i-(taillepgor-1))+(numeroessai%2); // numeroessai est itéré a chaque appel de la fonction (premier appel il vaut 0, deuxieme appel il vaut 1)
 						nbrpgor++;
 					}
 					i++;
