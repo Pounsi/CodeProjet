@@ -18,13 +18,13 @@ int Kasiski(ANALYSE a, gchar* texteCrypte){
 	int kas[TR_A_TESTER];
 	int nbrpgor;
 	int distance[10];
-	static int numeroessai = 1;
+	static int numeroessai = 0;
 	int decalage = 0;
 	int kasiski=0;
 	
-	
-	/*for(x=0;x<TR_A_TESTER;x++){//nbr de pgor
-		printf("\n tri[%d] = %s freq = %d",x,a.tr[x].nom,a.tr[x].frequence);
+	if(numeroessai == 0){
+	for(x=0;x<TR_A_TESTER;x++){//nbr de pgor
+		//printf("\n tri[%d] = %s freq = %d",x,a.tr[x].nom,a.tr[x].frequence);
 		
 		taillepgor = strlen(a.tr[x].nom);
 		nbrpgor = 0;
@@ -50,7 +50,7 @@ int Kasiski(ANALYSE a, gchar* texteCrypte){
 			
 		}
 		
-		printf("\n decalage %d\n",decalage);
+		//printf("\n decalage %d\n",decalage);
 		
 		kas[x] = distance[0];
 		for (i = 0; i < nbrpgor; i++)
@@ -60,11 +60,10 @@ int Kasiski(ANALYSE a, gchar* texteCrypte){
 		
 		for (i = 0; i < nbrpgor; i++)
 		{
-			printf("\ndistance[%d] = %d",i,distance[i]);
+			//printf("\ndistance[%d] = %d",i,distance[i]);
 		}
 	}
 	
-
 	int kasiski=0;
 	for (i = 0; i < TR_A_TESTER; i++)
 	{
@@ -74,22 +73,24 @@ int Kasiski(ANALYSE a, gchar* texteCrypte){
 		}
 	}
 	
-	//for (i = 0; i < TR_A_TESTER; i++)
-	//{
-		//if(kas[i]>kasiski)
-			//kasiski = kas[i];
-	//}
+	for (i = 0; i < TR_A_TESTER; i++)
+	{
+		if(kas[i]>kasiski)
+			kasiski = kas[i];
+	}
 		
 			
 	if(!kasiski) return 1;
 	if(kasiski > 12) return 1;
 	for (i = 0; i < TR_A_TESTER; i++)
 	{
-			printf("\nkas[%d] = %d",i,kas[i]);
+			//printf("\nkas[%d] = %d",i,kas[i]);
 	}
-	*/
 	numeroessai++;
+	return kasiski;
 	
+}
+else{
 	//printf(" \n numero essai vallait = %d pendant execution \n ", numeroessai-1);
 	
 	
@@ -97,7 +98,9 @@ int Kasiski(ANALYSE a, gchar* texteCrypte){
 	numeroessai=numeroessai%12;
 	}
 	kasiski = numeroessai;
+	numeroessai++;
 	return kasiski;
+}
 }
 	
 void indiceMutuelle(int cle[], int kasiski, ANALYSE freq, RESSOURCESLANGUE prob, gchar safecle[])
@@ -153,7 +156,7 @@ void indiceMutuelle(int cle[], int kasiski, ANALYSE freq, RESSOURCESLANGUE prob,
 	{
 		for ( j = 0; j < 26; ++j)
 		{
-			printf("mg[%d][%d] = %f et car = %c \n",i,j,mg[i][j],j+97);
+			//printf("mg[%d][%d] = %f et car = %c \n",i,j,mg[i][j],j+97);
 		}
 	}
 	
@@ -209,3 +212,4 @@ void DecryptageVigenere(gchar* TexteDecrypte, gchar* TexteCrypte, gchar savecle[
 	Decrypte(TexteDecrypte, TexteC, SauvegradeCle, kasiski);
 	
 }
+
