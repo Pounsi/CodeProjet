@@ -165,23 +165,25 @@ void RemplacerCleSubstitution(DOUBLEC *Donnees,gchar C1,gchar C2)
 {
 	
 	int i;
+	gchar tmp[TAILLECLE];
+	strcpy(tmp,Donnees->cle);
 	for ( i = 0; i < strlen(Donnees->cle); ++i)
 	{
-		if (Donnees->cle[i]>=65 && Donnees->cle[i]<=90 )
+		if (tmp[i]>=65 && tmp[i]<=90 )
 		{
 			
-			if (Donnees->cle[i]==C1)
+			if (tmp[i]==C1)
 			{
 				Donnees->cle[i]=C2;
 			}
-			else if (Donnees->cle[i]==C2)
+			else if (tmp[i]==C2)
 			{
 				Donnees->cle[i]=C1;
 			}
 		}
 		else
 		{
-			if (Donnees->cle[i]==C1)
+			if (tmp[i]==C1)
 			{
 				Donnees->cle[i]=C2;
 			}
@@ -308,17 +310,18 @@ void DechiffreSubstitution(gchar text[],gchar cle[])
 	int i,j;
 	gchar tmp[TAILLETEXTE];
 	strcpy(tmp,text);
-	g_print("%s\n",tmp);
-	for (i = 0; i < strlen(cle); i++)
+	g_print("%s\n",cle);
+	for (i = 0; i < 26; i++)
 	{
 		for (j = 0; j < strlen(text); j++)
 		{
 			if (tmp[j]-97==i)
 			{
 				text[j]=cle[i];
-				printf("%c\n",cle[i] );
+				printf("la %c par %c\n",tmp[j],cle[i] );
 				
 			}
 		}
+		
 	}
 }

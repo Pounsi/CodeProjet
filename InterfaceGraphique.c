@@ -76,9 +76,11 @@ void MenuResultatDecryptagePartiel(GtkWidget *Fenetre,DOUBLEC *Donnees)
     Fenetre = gtk_widget_get_toplevel (Fenetre);
     ViderContenaire(GTK_CONTAINER(Fenetre));
     GtkWidget *Box,*Box2, *Label,*Label2,*Label_retour,*Bouton2, *Bouton3;
+    int taille=TAILLETEXTE;
     gchar *Text;
     gchar *tmp[TAILLETEXTE];
-    strcpy(tmp,Donnees->texte);
+    ConvertisseurTableau(tmp,&taille,Donnees->texte);
+    
     DechiffreSubstitution(tmp,Donnees->cle);
 
     gchar text_affichage[TAILLETEXTE]; 
@@ -368,9 +370,9 @@ void RecupererChemin(GtkWidget *bouton, GtkWidget *selection)
         strcpy(Donnees->texte,contenu);
         char* cle="abcdefghijklmnopqrstuvwxyz";
         strcpy(Donnees->cle,cle);
-        
-        DecryptageSubstitution(Resultat,contenu,Donnees->cle);
         strcpy(Donnees->texte,contenu);
+        DecryptageSubstitution(Resultat,contenu,Donnees->cle);
+        
         MenuResultatDecryptagePartiel(Fenetre, Donnees);
         break;
     case 5:
@@ -978,10 +980,11 @@ void BoiteDialogueDecryptageSubstitution(GtkWidget *Fenetre)
                 
                 Donnees = (DOUBLEC *)malloc(sizeof(DOUBLEC));
 				strcpy(Donnees->texte,Text_crypt);
-				cle="abcdefghijklmnopqrstuwxyz";
+				cle="abcdefghijklmnopqrstuvwxyz";
 				strcpy(Donnees->cle,cle);
-                DecryptageSubstitution(Resultat,Text_crypt,Donnees->cle);
                 strcpy(Donnees->texte,Text_crypt);
+                DecryptageSubstitution(Resultat,Text_crypt,Donnees->cle);
+                
                 MenuResultatDecryptagePartiel(Fenetre, Donnees);
                 break;
             case GTK_RESPONSE_CANCEL:
