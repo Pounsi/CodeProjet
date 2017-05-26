@@ -3,24 +3,36 @@
 
 
 
-void MenuResultatDecryptagePartielVig(GtkWidget *Fenetre,gchar *Text_crypt)
+void MenuResultatDecryptagePartielVig(GtkWidget *Fenetre)
 {
     
     Fenetre = gtk_widget_get_toplevel (Fenetre);
     ViderContenaire(GTK_CONTAINER(Fenetre));
     GtkWidget *Box,*Box2, *Label,*Label2,*Label_retour,*Bouton1, *Bouton2;
     gchar *Text;
-    gchar Text_crypt2[TAILLETEXTE];
-    strcpy(Text_crypt2,Text_crypt);
+    gchar Text_crypt[TAILLETEXTE];
+    
+    FILE *fichier=NULL;
+    fichier=fopen("text.txt","r");
+
+            if (fichier != NULL)
+            {
+                fgets(Text_crypt,TAILLETEXTE,fichier);
+                 fclose(fichier);
+                
+            }
+    
+    
+
     DOUBLEC *Donnees;
     Donnees=(DOUBLEC *)malloc(sizeof(DOUBLEC));
 
-    DecryptageVigenere(Donnees->texte,Text_crypt2,Donnees->cle);
-    g_print("le texte :\n%s\net la cle\n %s\n",Text_crypt2,Donnees->cle);
+    DecryptageVigenere(Donnees->texte,Text_crypt,Donnees->cle);
+    g_print("le texte :\n%s\net la cle\n %s\n",Text_crypt,Donnees->cle);
     gchar text_affichage[TAILLETEXTE]; 
     RetourALaLigne(text_affichage,Donnees->texte);
     
-    printf("ici\n");
+    
 
     Box = gtk_vbox_new(FALSE, 0);
     gtk_container_add(GTK_CONTAINER(Fenetre), Box);
@@ -47,7 +59,7 @@ void MenuResultatDecryptagePartielVig(GtkWidget *Fenetre,gchar *Text_crypt)
     gtk_container_add(GTK_CONTAINER(Box), Box2);
     
     Bouton1 = gtk_button_new_with_label("Redechiffrer");
-    g_signal_connect(G_OBJECT(Bouton1), "clicked", G_CALLBACK(MenuResultatDecryptagePartielVig), Text_crypt2);
+    g_signal_connect(G_OBJECT(Bouton1), "clicked", G_CALLBACK(MenuResultatDecryptagePartielVig), NULL);
     gtk_box_pack_start(GTK_BOX(Box2), Bouton1, TRUE, TRUE, 0);
     
     
@@ -326,7 +338,15 @@ void RecupererChemin(GtkWidget *bouton, GtkWidget *selection)
         FILE* fichier =NULL;
         if (choix==4)
         {
-            MenuResultatDecryptagePartielVig(Fenetre,contenu);
+            remove("text.txt");
+            fichier=fopen("text.txt","w");
+
+            if (fichier != NULL)
+            {
+                fputs(contenu,fichier);
+                fclose(fichier);
+            }
+            MenuResultatDecryptagePartielVig(Fenetre);
         }
    switch (choix)
     {
@@ -1007,7 +1027,7 @@ void BoiteDialogueDecryptageVigenere(GtkWidget *Fenetre)
                 gtk_text_buffer_get_start_iter(Buffer,&debut);
                 gtk_text_buffer_get_end_iter(Buffer,&fin);
                 Text_crypt = gtk_text_buffer_get_text(Buffer,&debut,&fin,FALSE);
-                MenuResultatDecryptagePartielVig(Fenetre,Text_crypt);
+                MenuResultatDecryptagePartielVig(Fenetre);
                  
                 break;
             case GTK_RESPONSE_CANCEL:

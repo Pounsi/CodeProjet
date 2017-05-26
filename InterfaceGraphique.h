@@ -41,5 +41,4 @@ void MenuCryptage(GtkWidget *Fenetre);
 void MenuPrincipal(GtkWidget *Fenetre);
 void MenuResultatDecryptagePartiel(GtkWidget *Fenetre,DOUBLEC* Donnees);
 void BoiteDialogueChangerLaCleSubstitution(GtkWidget *Fenetre,DOUBLEC *Donnees);
-void MenuResultatDecryptagePartielVig(GtkWidget *Fenetre,gchar *Text_crypt);
-void Fonction_transition_Dcrypte_Vig(GtkWidget *Fenetre,gchar *Text_crypt);
+void MenuResultatDecryptagePartielVig(GtkWidget *Fenetre);
