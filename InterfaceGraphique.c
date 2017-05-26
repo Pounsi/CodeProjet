@@ -14,12 +14,13 @@ void MenuResultatDecryptagePartielVig(GtkWidget *Fenetre,gchar *Text_crypt)
     strcpy(Text_crypt2,Text_crypt);
     DOUBLEC *Donnees;
     Donnees=(DOUBLEC *)malloc(sizeof(DOUBLEC));
+    
     DecryptageVigenere(Donnees->texte,Text_crypt,Donnees->cle);
     g_print("le texte :\n%s\net la cle\n %s\n",Text_crypt,Donnees->cle);
     gchar text_affichage[TAILLETEXTE]; 
     RetourALaLigne(text_affichage,Donnees->texte);
     
-
+    printf("ici\n");
 
     Box = gtk_vbox_new(FALSE, 0);
     gtk_container_add(GTK_CONTAINER(Fenetre), Box);
@@ -46,7 +47,7 @@ void MenuResultatDecryptagePartielVig(GtkWidget *Fenetre,gchar *Text_crypt)
     gtk_container_add(GTK_CONTAINER(Box), Box2);
     
     Bouton1 = gtk_button_new_with_label("Redechiffrer");
-    g_signal_connect(G_OBJECT(Bouton1), "clicked", G_CALLBACK(Fonction_transition_Dcrypte_Vig), Text_crypt2);
+    g_signal_connect(G_OBJECT(Bouton1), "clicked", G_CALLBACK(MenuResultatDecryptagePartielVig), Text_crypt2);
     gtk_box_pack_start(GTK_BOX(Box2), Bouton1, TRUE, TRUE, 0);
     
     
@@ -73,14 +74,14 @@ void MenuResultatDecryptagePartiel(GtkWidget *Fenetre,DOUBLEC *Donnees)
     
     Fenetre = gtk_widget_get_toplevel (Fenetre);
     ViderContenaire(GTK_CONTAINER(Fenetre));
-    GtkWidget *Box,*Box2, *Label,*Label2,*Label_retour,*Bouton1, *Bouton2, *Bouton3;
+    GtkWidget *Box,*Box2, *Label,*Label2,*Label_retour,*Bouton2, *Bouton3;
     gchar *Text,*Resultat;
     Resultat=(gchar *)malloc(strlen(Donnees->texte)*sizeof(gchar));
     
     gchar text_affichage[TAILLETEXTE]; 
-    RetourALaLigne(text_affichage,Donnees->texte);
+    
     DecryptageSubstitution(Resultat,Donnees->texte,Donnees->cle);
-
+    RetourALaLigne(text_affichage,Resultat);
 
     Box = gtk_vbox_new(FALSE, 0);
     gtk_container_add(GTK_CONTAINER(Fenetre), Box);
@@ -109,9 +110,6 @@ void MenuResultatDecryptagePartiel(GtkWidget *Fenetre,DOUBLEC *Donnees)
     Box2 = gtk_hbox_new(TRUE, 0);
     gtk_container_add(GTK_CONTAINER(Box), Box2);
     
-    Bouton1 = gtk_button_new_with_label("Redechiffrer");
-    g_signal_connect(G_OBJECT(Bouton1), "clicked", G_CALLBACK(MenuResultatDecryptagePartiel), Donnees);
-    gtk_box_pack_start(GTK_BOX(Box2), Bouton1, TRUE, TRUE, 0);
     
     Bouton2 = gtk_button_new_with_label("Changer la cle");
     g_signal_connect(G_OBJECT(Bouton2), "clicked", G_CALLBACK(BoiteDialogueChangerLaCleSubstitution), Donnees);
