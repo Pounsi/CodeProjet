@@ -80,11 +80,12 @@ void MenuResultatDecryptagePartiel(GtkWidget *Fenetre,DOUBLEC *Donnees)
     ViderContenaire(GTK_CONTAINER(Fenetre));
     GtkWidget *Box,*Box2, *Label,*Label2,*Label_retour,*Bouton2, *Bouton3;
     gchar *Text;
-    
-    DechiffreSubstitution(Donnees->texte,Donnees->cle);
+    gchar *tmp[TAILLETEXTE];
+    strcpy(tmp,Donnees->texte);
+    DechiffreSubstitution(tmp,Donnees->cle);
 
     gchar text_affichage[TAILLETEXTE]; 
-    RetourALaLigne(text_affichage,Donnees->texte);
+    RetourALaLigne(text_affichage,tmp);
 
     Box = gtk_vbox_new(FALSE, 0);
     gtk_container_add(GTK_CONTAINER(Fenetre), Box);
@@ -143,7 +144,7 @@ void BoiteDialogueChangerLaCleSubstitution(GtkWidget *Fenetre,DOUBLEC *Donnees)
                -1, NULL, NULL, NULL);
        
 
-        indication_cle = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Par ce caractere : </span>\n",
+        indication_cle = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Par ce caractere :\n(EN MAJUSCULE)    </span>\n",
                -1, NULL, NULL, NULL);
         
        
@@ -628,8 +629,13 @@ void MenuResultatDecryptageSubstitution(GtkWidget *Fenetre, DOUBLEC *Donnees)//a
 
     GtkWidget *Box, *Box_2,*Label, *Label_msg,*Label_cle,*Label_retour,*Bouton1,*Bouton2,*Bouton3;
     gchar *Text;
+    gchar *Text_clair[TAILLETEXTE];
+    strcpy(Text_clair,Donnees->texte);
+    DechiffreSubstitution(Text_clair,Donnees->cle);
+
+
     gchar text_affichage[TAILLETEXTE]; 
-    RetourALaLigne(text_affichage,Donnees->texte);
+    RetourALaLigne(text_affichage,Text_clair);
     
     Box = gtk_vbox_new(FALSE, 0);
     gtk_container_add(GTK_CONTAINER(Fenetre), Box);
@@ -665,7 +671,7 @@ void MenuResultatDecryptageSubstitution(GtkWidget *Fenetre, DOUBLEC *Donnees)//a
     
     
     Bouton1 = gtk_button_new_with_label("Enregistrer le msg");
-    gtk_label_set_markup(GTK_LABEL(Label_retour), Donnees->texte);
+    gtk_label_set_markup(GTK_LABEL(Label_retour), Text_clair);
     g_signal_connect(G_OBJECT(Bouton1), "clicked", G_CALLBACK(Enregistrer), Label_retour);
    
     gtk_box_pack_start(GTK_BOX(Box), Bouton1, TRUE, TRUE, 0);
