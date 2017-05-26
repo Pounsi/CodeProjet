@@ -20,10 +20,10 @@ int Kasiski(ANALYSE a, gchar* texteCrypte){
 	int distance[10];
 	static int numeroessai = 1;
 	int decalage = 0;
+	int kasiski=0;
 	
 	
-	
-	for(x=0;x<TR_A_TESTER;x++){//nbr de pgor
+	/*for(x=0;x<TR_A_TESTER;x++){//nbr de pgor
 		printf("\n tri[%d] = %s freq = %d",x,a.tr[x].nom,a.tr[x].frequence);
 		
 		taillepgor = strlen(a.tr[x].nom);
@@ -87,15 +87,16 @@ int Kasiski(ANALYSE a, gchar* texteCrypte){
 	{
 			printf("\nkas[%d] = %d",i,kas[i]);
 	}
-	
+	*/
 	numeroessai++;
 	
-	printf(" \n numero essai vallait = %d pendant execution \n ", numeroessai-1);
+	//printf(" \n numero essai vallait = %d pendant execution \n ", numeroessai-1);
 	
-	kasiski = numeroessai;
+	
 	if(numeroessai > 12){
-	kasiski = kasiski -12;
+	numeroessai=numeroessai%12;
 	}
+	kasiski = numeroessai;
 	return kasiski;
 }
 	

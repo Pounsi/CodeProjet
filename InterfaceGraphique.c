@@ -14,7 +14,7 @@ void MenuResultatDecryptagePartielVig(GtkWidget *Fenetre,gchar *Text_crypt)
     strcpy(Text_crypt2,Text_crypt);
     DOUBLEC *Donnees;
     Donnees=(DOUBLEC *)malloc(sizeof(DOUBLEC));
-    
+
     DecryptageVigenere(Donnees->texte,Text_crypt,Donnees->cle);
     g_print("le texte :\n%s\net la cle\n %s\n",Text_crypt,Donnees->cle);
     gchar text_affichage[TAILLETEXTE]; 
@@ -76,11 +76,8 @@ void MenuResultatDecryptagePartiel(GtkWidget *Fenetre,DOUBLEC *Donnees)
     ViderContenaire(GTK_CONTAINER(Fenetre));
     GtkWidget *Box,*Box2, *Label,*Label2,*Label_retour,*Bouton2, *Bouton3;
     gchar *Text,*Resultat;
-    Resultat=(gchar *)malloc(strlen(Donnees->texte)*sizeof(gchar));
     
     gchar text_affichage[TAILLETEXTE]; 
-    
-    DecryptageSubstitution(Resultat,Donnees->texte,Donnees->cle);
     RetourALaLigne(text_affichage,Resultat);
 
     Box = gtk_vbox_new(FALSE, 0);
@@ -314,6 +311,8 @@ void RecupererChemin(GtkWidget *bouton, GtkWidget *selection)
     gchar contenu[TAILLEFICHIER];
     gchar cle[TAILLECLE];
     GtkWidget *dialog;
+    gchar *Resultat;
+    Resultat=(gchar *)malloc(TAILLETEXTE*sizeof(gchar));
    
     chemin = gtk_file_selection_get_filename(GTK_FILE_SELECTION (selection) );
     dialog = gtk_message_dialog_new(GTK_WINDOW(selection),GTK_DIALOG_MODAL,
@@ -357,6 +356,8 @@ void RecupererChemin(GtkWidget *bouton, GtkWidget *selection)
         strcpy(Donnees->texte,contenu);
         char* cle="abcdefghijklmnopqrstuvwxyz";
         strcpy(Donnees->cle,cle);
+        
+        DecryptageSubstitution(Resultat,Donnees->texte,Donnees->cle);
         MenuResultatDecryptagePartiel(Fenetre, Donnees);
         break;
     case 5:
