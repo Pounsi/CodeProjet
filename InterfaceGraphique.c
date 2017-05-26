@@ -15,8 +15,8 @@ void MenuResultatDecryptagePartielVig(GtkWidget *Fenetre,gchar *Text_crypt)
     DOUBLEC *Donnees;
     Donnees=(DOUBLEC *)malloc(sizeof(DOUBLEC));
 
-    DecryptageVigenere(Donnees->texte,Text_crypt,Donnees->cle);
-    g_print("le texte :\n%s\net la cle\n %s\n",Text_crypt,Donnees->cle);
+    DecryptageVigenere(Donnees->texte,Text_crypt2,Donnees->cle);
+    g_print("le texte :\n%s\net la cle\n %s\n",Text_crypt2,Donnees->cle);
     gchar text_affichage[TAILLETEXTE]; 
     RetourALaLigne(text_affichage,Donnees->texte);
     
