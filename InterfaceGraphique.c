@@ -70,9 +70,6 @@ void MenuResultatDecryptagePartielVig(GtkWidget *Fenetre)
     gtk_widget_show_all(Fenetre);
 }
 
-
-
-
 void MenuResultatDecryptagePartiel(GtkWidget *Fenetre,DOUBLEC *Donnees)
 {
     
@@ -373,6 +370,7 @@ void RecupererChemin(GtkWidget *bouton, GtkWidget *selection)
         strcpy(Donnees->cle,cle);
         
         DecryptageSubstitution(Resultat,contenu,Donnees->cle);
+        strcpy(Donnees->texte,contenu);
         MenuResultatDecryptagePartiel(Fenetre, Donnees);
         break;
     case 5:
@@ -983,6 +981,7 @@ void BoiteDialogueDecryptageSubstitution(GtkWidget *Fenetre)
 				cle="abcdefghijklmnopqrstuwxyz";
 				strcpy(Donnees->cle,cle);
                 DecryptageSubstitution(Resultat,Text_crypt,Donnees->cle);
+                strcpy(Donnees->texte,Text_crypt);
                 MenuResultatDecryptagePartiel(Fenetre, Donnees);
                 break;
             case GTK_RESPONSE_CANCEL:

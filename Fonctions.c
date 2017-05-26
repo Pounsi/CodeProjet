@@ -309,9 +309,9 @@ void DechiffreSubstitution(gchar text[],gchar cle[])
 	gchar tmp[TAILLETEXTE];
 	strcpy(tmp,text);
 	g_print("%s\n",tmp);
-	for (i = 0; i < strlen(cle); ++i)
+	for (i = 0; i < strlen(cle); i++)
 	{
-		for (j = 0; j < strlen(text); ++j)
+		for (j = 0; j < strlen(text); j++)
 		{
 			if (tmp[j]-97==i)
 			{
