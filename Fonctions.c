@@ -184,7 +184,8 @@ void RemplacerCleSubstitution(DOUBLEC *Donnees,gchar C1,gchar C2)
 ANALYSE tri(ANALYSE a)
 { 
 int i, min, j , tmp;
-char tmp_di[3];
+char tmp_di[2];
+char tmp_di2[3];
 
 for (i =0; i <a.nbdi; i++)
 {
@@ -211,9 +212,11 @@ strcpy(a.di[min].nom, tmp_di);
 for (i =0; i <a.nbtr; i++)
 {
 	min = i; 
-	for (j = i+1; j < a.nbtr ; j++) 
-	if(a.tr[j].frequence > a.tr[min].frequence)
-	min = j; 
+	for (j = i+1; j < a.nbtr ; j++) {
+	if(a.tr[j].frequence > a.tr[min].frequence){
+	printf("%d > %d \n",a.tr[j].frequence , a.tr[min].frequence);
+	min = j; }
+	}
 	
 	
 	if (min != i){
@@ -223,10 +226,27 @@ a.tr[i].frequence = a.tr[min].frequence;
 a.tr[min].frequence = tmp;
 
 //echanger nom digrammes(le char*)
-strcpy(tmp_di,a.tr[i].nom);
-strcpy(a.tr[i].nom,a.tr[min].nom);
-strcpy(a.tr[min].nom, tmp_di);
+printf("on inverse %s et %s\n",a.tr[min].nom,a.tr[i].nom);
+//strcpy(tmp_di2,a.tr[i].nom);
+//strcpy(a.tr[i].nom,a.tr[min].nom);
+//strcpy(a.tr[min].nom, tmp_di2);
+char c;
+int k;
+for (k = 0; k < 3; k++)
+{
+	c=a.tr[i].nom[k];
+	a.tr[i].nom[k] = a.tr[min].nom[k];
+	a.tr[min].nom[k]=c;
+}
+
+
+
+printf("on inverse %s et %s\n",a.tr[min].nom,a.tr[i].nom);
 				}
+				printf("on a %s\n",a.tr[0].nom);
+printf("on a %s\n",a.tr[1].nom);
+printf("on a %s\n",a.tr[2].nom);
+printf("on a %s\n",a.tr[3].nom);
 }
 
 
