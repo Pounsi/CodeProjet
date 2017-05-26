@@ -279,12 +279,7 @@ void RetourALaLigne(gchar output[],gchar input[])
 		i++;
 		
 	}
-	output[i]='e';
-	i++;
-	output[i]='t';
-	i++;
-	output[i]='c';
-	i++;
+	
 	output[i]='\n';
 	i++;
 	output[i]='\n';
@@ -295,4 +290,22 @@ void RetourALaLigne(gchar output[],gchar input[])
 		strcat(output,info);
 	}
 
+}
+
+void DechiffreSubstitution(gchar text[],gchar cle[])
+{
+	int i,j;
+	gchar tmp[TAILLETEXTE];
+	strcpy(tmp,text);
+	for (i = 0; i < strlen(cle); ++i)
+	{
+		for (j = 0; j < strlen(text); ++j)
+		{
+			if (tmp[j]-97==i)
+			{
+				text[j]=cle[i];
+				printf("ici\n");
+			}
+		}
+	}
 }
