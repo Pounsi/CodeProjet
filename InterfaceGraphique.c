@@ -28,7 +28,7 @@ void MenuResultatDecryptagePartielVig(GtkWidget *Fenetre)
     Donnees=(DOUBLEC *)malloc(sizeof(DOUBLEC));
 
     DecryptageVigenere(Donnees->texte,Text_crypt,Donnees->cle);
-    g_print("le texte :\n%s\net la cle\n %s\n",Text_crypt,Donnees->cle);
+    
     gchar text_affichage[TAILLETEXTE]; 
     RetourALaLigne(text_affichage,Donnees->texte);
     
@@ -80,9 +80,9 @@ void MenuResultatDecryptagePartiel(GtkWidget *Fenetre,DOUBLEC *Donnees)
     ViderContenaire(GTK_CONTAINER(Fenetre));
     GtkWidget *Box,*Box2, *Label,*Label2,*Label_retour,*Bouton2, *Bouton3;
     gchar *Text;
-    g_print("%s\n1er\n",Donnees->texte);
+    
     DechiffreSubstitution(Donnees->texte,Donnees->cle);
-    g_print("%s\n2em\n",Donnees->texte);
+
     gchar text_affichage[TAILLETEXTE]; 
     RetourALaLigne(text_affichage,Donnees->texte);
 

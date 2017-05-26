@@ -304,7 +304,7 @@ void DechiffreSubstitution(gchar text[],gchar cle[])
 			if (tmp[j]-97==i)
 			{
 				text[j]=cle[i];
-				printf("ici\n");
+				
 			}
 		}
 	}
