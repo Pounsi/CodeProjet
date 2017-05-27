@@ -27,7 +27,7 @@ void TestAnalyseFrequentielle()
 	a = AnalyseFrequentielle(ch);
 	a = tri(a);
 	float tmp;
-	tmp = 3/10;
+	tmp = 3;
 	
 	CU_ASSERT_EQUAL(a.occ[0][0],tmp);
 	CU_ASSERT_STRING_EQUAL(a.di[0].nom,"in");
@@ -43,20 +43,6 @@ void TestDecrypteVigenere()
 	CU_ASSERT_STRING_EQUAL(resultat,"testcryptagevigenere");
 		
 }
-/* void TestAnalyseFreq()
-{
-	ANALYSE a;
-	int kas, taille;
-	float tmp;
-	gchar TexteCrypte[]	= "abcdefghijklmnopqrstuvwxyz"; 
-	gchar TexteC[strlen(TexteCrypte)];
-	kas = 3;
-	ConvertisseurTableau(TexteC,&taille,TexteCrypte);
-	RetirerToutCarSpec(TexteC,TexteC);
-	a = AnalyseFreq(a,TexteC,kas); 	
-	printf("\n %f", a.occ[0][0]);
-	//CU_ASSERT_EQUAL(a.occ[0][0], 0.047337);	
-} */
 void TestKasiski()
 {
 	ANALYSE a;

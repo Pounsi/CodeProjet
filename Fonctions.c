@@ -227,7 +227,6 @@ for (i =0; i <a.nbtr; i++)
 	min = i; 
 	for (j = i+1; j < a.nbtr ; j++) {
 	if(a.tr[j].frequence > a.tr[min].frequence){
-	printf("%d > %d \n",a.tr[j].frequence , a.tr[min].frequence);
 	min = j; }
 	}
 	
@@ -238,11 +237,6 @@ tmp = a.tr[i].frequence;
 a.tr[i].frequence = a.tr[min].frequence;
 a.tr[min].frequence = tmp;
 
-//echanger nom digrammes(le char*)
-printf("on inverse %s et %s\n",a.tr[min].nom,a.tr[i].nom);
-//strcpy(tmp_di2,a.tr[i].nom);
-//strcpy(a.tr[i].nom,a.tr[min].nom);
-//strcpy(a.tr[min].nom, tmp_di2);
 char c;
 int k;
 for (k = 0; k < 3; k++)
@@ -254,12 +248,7 @@ for (k = 0; k < 3; k++)
 
 
 
-printf("on inverse %s et %s\n",a.tr[min].nom,a.tr[i].nom);
 				}
-				printf("on a %s\n",a.tr[0].nom);
-printf("on a %s\n",a.tr[1].nom);
-printf("on a %s\n",a.tr[2].nom);
-printf("on a %s\n",a.tr[3].nom);
 }
 
 
@@ -310,7 +299,6 @@ void DechiffreSubstitution(gchar text[],gchar cle[])
 	int i,j;
 	gchar tmp[TAILLETEXTE];
 	strcpy(tmp,text);
-	g_print("%s\n",cle);
 	for (i = 0; i < 26; i++)
 	{
 		for (j = 0; j < strlen(text); j++)
@@ -318,7 +306,6 @@ void DechiffreSubstitution(gchar text[],gchar cle[])
 			if (tmp[j]-97==i)
 			{
 				text[j]=cle[i];
-				printf("la %c par %c\n",tmp[j],cle[i] );
 				
 			}
 		}
