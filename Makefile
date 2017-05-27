@@ -3,8 +3,14 @@ LIBS=`pkg-config --libs gtk+-2.0`
 run: all clean
 	./dcrypt
 		
+test: Ctest clean
+	./test
+
 all: main.o InterfaceGraphique.o Fonctions.o  CryptageVigenere.o CryptageSubstitution.o DecryptageVigenere.o DecryptageSubstitution.o AnalyseFrequentielle.o
 	gcc main.o InterfaceGraphique.o Fonctions.o CryptageVigenere.o CryptageSubstitution.o DecryptageVigenere.o DecryptageSubstitution.o AnalyseFrequentielle.o -o dcrypt $(LIBS)
+
+Ctest: Test.o InterfaceGraphique.o Fonctions.o  CryptageVigenere.o CryptageSubstitution.o DecryptageVigenere.o DecryptageSubstitution.o AnalyseFrequentielle.o
+	gcc Test.o InterfaceGraphique.o Fonctions.o CryptageVigenere.o CryptageSubstitution.o DecryptageVigenere.o DecryptageSubstitution.o AnalyseFrequentielle.o -o test  -lcunit $(LIBS)
 
 Fonctions.o: Fonctions.c Fonctions.h
 	gcc -c Fonctions.c `pkg-config --cflags gtk+-2.0` -o Fonctions.o
@@ -29,6 +35,9 @@ InterfaceGraphique.o: InterfaceGraphique.c CryptageVigenere.o CryptageSubstituti
 
 main.o: main.c InterfaceGraphique.o
 	gcc -c main.c  `pkg-config --cflags gtk+-2.0` -o main.o
+
+Test.o: Test.c InterfaceGraphique.o
+	gcc -c Test.c  -lcunit `pkg-config --cflags gtk+-2.0` -o Test.o
 
 clean:
 	rm -f *core

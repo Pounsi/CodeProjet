@@ -1,4 +1,5 @@
-#include "Test.h"
+#include <CUnit/Basic.h>
+#include "InterfaceGraphique.h"
 
 void TestCryptageVigenere()
 {

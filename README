@@ -1,6 +1,13 @@
-pour compiler:
+pour compiler l'application:
       make all 
 pour supprimer les .o etc .. 
       make clean
-pour compiler, executer et supprimer :
+pour compiler l'application, l'executer et supprimer :
       make run 
+
+
+pour compiler les tests:
+      make Ctest 
+
+pour compiler les tests, les executer et supprimer :
+      make test
