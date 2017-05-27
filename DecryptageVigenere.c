@@ -19,7 +19,6 @@ int Kasiski(ANALYSE a, gchar* texteCrypte){
 	int nbrpgor;
 	int distance[10];
 	static int numeroessai = 0;
-	int decalage = 0;
 	int kasiski=0;
 	
 	if(numeroessai == 0){

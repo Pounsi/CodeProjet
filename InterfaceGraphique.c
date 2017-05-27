@@ -1,14 +1,12 @@
 #include "InterfaceGraphique.h"
 
 
-
-
 void MenuResultatDecryptagePartielVig(GtkWidget *Fenetre)
 {
     
     Fenetre = gtk_widget_get_toplevel (Fenetre);
     ViderContenaire(GTK_CONTAINER(Fenetre));
-    GtkWidget *Box,*Box2, *Label,*Label2,*Label_retour,*Bouton1, *Bouton2;
+    GtkWidget *Box,*Box2, *Label,*Label2,*Bouton1, *Bouton2;
     gchar *Text;
     gchar TexteCrypt[TAILLETEXTE];
     
@@ -75,10 +73,10 @@ void MenuResultatDecryptagePartiel(GtkWidget *Fenetre,DOUBLEC *Donnees)
     
     Fenetre = gtk_widget_get_toplevel (Fenetre);
     ViderContenaire(GTK_CONTAINER(Fenetre));
-    GtkWidget *Box,*Box2, *Label,*Label2,*Label_retour,*Bouton2, *Bouton3;
+    GtkWidget *Box,*Box2, *Label,*Label2,*Bouton2, *Bouton3;
     int taille=TAILLETEXTE;
     gchar *Text;
-    gchar *tmp[TAILLETEXTE];
+    gchar tmp[TAILLETEXTE];
     ConvertisseurTableau(tmp,&taille,Donnees->texte);
     
     DechiffreSubstitution(tmp,Donnees->cle);
@@ -240,36 +238,6 @@ void ChoisirLangue()
     gtk_box_pack_start(GTK_BOX(Boite), bouton2, TRUE, TRUE,10);
    
     gtk_widget_show_all(Fenetre);
-}
-
-void MenuAttente(GtkWidget *Fenetre)
-{
-   GtkWidget* pWindow;
-   GtkWidget* Label;
-   gchar* Text;
- 
-   pWindow = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-   gtk_window_set_title(GTK_WINDOW(pWindow), "fenetre d'attente");
-   gtk_window_set_default_size(GTK_WINDOW(pWindow), 320, 200);
-   gtk_container_set_border_width(GTK_CONTAINER(pWindow), 4);
-
-    Label=gtk_label_new(NULL);
-    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Patientez...</span>\n",
-           -1, NULL, NULL, NULL);
-    gtk_label_set_markup(GTK_LABEL(Label), Text);
-    g_free(Text);  
-    gtk_container_add(GTK_CONTAINER(pWindow), Label);
-    
-
-   gtk_widget_show_all(pWindow);  
-   gtk_widget_show_all(pWindow);
-   gtk_main_iteration(); 
-   gtk_main_iteration();
-
-   sleep(3);      
-   gtk_widget_destroy(pWindow);
-   gtk_main();
-
 }
 
 void Enregistrer (GtkWidget *p_widget, GtkWidget *text )
@@ -629,7 +597,7 @@ void MenuResultatDecryptageSubstitution(GtkWidget *Fenetre, DOUBLEC *Donnees)//a
 
     GtkWidget *Box, *Box_2,*Label, *Label_msg,*Label_cle,*Label_retour,*Bouton1,*Bouton2,*Bouton3;
     gchar *Text;
-    gchar *TexteClair[TAILLETEXTE];
+    gchar TexteClair[TAILLETEXTE];
     strcpy(TexteClair,Donnees->texte);
     DechiffreSubstitution(TexteClair,Donnees->cle);
 
@@ -1000,8 +968,6 @@ void BoiteDialogueDecryptageVigenere(GtkWidget *Fenetre)
 {
     GtkWidget *Boite,*Entrer,*Label_text;
     gchar *TexteCrypt,*msg;
-    gchar TexteClair[TAILLETEXTE];
-    gchar cle[TAILLECLE];
     GtkTextBuffer* Buffer;
     GtkTextIter debut;
     GtkTextIter fin;

@@ -8,13 +8,12 @@
 #include "DecryptageVigenere.h"
 #include "AnalyseFrequentielle.h"
 
-
 #endif
 
 
 
 
-//dans un autre fichier
+//memoire
 void Enregistrer (GtkWidget *p_widget, GtkWidget *text );
 void RecupererChemin(GtkWidget *bouton, GtkWidget *selection);
 void ChoisirFichier();

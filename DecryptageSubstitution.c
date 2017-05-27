@@ -297,7 +297,7 @@ void DecryptageSubstitution(gchar TexteDecrypte[],gchar TexteCrypte[],gchar cle[
 {
 	ANALYSE a;
 	RESSOURCESLANGUE res;
-	int i,j,x;
+	int i,j;
 	int taille;
 	gchar tabA[ALPHABET+1];
 	gchar tabRes[ALPHABET+1];
