@@ -21,7 +21,7 @@ void ChoisirFichier();
 //interface
 void ViderContenaire(GtkContainer * container);
 void MenuResultatSubstitution(GtkWidget *Fenetre, DOUBLEC *Donnees);
-void MenuResultatVigenere(GtkWidget *Fenetre, gchar* Text_crypt, gchar* cle);
+void MenuResultatVigenere(GtkWidget *Fenetre, gchar* TexteCrypt, gchar* cle);
 void MenuResultatAnalyse(GtkWidget *Fenetre, ANALYSE analyse);
 void MenuResultatDecryptageSubstitution(GtkWidget *Fenetre, DOUBLEC* Donnees);
 void MenuResultatDecryptageVigenere(GtkWidget *Fenetre, DOUBLEC *Donnees);

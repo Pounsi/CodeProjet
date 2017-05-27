@@ -10,14 +10,14 @@ void MenuResultatDecryptagePartielVig(GtkWidget *Fenetre)
     ViderContenaire(GTK_CONTAINER(Fenetre));
     GtkWidget *Box,*Box2, *Label,*Label2,*Label_retour,*Bouton1, *Bouton2;
     gchar *Text;
-    gchar Text_crypt[TAILLETEXTE];
+    gchar TexteCrypt[TAILLETEXTE];
     
     FILE *fichier=NULL;
     fichier=fopen("text.txt","r");
 
             if (fichier != NULL)
             {
-                fgets(Text_crypt,TAILLETEXTE,fichier);
+                fgets(TexteCrypt,TAILLETEXTE,fichier);
                  fclose(fichier);
                 
             }
@@ -27,10 +27,10 @@ void MenuResultatDecryptagePartielVig(GtkWidget *Fenetre)
     DOUBLEC *Donnees;
     Donnees=(DOUBLEC *)malloc(sizeof(DOUBLEC));
 
-    DecryptageVigenere(Donnees->texte,Text_crypt,Donnees->cle);
+    DecryptageVigenere(Donnees->texte,TexteCrypt,Donnees->cle);
     
-    gchar text_affichage[TAILLETEXTE]; 
-    RetourALaLigne(text_affichage,Donnees->texte);
+    gchar TexteAffichage[TAILLETEXTE]; 
+    RetourALaLigne(TexteAffichage,Donnees->texte);
     
     
 
@@ -46,7 +46,7 @@ void MenuResultatDecryptagePartielVig(GtkWidget *Fenetre)
 
     gtk_box_pack_start(GTK_BOX(Box), Label, TRUE, TRUE, 0);
     
-    Label2=gtk_label_new(text_affichage);
+    Label2=gtk_label_new(TexteAffichage);
     gtk_label_set_justify(GTK_LABEL(Label2), GTK_JUSTIFY_CENTER);
     gtk_box_pack_start(GTK_BOX(Box), Label2, TRUE, TRUE, 0);
     
@@ -83,8 +83,8 @@ void MenuResultatDecryptagePartiel(GtkWidget *Fenetre,DOUBLEC *Donnees)
     
     DechiffreSubstitution(tmp,Donnees->cle);
 
-    gchar text_affichage[TAILLETEXTE]; 
-    RetourALaLigne(text_affichage,tmp);
+    gchar TexteAffichage[TAILLETEXTE]; 
+    RetourALaLigne(TexteAffichage,tmp);
 
     Box = gtk_vbox_new(FALSE, 0);
     gtk_container_add(GTK_CONTAINER(Fenetre), Box);
@@ -98,7 +98,7 @@ void MenuResultatDecryptagePartiel(GtkWidget *Fenetre,DOUBLEC *Donnees)
 
     gtk_box_pack_start(GTK_BOX(Box), Label, TRUE, TRUE, 0);
     
-    Label2=gtk_label_new(text_affichage);
+    Label2=gtk_label_new(TexteAffichage);
     gtk_label_set_justify(GTK_LABEL(Label2), GTK_JUSTIFY_CENTER);
     gtk_box_pack_start(GTK_BOX(Box), Label2, TRUE, TRUE, 0);
     
@@ -313,7 +313,7 @@ void RecupererChemin(GtkWidget *bouton, GtkWidget *selection)
     
     ANALYSE a;
     const gchar* chemin;
-    gchar Text_crypt[TAILLETEXTE];
+    gchar TexteCrypt[TAILLETEXTE];
     gchar contenu[TAILLEFICHIER];
     gchar cle[TAILLECLE];
     GtkWidget *dialog;
@@ -361,9 +361,9 @@ void RecupererChemin(GtkWidget *bouton, GtkWidget *selection)
             remove("cle.txt");
         }
 
-        CryptageVigenere(Text_crypt,contenu,cle);
+        CryptageVigenere(TexteCrypt,contenu,cle);
 
-        MenuResultatVigenere(Fenetre,Text_crypt,cle);
+        MenuResultatVigenere(Fenetre,TexteCrypt,cle);
         
         break;
     case 3:
@@ -418,8 +418,8 @@ void MenuResultatSubstitution(GtkWidget *Fenetre, DOUBLEC *Donnees)
 
     GtkWidget *Box, *Box_2,*Label, *Label_msg,*Label_cle,*Bouton1,*Bouton2,*Bouton3;
     gchar* Text;
-    gchar text_affichage[TAILLETEXTE]; 
-    RetourALaLigne(text_affichage,Donnees->texte);
+    gchar TexteAffichage[TAILLETEXTE]; 
+    RetourALaLigne(TexteAffichage,Donnees->texte);
     
     Box = gtk_vbox_new(FALSE, 0);
     gtk_container_add(GTK_CONTAINER(Fenetre), Box);
@@ -442,7 +442,7 @@ void MenuResultatSubstitution(GtkWidget *Fenetre, DOUBLEC *Donnees)
 
     gtk_box_pack_start(GTK_BOX(Box_2), Label, TRUE, TRUE, 0);
 
-    gtk_label_set_markup(GTK_LABEL(Label_msg), text_affichage);
+    gtk_label_set_markup(GTK_LABEL(Label_msg), TexteAffichage);
     gtk_label_set_justify(GTK_LABEL(Label_msg), GTK_JUSTIFY_CENTER);
     gtk_box_pack_start(GTK_BOX(Box), Label_msg, TRUE, TRUE, 0);
     
@@ -461,15 +461,15 @@ void MenuResultatSubstitution(GtkWidget *Fenetre, DOUBLEC *Donnees)
     gtk_widget_show_all(Fenetre);
 }
 
-void MenuResultatVigenere(GtkWidget *Fenetre, gchar* Text_crypt, gchar* cle)
+void MenuResultatVigenere(GtkWidget *Fenetre, gchar* TexteCrypt, gchar* cle)
 {
     Fenetre = gtk_widget_get_toplevel (Fenetre);
     ViderContenaire(GTK_CONTAINER(Fenetre));
 
     GtkWidget *Box, *Box_2,*Label, *Label_msg,*Label_cle,*Bouton1,*Bouton2,*Bouton3,*Label_retour;
     gchar* Text;
-    gchar text_affichage[TAILLETEXTE]; 
-    RetourALaLigne(text_affichage,Text_crypt);
+    gchar TexteAffichage[TAILLETEXTE]; 
+    RetourALaLigne(TexteAffichage,TexteCrypt);
     Box = gtk_vbox_new(FALSE, 0);
     gtk_container_add(GTK_CONTAINER(Fenetre), Box);
     Box_2= gtk_hbox_new(FALSE, 0);
@@ -494,12 +494,12 @@ void MenuResultatVigenere(GtkWidget *Fenetre, gchar* Text_crypt, gchar* cle)
 
     ////////////Affichage du resultat//////////////
 
-    gtk_label_set_markup(GTK_LABEL(Label_msg), text_affichage);
+    gtk_label_set_markup(GTK_LABEL(Label_msg), TexteAffichage);
     gtk_label_set_justify(GTK_LABEL(Label_msg), GTK_JUSTIFY_CENTER);
     gtk_box_pack_start(GTK_BOX(Box), Label_msg, TRUE, TRUE, 0);
     
     Bouton1 = gtk_button_new_with_label("Enregistrer le msg");
-    gtk_label_set_markup(GTK_LABEL(Label_retour), Text_crypt);
+    gtk_label_set_markup(GTK_LABEL(Label_retour), TexteCrypt);
     g_signal_connect(G_OBJECT(Bouton1), "clicked", G_CALLBACK(Enregistrer), Label_retour);
     gtk_box_pack_start(GTK_BOX(Box), Bouton1, TRUE, TRUE, 0);
 
@@ -629,13 +629,13 @@ void MenuResultatDecryptageSubstitution(GtkWidget *Fenetre, DOUBLEC *Donnees)//a
 
     GtkWidget *Box, *Box_2,*Label, *Label_msg,*Label_cle,*Label_retour,*Bouton1,*Bouton2,*Bouton3;
     gchar *Text;
-    gchar *Text_clair[TAILLETEXTE];
-    strcpy(Text_clair,Donnees->texte);
-    DechiffreSubstitution(Text_clair,Donnees->cle);
+    gchar *TexteClair[TAILLETEXTE];
+    strcpy(TexteClair,Donnees->texte);
+    DechiffreSubstitution(TexteClair,Donnees->cle);
 
 
-    gchar text_affichage[TAILLETEXTE]; 
-    RetourALaLigne(text_affichage,Text_clair);
+    gchar TexteAffichage[TAILLETEXTE]; 
+    RetourALaLigne(TexteAffichage,TexteClair);
     
     Box = gtk_vbox_new(FALSE, 0);
     gtk_container_add(GTK_CONTAINER(Fenetre), Box);
@@ -663,7 +663,7 @@ void MenuResultatDecryptageSubstitution(GtkWidget *Fenetre, DOUBLEC *Donnees)//a
 
     ////////////Affichage du resultat//////////////
 
-    gtk_label_set_markup(GTK_LABEL(Label_msg), text_affichage);
+    gtk_label_set_markup(GTK_LABEL(Label_msg), TexteAffichage);
 
     gtk_label_set_justify(GTK_LABEL(Label_msg), GTK_JUSTIFY_CENTER);
 
@@ -671,7 +671,7 @@ void MenuResultatDecryptageSubstitution(GtkWidget *Fenetre, DOUBLEC *Donnees)//a
     
     
     Bouton1 = gtk_button_new_with_label("Enregistrer le msg");
-    gtk_label_set_markup(GTK_LABEL(Label_retour), Text_clair);
+    gtk_label_set_markup(GTK_LABEL(Label_retour), TexteClair);
     g_signal_connect(G_OBJECT(Bouton1), "clicked", G_CALLBACK(Enregistrer), Label_retour);
    
     gtk_box_pack_start(GTK_BOX(Box), Bouton1, TRUE, TRUE, 0);
@@ -700,8 +700,8 @@ void MenuResultatDecryptageVigenere(GtkWidget *Fenetre, DOUBLEC *Donnees)//appel
 
     GtkWidget *Box, *Box_2,*Label,*Label_msg,*Label_cle,*Label_retour,*Bouton1,*Bouton2,*Bouton3;
     gchar* Text;
-    gchar text_affichage[TAILLETEXTE]; 
-    RetourALaLigne(text_affichage,Donnees->texte);
+    gchar TexteAffichage[TAILLETEXTE]; 
+    RetourALaLigne(TexteAffichage,Donnees->texte);
     Box = gtk_vbox_new(FALSE, 0);
     gtk_container_add(GTK_CONTAINER(Fenetre), Box);
     Box_2= gtk_hbox_new(FALSE, 0);
@@ -728,7 +728,7 @@ void MenuResultatDecryptageVigenere(GtkWidget *Fenetre, DOUBLEC *Donnees)//appel
 
     ////////////Affichage du resultat//////////////
 
-    gtk_label_set_markup(GTK_LABEL(Label_msg), text_affichage);
+    gtk_label_set_markup(GTK_LABEL(Label_msg), TexteAffichage);
 
     gtk_label_set_justify(GTK_LABEL(Label_msg), GTK_JUSTIFY_CENTER);
 
@@ -761,7 +761,7 @@ void MenuResultatDecryptageVigenere(GtkWidget *Fenetre, DOUBLEC *Donnees)//appel
 void BoiteDialogueSubstitution(GtkWidget *Fenetre)
 {
     GtkWidget *Boite,*Entrer;
-    gchar *Text_clair;
+    gchar *TexteClair;
     DOUBLEC *Donnees;
     Donnees=(DOUBLEC *)malloc(sizeof(DOUBLEC));
     GtkTextBuffer* Buffer;
@@ -782,8 +782,8 @@ void BoiteDialogueSubstitution(GtkWidget *Fenetre)
                 Buffer= gtk_text_view_get_buffer(GTK_TEXT_VIEW(Entrer));
                 gtk_text_buffer_get_start_iter(Buffer,&debut);
                 gtk_text_buffer_get_end_iter(Buffer,&fin);
-                Text_clair = gtk_text_buffer_get_text(Buffer,&debut,&fin,FALSE);
-                CryptageSubstitution(Donnees->texte,Text_clair,Donnees->cle);
+                TexteClair = gtk_text_buffer_get_text(Buffer,&debut,&fin,FALSE);
+                CryptageSubstitution(Donnees->texte,TexteClair,Donnees->cle);
                 MenuResultatSubstitution(Fenetre, Donnees);
                 break;
             case GTK_RESPONSE_CANCEL:
@@ -800,7 +800,7 @@ void BoiteDialogueVigenereTexte(GtkWidget *Fenetre, DOUBLEC *Donnees)
         remove("cle.txt");
 
         GtkWidget *Boite,*Entrer_cle,*Label_cle;
-        gchar *Text_clair,*indication_cle,*Text_crypt;
+        gchar *TexteClair,*indication_cle,*TexteCrypt;
 
         GtkTextBuffer* Buffer;
         GtkTextIter debut;
@@ -834,11 +834,11 @@ void BoiteDialogueVigenereTexte(GtkWidget *Fenetre, DOUBLEC *Donnees)
                     Buffer= gtk_text_view_get_buffer(GTK_TEXT_VIEW(Entrer_cle));
                     gtk_text_buffer_get_start_iter(Buffer,&debut);
                     gtk_text_buffer_get_end_iter(Buffer,&fin);
-                    Text_clair= gtk_text_buffer_get_text(Buffer,&debut,&fin,FALSE);
-                    Text_crypt=(gchar *)malloc(strlen(Text_clair)*sizeof(gchar));
-                    strcpy(Donnees->texte,Text_clair);
-                    CryptageVigenere(Text_crypt,Donnees->texte, Donnees->cle);
-                    MenuResultatVigenere(Fenetre, Text_crypt,Donnees->cle);
+                    TexteClair= gtk_text_buffer_get_text(Buffer,&debut,&fin,FALSE);
+                    TexteCrypt=(gchar *)malloc(strlen(TexteClair)*sizeof(gchar));
+                    strcpy(Donnees->texte,TexteClair);
+                    CryptageVigenere(TexteCrypt,Donnees->texte, Donnees->cle);
+                    MenuResultatVigenere(Fenetre, TexteCrypt,Donnees->cle);
                     break;
                 case GTK_RESPONSE_CANCEL:
                 case GTK_RESPONSE_NONE:
@@ -942,7 +942,7 @@ void BoiteDialogueAnalyse(GtkWidget *Fenetre)
 void BoiteDialogueDecryptageSubstitution(GtkWidget *Fenetre)
 {
     GtkWidget *Boite,*Entrer,*Label_text;
-    gchar *Text_crypt,*cle,*msg,*Resultat;
+    gchar *TexteCrypt,*cle,*msg,*Resultat;
     GtkTextBuffer* Buffer;
     GtkTextIter debut;
     GtkTextIter fin;
@@ -976,14 +976,14 @@ void BoiteDialogueDecryptageSubstitution(GtkWidget *Fenetre)
                 Buffer= gtk_text_view_get_buffer(GTK_TEXT_VIEW(Entrer));
                 gtk_text_buffer_get_start_iter(Buffer,&debut);
                 gtk_text_buffer_get_end_iter(Buffer,&fin);
-                Text_crypt = gtk_text_buffer_get_text(Buffer,&debut,&fin,FALSE);
+                TexteCrypt = gtk_text_buffer_get_text(Buffer,&debut,&fin,FALSE);
                 
                 Donnees = (DOUBLEC *)malloc(sizeof(DOUBLEC));
-				strcpy(Donnees->texte,Text_crypt);
+				strcpy(Donnees->texte,TexteCrypt);
 				cle="abcdefghijklmnopqrstuvwxyz";
 				strcpy(Donnees->cle,cle);
-                strcpy(Donnees->texte,Text_crypt);
-                DecryptageSubstitution(Resultat,Text_crypt,Donnees->cle);
+                strcpy(Donnees->texte,TexteCrypt);
+                DecryptageSubstitution(Resultat,TexteCrypt,Donnees->cle);
                 
                 MenuResultatDecryptagePartiel(Fenetre, Donnees);
                 break;
@@ -999,8 +999,8 @@ void BoiteDialogueDecryptageSubstitution(GtkWidget *Fenetre)
 void BoiteDialogueDecryptageVigenere(GtkWidget *Fenetre)
 {
     GtkWidget *Boite,*Entrer,*Label_text;
-    gchar *Text_crypt,*msg;
-    gchar Text_clair[TAILLETEXTE];
+    gchar *TexteCrypt,*msg;
+    gchar TexteClair[TAILLETEXTE];
     gchar cle[TAILLECLE];
     GtkTextBuffer* Buffer;
     GtkTextIter debut;
@@ -1032,13 +1032,13 @@ void BoiteDialogueDecryptageVigenere(GtkWidget *Fenetre)
                 Buffer= gtk_text_view_get_buffer(GTK_TEXT_VIEW(Entrer));
                 gtk_text_buffer_get_start_iter(Buffer,&debut);
                 gtk_text_buffer_get_end_iter(Buffer,&fin);
-                Text_crypt = gtk_text_buffer_get_text(Buffer,&debut,&fin,FALSE);
+                TexteCrypt = gtk_text_buffer_get_text(Buffer,&debut,&fin,FALSE);
                 remove("text.txt");
                 fichier=fopen("text.txt","w");
 
                 if (fichier != NULL)
                 {
-                    fputs(Text_crypt,fichier);
+                    fputs(TexteCrypt,fichier);
                     fclose(fichier);
                 }
                 MenuResultatDecryptagePartielVig(Fenetre);
