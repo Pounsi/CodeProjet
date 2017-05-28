@@ -6,12 +6,12 @@
 
 #endif
 
-void CreeTabOccA(gchar TabOcc[],ANALYSE analyse);
-void CreeTabOccRL(gchar TabOcc[],RESSOURCESLANGUE ressourcelangue);
-void DecryptageSubstitution(gchar TexteClair[],gchar text[],gchar cle[]);
-gchar Recherche(ANALYSE a,gchar car,gchar* ch);
-gchar Recherche2(RESSOURCESLANGUE a,gchar car,gchar* ch);
-ANALYSE remplace(ANALYSE a,gchar car,gchar nvx);
+void CreeTabOccA(gchar TabOcc[],ANALYSE analyseTexte);
+void CreeTabOccRL(gchar TabOcc[],RESSOURCESLANGUE ressourceLangue);
+void DecryptageSubstitution(gchar TexteDecrypte[],gchar TexteCrypte[],gchar cle[]);
+gchar RechercheAnalyse(ANALYSE a,gchar car,gchar* fait);
+gchar RechercheRessources(RESSOURCESLANGUE a,gchar car,gchar* fait);
+ANALYSE Remplace(ANALYSE a,gchar car,gchar nvx);
 void InitTableau(gchar* TexteClair,gchar TabOccA[],gchar TabOccRL[],gchar cle[]);
 
-gchar RechercheTri(gchar* TexteCrypte,gchar* cle,ANALYSE a,RESSOURCESLANGUE a2, gchar car,gchar car2,gchar* fait); /////////////////////////////
+gchar RechercheTri(gchar* TexteCrypte,gchar* cle,ANALYSE a,RESSOURCESLANGUE a2, gchar car,gchar car2,gchar* fait);
