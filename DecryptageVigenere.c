@@ -76,8 +76,8 @@ int Kasiski(ANALYSE a, gchar* texteCrypte){
 }
 
 //Estimation des caractères composant le mot clé	
-void indiceMutuelle(int cle[], int kasiski, ANALYSE freq, RESSOURCESLANGUE prob, gchar safecle[])
-{ 
+void indiceMutuelle(int cle[], int kasiski, ANALYSE freq, RESSOURCESLANGUE prob, gchar safecle[]){ 
+	
 	float mg[kasiski][ALPHABET];
 	int w; // w = n/m
 	int i,j,g;
@@ -98,6 +98,7 @@ void indiceMutuelle(int cle[], int kasiski, ANALYSE freq, RESSOURCESLANGUE prob,
 		}
 	}
 	for(j=0;j<kasiski;j++){   //ici on selectionne la valeurs de chaque ligne la plus proche de 0.065 (Peut être remplacer par 1 pour debug)
+		
 		VraiIndice	= 2;//on initialise a une grande valeur pour être sur que la premiere valeur du tableau soit affecter a Vraiindice
 		for (i = 0; i < ALPHABET; i++){
 			if(fabs(mg[j][i] - 1) < VraiIndice){
@@ -113,8 +114,8 @@ void indiceMutuelle(int cle[], int kasiski, ANALYSE freq, RESSOURCESLANGUE prob,
 }
 
 //Utilisation cyclique de la clé pour décrypter le texte 
-void Decrypte(char resultat[],char* texteCrypte,gchar cle[], int kasiski)
-{
+void Decrypte(char resultat[],char* texteCrypte,gchar cle[], int kasiski){
+	
    int a,b,c,i,taille;
    taille = strlen(texteCrypte); //affectation du nombre de caractère du texte a taille
    
@@ -131,6 +132,7 @@ void Decrypte(char resultat[],char* texteCrypte,gchar cle[], int kasiski)
 
 //Fonction principale du module
 void DecryptageVigenere(gchar* TexteDecrypte, gchar* TexteCrypte, gchar savecle[]){
+	
 	RESSOURCESLANGUE don;
 	ANALYSE req;
 	int kasiski,taille;
@@ -151,4 +153,5 @@ void DecryptageVigenere(gchar* TexteDecrypte, gchar* TexteCrypte, gchar savecle[
 	strcpy(savecle,SauvegardeCle);
 	
 	Decrypte(TexteDecrypte, TexteC, SauvegardeCle, kasiski);
+
 }
