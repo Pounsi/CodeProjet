@@ -138,19 +138,39 @@ void TestRecherche()
 	CU_ASSERT_STRING_EQUAL(&res,"e");
 	
 }
+void TestRecherche2()
+{
+	RESSOURCESLANGUE r	;
+	gchar* res = '0';
+	gchar* di = "cd";
+	gchar fait[2];
+	fait[0] = 'c';
+	strcpy(r.di[0].nom,di);
+	gchar c[ALPHABET] = "c";
+	res = Recherche2(r,c[0],fait);
+	CU_ASSERT_STRING_EQUAL(&res,"d");
 
+	fait[1] = 'd';
+	gchar* di2 = "ce";
+	strcpy(r.di[1].nom,di2);
+	res = Recherche2(r,c[0],fait);
+	CU_ASSERT_STRING_EQUAL(&res,"e");
+	
+}
+int setup(void)  { return 0; }
+int teardown(void) { return 0; }
 
 int main(int argc, char **argv)
 {
 	
 	CU_initialize_registry();
-	//TestCryptageVigenere();	
-		
-	CU_pSuite suite = CU_add_suite("Suitecontenantlestest", 0,0);
+	if (CUE_SUCCESS != CU_initialize_registry())
+		return CU_get_error();	
+	
+	CU_pSuite suite = CU_add_suite("Suitecontenantlestest", setup,teardown);
 
     CU_add_test(suite, "CryptageVigenere", TestCryptageVigenere);
 	CU_add_test(suite, "CryptageSubsitution", TestCryptageSubstitution);
-	//CU_add_test(suite, "AnalyseFreq", TestAnalyseFreq);
 	CU_add_test(suite, "AnalyseFrequentielle", TestAnalyseFrequentielle	);
 	CU_add_test(suite, "PGCD", TestPGCD);
 	CU_add_test(suite, "Kasiski", TestKasiski);
@@ -159,18 +179,11 @@ int main(int argc, char **argv)
 	CU_add_test(suite, "RemplacerCle", TestRemplacercle);
 	CU_add_test(suite, "Remplace", TestRemplace);
 	CU_add_test(suite, "Recherche", TestRecherche);
+	CU_add_test(suite, "Recherche2", TestRecherche2);
 	
-	
-	//	if (CUE_SUCCESS != CU_initialize_registry())
-	//return CU_get_error();
-	
-	//=> rajouter test valeur du registre
-	
-	// fin  
 	CU_basic_set_mode(CU_BRM_VERBOSE);
     CU_basic_run_tests();
     CU_cleanup_registry();
 
     return 0;
-}	
-
+}
