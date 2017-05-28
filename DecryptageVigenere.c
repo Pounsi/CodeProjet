@@ -22,9 +22,7 @@ int Kasiski(ANALYSE a, gchar* texteCrypte){
 	int kasiski=0;
 	
 	if(numeroessai == 0){
-	for(x=0;x<TR_A_TESTER;x++){//nbr de pgor
-		//printf("\n tri[%d] = %s freq = %d",x,a.tr[x].nom,a.tr[x].frequence);
-		
+	for(x=0;x<TR_A_TESTER;x++){//nbr de pgor		
 		taillepgor = strlen(a.tr[x].nom);
 		nbrpgor = 0;
 		
@@ -49,18 +47,12 @@ int Kasiski(ANALYSE a, gchar* texteCrypte){
 			
 		}
 		
-		//printf("\n decalage %d\n",decalage);
-		
 		kas[x] = distance[0];
 		for (i = 0; i < nbrpgor; i++)
 		{
 			kas[x] = pgcd(kas[x],distance[i]);
 		}
-		
-		for (i = 0; i < nbrpgor; i++)
-		{
-			//printf("\ndistance[%d] = %d",i,distance[i]);
-		}
+	
 	}
 	
 	int kasiski=0;
@@ -81,17 +73,12 @@ int Kasiski(ANALYSE a, gchar* texteCrypte){
 			
 	if(!kasiski) return 2;
 	if(kasiski > 12) return 2;
-	for (i = 0; i < TR_A_TESTER; i++)
-	{
-			//printf("\nkas[%d] = %d",i,kas[i]);
-	}
+	
 	numeroessai++;
 	return kasiski;
 	
 }
 else{
-	//printf(" \n numero essai vallait = %d pendant execution \n ", numeroessai-1);
-	
 	
 	if(numeroessai > 12){
 	numeroessai=numeroessai%12;
@@ -141,9 +128,8 @@ void indiceMutuelle(int cle[], int kasiski, ANALYSE freq, RESSOURCESLANGUE prob,
 			}
 		}
 			
-	}				
-//affecter la valeur de fin a safecle
-
+	}		
+	
 	for (i = 0; i <kasiski ; i++)
 	{
 		safecle[i] = cle[i] + 97;
@@ -151,13 +137,6 @@ void indiceMutuelle(int cle[], int kasiski, ANALYSE freq, RESSOURCESLANGUE prob,
 	}
 		
 	safecle[i] = '\0';
-	for (i = 0; i < 5; ++i)
-	{
-		for ( j = 0; j < 26; ++j)
-		{
-			//printf("mg[%d][%d] = %f et car = %c \n",i,j,mg[i][j],j+97);
-		}
-	}
 	
 }
 
