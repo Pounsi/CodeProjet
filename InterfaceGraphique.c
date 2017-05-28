@@ -77,9 +77,16 @@ void MenuResultatDecryptagePartiel(GtkWidget *Fenetre,DOUBLEC *Donnees)
     int taille=TAILLETEXTE;
     gchar *Text;
     gchar tmp[TAILLETEXTE];
+    DOUBLEC *DonneesClair;
+    DonneesClair=(DOUBLEC *)malloc(sizeof(DOUBLEC));
+
     ConvertisseurTableau(tmp,&taille,Donnees->texte);
     
     DechiffreSubstitution(tmp,Donnees->cle);
+
+
+    strcpy(DonneesClair->texte,tmp);
+    strcpy(DonneesClair->cle,Donnees->cle);
 
     gchar TexteAffichage[TAILLETEXTE]; 
     RetourALaLigne(TexteAffichage,tmp);
@@ -117,7 +124,7 @@ void MenuResultatDecryptagePartiel(GtkWidget *Fenetre,DOUBLEC *Donnees)
     gtk_box_pack_start(GTK_BOX(Box2), Bouton2, TRUE, TRUE, 0);
     
     Bouton3 = gtk_button_new_with_label("Terminer");
-    g_signal_connect(G_OBJECT(Bouton3), "clicked", G_CALLBACK(MenuResultatDecryptageSubstitution), Donnees);
+    g_signal_connect(G_OBJECT(Bouton3), "clicked", G_CALLBACK(MenuResultatDecryptageSubstitution), DonneesClair);
     gtk_box_pack_start(GTK_BOX(Box2), Bouton3, TRUE, TRUE, 0);
     
     gtk_widget_show_all(Fenetre);
