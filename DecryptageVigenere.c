@@ -79,8 +79,8 @@ int Kasiski(ANALYSE a, gchar* texteCrypte){
 	}
 		
 			
-	if(!kasiski) return 1;
-	if(kasiski > 12) return 1;
+	if(!kasiski) return 2;
+	if(kasiski > 12) return 2;
 	for (i = 0; i < TR_A_TESTER; i++)
 	{
 			//printf("\nkas[%d] = %d",i,kas[i]);
