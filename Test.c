@@ -182,8 +182,9 @@ int main(int argc, char **argv)
 	CU_add_test(suite, "Recherche2", TestRecherche2);
 	
 	CU_basic_set_mode(CU_BRM_VERBOSE);
-    CU_basic_run_tests();
-    CU_cleanup_registry();
+	CU_basic_run_tests();
+	CU_cleanup_registry();
 
     return 0;
-}
+}	
+
