@@ -99,7 +99,7 @@ void TestRemplacercle()
 	gchar cle[] ="sacle";
 	gchar c[] = "s";
 	gchar b[] = "m";
-	RemplacerCle(cle,c[0],b[0]);
+	RemplacerCara(cle,c[0],b[0]);
 	CU_ASSERT_STRING_EQUAL(cle,"macle");
 }
 void TestRemplace()
@@ -113,7 +113,7 @@ void TestRemplace()
 	strcpy(a.tr[0].nom,tri);
 	gchar c = 's';
 	gchar b = 'm';
-	a = remplace(a,c,b);
+	a = Remplace(a,c,b);
 
 	CU_ASSERT_STRING_EQUAL(a.di[0].nom,"md");
 	CU_ASSERT_STRING_EQUAL(a.tr[0].nom,"ami");
@@ -121,40 +121,40 @@ void TestRemplace()
 void TestRecherche()
 {
 	ANALYSE a;
-	gchar* res = '0';
+	gchar res = '0';
 	a.nbdi = 1;
 	gchar* di = "cd";
 	gchar fait[2];
 	fait[0] = 'c';
 	strcpy(a.di[0].nom,di);
 	gchar c[ALPHABET] = "c";
-	res = Recherche(a,c[0],fait);
-	CU_ASSERT_STRING_EQUAL(&res,"d");
+	res = RechercheAnalyse(a,c[0],fait);
+	CU_ASSERT_EQUAL(res,'d');
 	a.nbdi = 2;
 	fait[1] = 'd';
 	gchar* di2 = "ce";
 	strcpy(a.di[1].nom,di2);
-	res = Recherche(a,c[0],fait);
-	CU_ASSERT_STRING_EQUAL(&res,"e");
+	res = RechercheAnalyse(a,c[0],fait);
+	CU_ASSERT_EQUAL(res,'e');
 	
 }
 void TestRecherche2()
 {
 	RESSOURCESLANGUE r	;
-	gchar* res = '0';
+	gchar res = '0';
 	gchar* di = "cd";
-	gchar fait[2];
+	gchar fait[26];
 	fait[0] = 'c';
 	strcpy(r.di[0].nom,di);
 	gchar c[ALPHABET] = "c";
-	res = Recherche2(r,c[0],fait);
-	CU_ASSERT_STRING_EQUAL(&res,"d");
+	res = RechercheRessources(r,c[0],fait);
+	CU_ASSERT_EQUAL(res,'d');
 
 	fait[1] = 'd';
 	gchar* di2 = "ce";
 	strcpy(r.di[1].nom,di2);
-	res = Recherche2(r,c[0],fait);
-	CU_ASSERT_STRING_EQUAL(&res,"e");
+	res = RechercheRessources(r,c[0],fait);
+	CU_ASSERT_EQUAL(res,'e');
 	
 }
 int setup(void)  { return 0; }
