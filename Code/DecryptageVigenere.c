@@ -60,9 +60,9 @@ int Kasiski(ANALYSE a, gchar* texteCrypte){
 		if(kas[i]>kasiski)
 			kasiski = kas[i];
 		}
+	numeroessai++;//compteur de clic
 	if(!kasiski) return 2;  //Permet de borner la recherche de clé de 2 a 24
 	if(kasiski > 24) return 2; //Permet de borner la recherche de clé de 2 a 24
-	numeroessai++;//compteur de clic
 	return kasiski;
 }
 	else{	//correspond au 2eme ou plus clics de l'utilisateur (estimation manuel :taille de la clé)
