@@ -1115,7 +1115,7 @@ void MenuCryptageVigenere(GtkWidget *Fenetre,DOUBLEC *Donnees)
     strcpy(tmp,Donnees->cle);
    ConvertisseurTableau(Donnees->cle,&taille2,tmp);
     taille2=strlen(Donnees->cle);
-     if ((taille1 != taille2) || (taille1 == 0))
+     if ((taille1 != taille2) || (taille1 == 0) || (taille1 > 24))
 		{    GtkWidget *pAbout;
  
     pAbout = gtk_message_dialog_new (GTK_WINDOW(Fenetre),

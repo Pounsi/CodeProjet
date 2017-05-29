@@ -30,19 +30,15 @@ void GenereCle(gchar T[]){
 	int i,*tab;
     srand(time(NULL));
 	tab = tirage(26, 0, 25); //26 : nbr delement a tiré, intervalle [0;25]
-	
 	for(i = 0; i < ALPHABET; i++){
-		T[i]=tab[i];
-		
+		T[i]=tab[i];	
 	}
 	free(tab);
-   
 }
 
 void CryptageSubstitution(gchar TexteCrypte[], gchar* TexteClair,gchar cle[])
 { 
 	int taille, i, x;
-	
 	gchar T[ALPHABET];
 	GenereCle(T);
 	gchar TextePourCryptage[strlen(TexteClair)];
@@ -51,7 +47,6 @@ void CryptageSubstitution(gchar TexteCrypte[], gchar* TexteClair,gchar cle[])
 	for (i = 0; i < strlen(TextePourCryptage); i++)
 	{
 		x = Ascii0_25(TextePourCryptage[i]);
-
 		if(x < 0 || x > 25){
 			TexteCrypte[i]= x;
 		}
@@ -67,5 +62,4 @@ void CryptageSubstitution(gchar TexteCrypte[], gchar* TexteClair,gchar cle[])
 		i++;
 	}
 	cle[i]='\0';
-
 }
