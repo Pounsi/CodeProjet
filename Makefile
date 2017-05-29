@@ -2,6 +2,7 @@ LIBS=`pkg-config --libs gtk+-2.0`
 SRC=Code
 
 install:
+	sudo apt-get update
 	sudo apt-get install libgtk2.0-dev
 	sudo apt-get install libcunit1 libcunit1-doc libcunit1-dev
 	
