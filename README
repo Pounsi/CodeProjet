@@ -1,3 +1,6 @@
+pour installer les bibliotheques necessaires:
+      make install
+
 pour compiler l'application:
       make all 
 pour supprimer les .o etc .. 
