@@ -1,4 +1,4 @@
-#include "CryptageVigenere.h"
+#include "../Headers/CryptageVigenere.h"
 
 void CryptageVigenere(gchar* resultat,gchar* Texte,gchar* Cle)
 {

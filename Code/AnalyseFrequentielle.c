@@ -1,4 +1,4 @@
-#include "AnalyseFrequentielle.h"
+#include "../Headers/AnalyseFrequentielle.h"
 
 
 ANALYSE AnalyseFreq(ANALYSE a,gchar* T,int kasiski){

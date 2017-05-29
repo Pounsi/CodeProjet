@@ -1,4 +1,4 @@
-#include "DecryptageVigenere.h"
+#include "../Headers/DecryptageVigenere.h"
 
 int pgcd(int a, int b)
 {

@@ -1,4 +1,4 @@
-#include "DecryptageSubstitution.h"
+#include "../Headers/DecryptageSubstitution.h"
 
 void RemplacerCara(gchar* texte,gchar C1,gchar C2) // Fonction qui vas remplacer le caractere C1 du texte ou de la clef par le caractere C2
 {

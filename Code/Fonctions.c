@@ -1,4 +1,4 @@
-#include "Fonctions.h"
+#include "../Headers/Fonctions.h"
 
 
 void RetirerCarSpecMajuscule(gchar chaine[], gchar copy[])
@@ -127,9 +127,9 @@ RESSOURCESLANGUE ChargerRessources(){
 	FILE *charger;
 	
 	if(langue == 0)
-		charger = fopen("RessourceFrancais.txt","r");
+		charger = fopen("Ressources/RessourceFrancais.txt","r");
 	if(langue == 1)
-		charger = fopen("RessourceAnglais.txt","r");
+		charger = fopen("Ressources/RessourceAnglais.txt","r");
 		
 	if(charger == NULL) 
    {

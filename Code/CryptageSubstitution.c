@@ -1,4 +1,4 @@
-#include "CryptageSubstitution.h"
+#include "../Headers/CryptageSubstitution.h"
 
 int Ascii0_25(int nbr){ //prend le code ascii d'une lettre en caractere et la renvoyer dans [0;25]
 	if(nbr >= 97 && nbr <= 122)	
@@ -29,7 +29,7 @@ int *tirage(int nombre, int min, int max)
 void GenereCle(gchar T[]){
 	int i,*tab;
     srand(time(NULL));
-	tab = tirage(26, 0, 25); //25 : nbr delement a tiré, intervalle [0;25]
+	tab = tirage(26, 0, 25); //26 : nbr delement a tiré, intervalle [0;25]
 	
 	for(i = 0; i < ALPHABET; i++){
 		T[i]=tab[i];

@@ -1,4 +1,4 @@
-#include "InterfaceGraphique.h"
+#include "../Headers/InterfaceGraphique.h"
 
 
 void MenuResultatDecryptagePartielVig(GtkWidget *Fenetre)
@@ -11,7 +11,7 @@ void MenuResultatDecryptagePartielVig(GtkWidget *Fenetre)
     gchar TexteCrypt[TAILLETEXTE];
     
     FILE *fichier=NULL;
-    fichier=fopen("text.txt","r");
+    fichier=fopen("Ressources/text.txt","r");
 
             if (fichier != NULL)
             {
@@ -307,8 +307,8 @@ void RecupererChemin(GtkWidget *bouton, GtkWidget *selection)
         FILE* fichier =NULL;
         if (choix==4)
         {
-            remove("text.txt");
-            fichier=fopen("text.txt","w");
+            remove("Ressources/text.txt");
+            fichier=fopen("Ressources/text.txt","w");
 
             if (fichier != NULL)
             {
@@ -327,13 +327,13 @@ void RecupererChemin(GtkWidget *bouton, GtkWidget *selection)
     
         
 
-        fichier=fopen("cle.txt","r");
+        fichier=fopen("Ressources/cle.txt","r");
 
         if (fichier != NULL)
         {
             fgets(cle,TAILLECLE,fichier);
             fclose(fichier);
-            remove("cle.txt");
+            remove("Ressources/cle.txt");
         }
 
         CryptageVigenere(TexteCrypt,contenu,cle);
@@ -772,7 +772,7 @@ void BoiteDialogueSubstitution(GtkWidget *Fenetre)
 
 void BoiteDialogueVigenereTexte(GtkWidget *Fenetre, DOUBLEC *Donnees)
 {
-        remove("cle.txt");
+        remove("Ressources/cle.txt");
 
         GtkWidget *Boite,*Entrer_cle,*Label_cle;
         gchar *TexteClair,*indication_cle,*TexteCrypt;
@@ -1006,8 +1006,8 @@ void BoiteDialogueDecryptageVigenere(GtkWidget *Fenetre)
                 gtk_text_buffer_get_start_iter(Buffer,&debut);
                 gtk_text_buffer_get_end_iter(Buffer,&fin);
                 TexteCrypt = gtk_text_buffer_get_text(Buffer,&debut,&fin,FALSE);
-                remove("text.txt");
-                fichier=fopen("text.txt","w");
+                remove("Ressources/text.txt");
+                fichier=fopen("Ressources/text.txt","w");
 
                 if (fichier != NULL)
                 {
@@ -1133,8 +1133,8 @@ void MenuCryptageVigenere(GtkWidget *Fenetre,DOUBLEC *Donnees)
     Box_2 = gtk_hbox_new(FALSE, 0);
     ///////////////mettre la cle dans un fichier///////////
     FILE* fichier= NULL;
-    remove("cle.txt");
-    fichier=fopen("cle.txt","w");
+    remove("Ressources/cle.txt");
+    fichier=fopen("Ressources/cle.txt","w");
 
     if (fichier != NULL)
     {

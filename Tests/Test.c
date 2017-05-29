@@ -1,5 +1,5 @@
 #include <CUnit/Basic.h>
-#include "InterfaceGraphique.h"
+#include "../Headers/InterfaceGraphique.h"
 
 void TestCryptageVigenere()
 {
