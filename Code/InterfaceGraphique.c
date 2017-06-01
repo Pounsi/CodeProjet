@@ -391,7 +391,7 @@ void MenuResultatSubstitution(GtkWidget *Fenetre, DOUBLEC *Donnees)
     Fenetre = gtk_widget_get_toplevel (Fenetre);
     ViderContenaire(GTK_CONTAINER(Fenetre));
 
-    GtkWidget *Box, *Box_2,*Label, *Label_msg,*Label_cle,*Bouton1,*Bouton2,*Bouton3;
+    GtkWidget *Box, *Box_2,*Label, *Label_msg,*Label_cle,*Bouton1,*Bouton2,*Bouton3,*Label_retour;
     gchar* Text;
     gchar TexteAffichage[TAILLETEXTE]; 
     RetourALaLigne(TexteAffichage,Donnees->texte);
@@ -402,6 +402,7 @@ void MenuResultatSubstitution(GtkWidget *Fenetre, DOUBLEC *Donnees)
     Label=gtk_label_new(NULL);
     Label_msg=gtk_label_new(NULL);
     Label_cle=gtk_label_new(NULL);
+    Label_retour=gtk_label_new(NULL);
 
     Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Resultat du chiffrement</span>\n<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Substitution</span>\n",
     -1, NULL, NULL, NULL);
@@ -422,7 +423,8 @@ void MenuResultatSubstitution(GtkWidget *Fenetre, DOUBLEC *Donnees)
     gtk_box_pack_start(GTK_BOX(Box), Label_msg, TRUE, TRUE, 0);
     
     Bouton1 = gtk_button_new_with_label("Enregistrer le msg");
-    g_signal_connect(G_OBJECT(Bouton1), "clicked", G_CALLBACK(Enregistrer), Label_msg);
+    gtk_label_set_markup(GTK_LABEL(Label_retour), Donnees->texte);
+    g_signal_connect(G_OBJECT(Bouton1), "clicked", G_CALLBACK(Enregistrer), Label_retour);
     gtk_box_pack_start(GTK_BOX(Box), Bouton1, TRUE, TRUE, 0);
 
     gtk_label_set_markup(GTK_LABEL(Label_cle),Donnees->cle);
